@@ -689,6 +689,17 @@ ul {
     line-height: 1.6;
 }
 
+.plugin-info {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 113, 227, 0.08);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
 .server-meta {
     display: flex;
     gap: var(--spacing-sm);
