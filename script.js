@@ -20,11 +20,9 @@ function initNavigation() {
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
         
-
-        
         // Hide navigation when scrolling down
         if (currentScroll > lastScroll && currentScroll > 100) {
-            nav.style.transform = 'translateY(-100%)';
+            nav.classList.add('nav-hidden');
         }
         
         lastScroll = currentScroll;
@@ -38,7 +36,7 @@ function initNavigation() {
         // Show navigation when scrolling stops
         scrollTimeout = setTimeout(() => {
             isScrolling = false;
-            nav.style.transform = 'translateY(0)';
+            nav.classList.remove('nav-hidden');
         }, 150);
     });
 }
