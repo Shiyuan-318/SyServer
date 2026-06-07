@@ -972,6 +972,25 @@ ul {
     margin-top: var(--spacing-xl);
 }
 
+/* Wiki Link Item (looks like other wiki items but navigates) */
+.wiki-link-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.wiki-link-item .wiki-header {
+    cursor: pointer;
+}
+
+.wiki-link-item .wiki-arrow {
+    transition: transform 0.3s ease;
+}
+
+.wiki-link-item:hover .wiki-arrow {
+    transform: translateX(4px);
+}
+
 /* Enchantments Page */
 .enchants-page {
     padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-xxl);
