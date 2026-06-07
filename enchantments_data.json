@@ -1,0 +1,743 @@
+{
+  "Armor": [
+    {
+      "Name": "Cold Steel",
+      "Summary": "Applies Mining Fatigue effect to the attacker.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "5"
+    },
+    {
+      "Name": "Darkness Cloak",
+      "Summary": "Applies Darkness effect to the attacker.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "10"
+    },
+    {
+      "Name": "Dragon Heart",
+      "Summary": "Grants passive Health Boost effect.",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "2"
+    },
+    {
+      "Name": "Elemental Protection",
+      "Summary": "Reduces potion and elemental damage.",
+      "Incompatible With": "",
+      "Max Level": "IV",
+      "Primary Items": "helmet, chestplate, leggings, boots",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Fire Shield",
+      "Summary": "Ignites the attacker.",
+      "Incompatible With": "",
+      "Max Level": "IV",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "2"
+    },
+    {
+      "Name": "Flame Walker",
+      "Summary": "Ability to walk on lava, immunity to magma damage.",
+      "Incompatible With": "Frost Walker",
+      "Max Level": "II",
+      "Primary Items": "boots",
+      "Secondary Items": "",
+      "Weight": "1"
+    },
+    {
+      "Name": "Hardened",
+      "Summary": "Grants Resistance effect on receiving damage.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "5"
+    },
+    {
+      "Name": "Ice Shield",
+      "Summary": "Freezes and slows down the attacker.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "10"
+    },
+    {
+      "Name": "Jumping",
+      "Summary": "Grants Jump Boost effect.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "boots",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Kamikadze",
+      "Summary": "Creates an explosion on death.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "5"
+    },
+    {
+      "Name": "Lightweight",
+      "Summary": "Allows you to safely jump on turtle eggs, farmlands and big dripleaf.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "boots",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Night Vision",
+      "Summary": "Grants Night Vision effect.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "helmet",
+      "Secondary Items": "",
+      "Weight": "1"
+    },
+    {
+      "Name": "Rebound",
+      "Summary": "Gives the effect of landing on a Slime Block .",
+      "Incompatible With": "Feather Falling",
+      "Max Level": "I",
+      "Primary Items": "boots",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Regrowth",
+      "Summary": "Restores certain amount of hearts over the time.",
+      "Incompatible With": "",
+      "Max Level": "IV",
+      "Primary Items": "chestplate",
+      "Secondary Items": "elytra",
+      "Weight": "2"
+    },
+    {
+      "Name": "Saturation",
+      "Summary": "Restores certain amount of food over the time.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "helmet",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Speed",
+      "Summary": "Grants Speed effect.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "boots",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Stopping Force",
+      "Summary": "Reduces Knockback when getting damage.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "leggings",
+      "Secondary Items": "",
+      "Weight": "5"
+    },
+    {
+      "Name": "Water Breathing",
+      "Summary": "Grants Water Breathing effect effect.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "helmet",
+      "Secondary Items": "",
+      "Weight": "1"
+    }
+  ],
+  "Bow": [
+    {
+      "Name": "Bomber",
+      "Summary": "Shoots TNT instead of arrows.",
+      "Incompatible With": "Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "1"
+    },
+    {
+      "Name": "Confusing Arrows",
+      "Summary": "Applies Nausea effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "10"
+    },
+    {
+      "Name": "Darkness Arrows",
+      "Summary": "Applies Darkness effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "10"
+    },
+    {
+      "Name": "Dragonfire Arrows",
+      "Summary": "Applies Dragon's Breath effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "2"
+    },
+    {
+      "Name": "Electrified Arrows",
+      "Summary": "Summons Lightning on hit.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "5"
+    },
+    {
+      "Name": "Ender Bow",
+      "Summary": "Shoots Ender Pearls instead of arrows.",
+      "Incompatible With": "Bomber, Ghast",
+      "Max Level": "I",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "1"
+    },
+    {
+      "Name": "Explosive Arrows",
+      "Summary": "Arrows Explodes on hit.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "5"
+    },
+    {
+      "Name": "Flare",
+      "Summary": "Places a Torch where arrow land.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "I",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "5"
+    },
+    {
+      "Name": "Ghast",
+      "Summary": "Shoots Fireball instead of arrows.",
+      "Incompatible With": "Bomber, Ender Bow",
+      "Max Level": "I",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "1"
+    },
+    {
+      "Name": "Hover",
+      "Summary": "Applies Levitation effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "10"
+    },
+    {
+      "Name": "Lingering",
+      "Summary": "Arrows with a lingering effect on hit.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "2"
+    },
+    {
+      "Name": "Poisoned Arrows",
+      "Summary": "Applies Poison effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "5"
+    },
+    {
+      "Name": "Sniper",
+      "Summary": "Increases projectile speed.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "10"
+    },
+    {
+      "Name": "Vampiric Arrows",
+      "Summary": "Restores health on hit.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "2"
+    },
+    {
+      "Name": "Withered Arrows",
+      "Summary": "Applies Wither effect on arrows.",
+      "Incompatible With": "Bomber, Ender Bow, Ghast",
+      "Max Level": "III",
+      "Primary Items": "bow",
+      "Secondary Items": "crossbow",
+      "Weight": "5"
+    }
+  ],
+  "Tool": [
+    {
+      "Name": "Blast Mining",
+      "Summary": "Mines blocks with Explosions .",
+      "Incompatible With": "Tunnel, Veinminer",
+      "Max Level": "V",
+      "Primary Items": "pickaxe",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Glass Breaker",
+      "Summary": "Breaks glass instantly.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "pickaxe, axe, shovel",
+      "Secondary Items": "hoe, shears",
+      "Weight": "10"
+    },
+    {
+      "Name": "Haste",
+      "Summary": "Applies Haste effect on mining.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "pickaxe, axe, shovel",
+      "Secondary Items": "hoe, shears",
+      "Weight": "2"
+    },
+    {
+      "Name": "Lucky Miner",
+      "Summary": "Produces more XP from mined blocks.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "pickaxe",
+      "Secondary Items": "",
+      "Weight": "5"
+    },
+    {
+      "Name": "Replanter",
+      "Summary": "Replants Crops on harvest or right-click.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "hoe",
+      "Secondary Items": "",
+      "Weight": "1"
+    },
+    {
+      "Name": "Silk Chest",
+      "Summary": "Drops Chests that keeps their content.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "axe",
+      "Secondary Items": "pickaxe, shovel, hoe",
+      "Weight": "1"
+    },
+    {
+      "Name": "Silk Spawner",
+      "Summary": "Chance to obtain a Monster Spawner .",
+      "Incompatible With": "Smelter",
+      "Max Level": "I",
+      "Primary Items": "pickaxe",
+      "Secondary Items": "",
+      "Weight": "1"
+    },
+    {
+      "Name": "Smelter",
+      "Summary": "Smelt dropped items according to their Recipes .",
+      "Incompatible With": "Silk Touch , Silk Spawner",
+      "Max Level": "V",
+      "Primary Items": "pickaxe, axe, shovel",
+      "Secondary Items": "hoe, shears",
+      "Weight": "5"
+    },
+    {
+      "Name": "Telekinesis",
+      "Summary": "Moves all block loot directly to inventory.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "pickaxe, axe, shovel, hoe",
+      "Secondary Items": "shears",
+      "Weight": "1"
+    },
+    {
+      "Name": "Treefeller",
+      "Summary": "Cuts down an entire tree.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "axe",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Tunnel",
+      "Summary": "Mines 1x2, 2x2, 3x3 area.",
+      "Incompatible With": "Veinminer, Blast Mining",
+      "Max Level": "III",
+      "Primary Items": "pickaxe",
+      "Secondary Items": "axe, shovel, hoe",
+      "Weight": "1"
+    },
+    {
+      "Name": "Veinminer",
+      "Summary": "Mines the whole ore vein at once.",
+      "Incompatible With": "Tunnel, Blast Mining",
+      "Max Level": "III",
+      "Primary Items": "pickaxe",
+      "Secondary Items": "",
+      "Weight": "1"
+    }
+  ],
+  "Fishing": [
+    {
+      "Name": "Auto Reel",
+      "Summary": "Automatically reels in a hook on bite.",
+      "Incompatible With": "",
+      "Max Level": "1",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "1"
+    },
+    {
+      "Name": "Curse of Drowned",
+      "Summary": "Chance to fish up a Drowned .",
+      "Incompatible With": "",
+      "Max Level": "3",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "5"
+    },
+    {
+      "Name": "Double Catch",
+      "Summary": "Increases amount of caught item by x2.",
+      "Incompatible With": "",
+      "Max Level": "3",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "River Master",
+      "Summary": "Increases casting distance.",
+      "Incompatible With": "",
+      "Max Level": "5",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Seasoned Angler",
+      "Summary": "Increases amount of gained XP .",
+      "Incompatible With": "",
+      "Max Level": "3",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "5"
+    },
+    {
+      "Name": "Survivalist",
+      "Summary": "Automatically cooks fish if what is caught is raw.",
+      "Incompatible With": "",
+      "Max Level": "1",
+      "Primary Items": "fishing-rod",
+      "Secondary Items": "",
+      "Weight": "2"
+    }
+  ],
+  "Weapon": [
+    {
+      "Name": "Bane of Netherspawn",
+      "Summary": "Increases damage to nether mobs .",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Blindness",
+      "Summary": "Applies Blindness effect on target.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Confusion",
+      "Summary": "Applies Nausea effect on target.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Cure",
+      "Summary": "Cures Zombified Piglins and Zombie Villagers on kill.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Curse of Death",
+      "Summary": "If you kill a player, you have a chance of dying too.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Cutter",
+      "Summary": "Damages and drops target's armor.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Decapitator",
+      "Summary": "Allows to obtain target's head.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Double Strike",
+      "Summary": "Increases damage by twice.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "1"
+    },
+    {
+      "Name": "Exhaust",
+      "Summary": "Applies Hunger effect on target.",
+      "Incompatible With": "",
+      "Max Level": "IV",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Ice Aspect",
+      "Summary": "Freezes and applies Slowness on target.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Infernus",
+      "Summary": "Tridens sets targets on fire.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "trident",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Nimble",
+      "Summary": "Moves entity's drops directly to inventory.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Paralyze",
+      "Summary": "Applies Mining Fatigue effect on target.",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    },
+    {
+      "Name": "Rage",
+      "Summary": "Grants Strength effect in combat.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    },
+    {
+      "Name": "Rocket",
+      "Summary": "Launches target into the space.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    },
+    {
+      "Name": "Swiper",
+      "Summary": "Steals player's XP .",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Temper",
+      "Summary": "Damage increases the more the less health you have.",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "1"
+    },
+    {
+      "Name": "Thrifty",
+      "Summary": "Drops mob's Spawn Egg .",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Thunder",
+      "Summary": "Summons Lightning on target with extra damage.",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    },
+    {
+      "Name": "Vampire",
+      "Summary": "Steals target's health.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "2"
+    },
+    {
+      "Name": "Venom",
+      "Summary": "Applies Poison effect on target.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Village Defender",
+      "Summary": "Increases damage to Illagers .",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "10"
+    },
+    {
+      "Name": "Wisdom",
+      "Summary": "Produces more XP from mobs.",
+      "Incompatible With": "",
+      "Max Level": "V",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    },
+    {
+      "Name": "Wither",
+      "Summary": "Applies Wither effect on target.",
+      "Incompatible With": "",
+      "Max Level": "II",
+      "Primary Items": "sword",
+      "Secondary Items": "axe",
+      "Weight": "5"
+    }
+  ],
+  "Universal": [
+    {
+      "Name": "Curse of Breaking",
+      "Summary": "Takes more durability points on use.",
+      "Incompatible With": "Unbreaking",
+      "Max Level": "III",
+      "Primary Items": "pickaxe, axe, shovel, hoe, sword, bow, crossbow, shears, helmet, chestplate, leggings, boots, elytra, shield, fishing-rod, trident, mace",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Curse of Fragility",
+      "Summary": "Prevents item from being grindstoned or anviled.",
+      "Incompatible With": "",
+      "Max Level": "I",
+      "Primary Items": "pickaxe, axe, shovel, hoe, sword, bow, crossbow, shears, helmet, chestplate, leggings, boots, elytra, shield, fishing-rod, trident, mace",
+      "Secondary Items": "",
+      "Weight": "10"
+    },
+    {
+      "Name": "Curse of Mediocrity",
+      "Summary": "Disenchants block's and mob's loot.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "sword, axe, bow, crossbow, trident, mace",
+      "Secondary Items": "pickaxe, shovel, hoe, shears",
+      "Weight": "5"
+    },
+    {
+      "Name": "Curse of Misfortune",
+      "Summary": "Reduces block's and mob's loot to zero.",
+      "Incompatible With": "Fortune , Looting",
+      "Max Level": "III",
+      "Primary Items": "pickaxe, axe, shovel, hoe, sword, bow, crossbow, shears, trident, mace",
+      "Secondary Items": "",
+      "Weight": "5"
+    },
+    {
+      "Name": "Restore",
+      "Summary": "Saves item from breaking once.",
+      "Incompatible With": "",
+      "Max Level": "III",
+      "Primary Items": "pickaxe, axe, shovel, hoe, sword, bow, crossbow, shears, helmet, chestplate, leggings, boots, elytra, shield, fishing-rod, trident, mace",
+      "Secondary Items": "",
+      "Weight": "2"
+    },
+    {
+      "Name": "Soulbound",
+      "Summary": "Prevents item from being dropped upon death.",
+      "Incompatible With": "Curse of Vanishing",
+      "Max Level": "I",
+      "Primary Items": "pickaxe, axe, shovel, hoe, sword, bow, crossbow, shears, helmet, chestplate, leggings, boots, elytra, shield, fishing-rod, trident, mace",
+      "Secondary Items": "",
+      "Weight": "2"
+    }
+  ]
+}
