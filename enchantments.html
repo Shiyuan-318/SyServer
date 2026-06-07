@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>附魔列表 - SyServer Wiki</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="Picture2.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="index.html#features">特色</a></li>
+                <li><a href="index.html#servers">服务器</a></li>
+                <li><a href="index.html#community">社区</a></li>
+                <li><a href="wiki.html" class="nav-current">Wiki</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="wiki-hero">
+        <div class="wiki-hero-content">
+            <h1 class="wiki-hero-title">附魔列表</h1>
+            <p class="wiki-hero-subtitle">ExcellentEnchants 插件附魔中英对照 · 共 81 个附魔</p>
+        </div>
+    </section>
+
+    <!-- Enchantments Content -->
+    <section class="enchants-page">
+        <div class="enchants-intro">
+            <p>每个附魔包含以下属性：<strong>最大等级</strong>：附魔的最高等级；<strong>主要物品</strong>：可在附魔台获得的物品；<strong>次要物品</strong>：只能通过铁砧+附魔书获得的物品；<strong>权重</strong>：附魔被提供的相对概率，数值越低越稀有。</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="enchants-tabs">
+            <button class="enchants-tab active" data-category="armor">护甲 Armor</button>
+            <button class="enchants-tab" data-category="bow">弓 Bow</button>
+            <button class="enchants-tab" data-category="tool">工具 Tool</button>
+            <button class="enchants-tab" data-category="fishing">钓鱼 Fishing</button>
+            <button class="enchants-tab" data-category="weapon">武器 Weapon</button>
+            <button class="enchants-tab" data-category="universal">通用 Universal</button>
+        </div>
+
+        <!-- Armor -->
+        <div class="enchants-category active" id="cat-armor">
+            <h2 class="enchants-cat-title">护甲 <span>Armor</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cold Steel</strong><br><span class="zh">寒钢</span></td>
+                            <td>Applies Mining Fatigue to the attacker.<br><span class="zh">对攻击者施加挖掘疲劳效果。</span></td>
+                            <td>—</td><td>III</td><td>胸甲</td><td>鞘翅</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Darkness Cloak</strong><br><span class="zh">黑暗斗篷</span></td>
+                            <td>Applies Darkness to the attacker.<br><span class="zh">对攻击者施加黑暗效果。</span></td>
+                            <td>—</td><td>III</td><td>胸甲</td><td>鞘翅</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dragon Heart</strong><br><span class="zh">龙心</span></td>
+                            <td>Grants passive Health Boost.<br><span class="zh">被动赋予生命提升效果。</span></td>
+                            <td>—</td><td>V</td><td>胸甲</td><td>鞘翅</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Elemental Protection</strong><br><span class="zh">元素保护</span></td>
+                            <td>Reduces potion and elemental damage.<br><span class="zh">减少药水和元素伤害。</span></td>
+                            <td>—</td><td>IV</td><td>头盔/胸甲/护腿/靴子</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fire Shield</strong><br><span class="zh">火焰护盾</span></td>
+                            <td>Ignites the attacker.<br><span class="zh">点燃攻击者。</span></td>
+                            <td>—</td><td>IV</td><td>胸甲</td><td>鞘翅</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flame Walker</strong><br><span class="zh">烈焰行者</span></td>
+                            <td>Walk on lava, immunity to magma damage.<br><span class="zh">可在岩浆上行走，免疫岩浆块伤害。</span></td>
+                            <td>冰霜行者</td><td>II</td><td>靴子</td><td>—</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hardened</strong><br><span class="zh">硬化</span></td>
+                            <td>Grants Resistance on receiving damage.<br><span class="zh">受到伤害时赋予抗性效果。</span></td>
+                            <td>—</td><td>II</td><td>胸甲</td><td>鞘翅</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ice Shield</strong><br><span class="zh">冰霜护盾</span></td>
+                            <td>Freezes and slows down the attacker.<br><span class="zh">冻结并减速攻击者。</span></td>
+                            <td>—</td><td>III</td><td>胸甲</td><td>鞘翅</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Jumping</strong><br><span class="zh">跳跃</span></td>
+                            <td>Grants Jump Boost.<br><span class="zh">赋予跳跃提升效果。</span></td>
+                            <td>—</td><td>II</td><td>靴子</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kamikadze</strong><br><span class="zh">神风</span></td>
+                            <td>Creates an explosion on death.<br><span class="zh">死亡时产生爆炸。</span></td>
+                            <td>—</td><td>III</td><td>胸甲</td><td>鞘翅</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lightweight</strong><br><span class="zh">轻盈</span></td>
+                            <td>Safely jump on turtle eggs, farmlands and big dripleaf.<br><span class="zh">允许安全踩踏海龟蛋、耕地和大型垂滴叶。</span></td>
+                            <td>—</td><td>I</td><td>靴子</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Night Vision</strong><br><span class="zh">夜视</span></td>
+                            <td>Grants Night Vision.<br><span class="zh">赋予夜视效果。</span></td>
+                            <td>—</td><td>I</td><td>头盔</td><td>—</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rebound</strong><br><span class="zh">反弹</span></td>
+                            <td>Gives the effect of landing on a Slime Block.<br><span class="zh">产生类似落在史莱姆方块上的弹跳效果。</span></td>
+                            <td>摔落保护</td><td>I</td><td>靴子</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regrowth</strong><br><span class="zh">再生</span></td>
+                            <td>Restores hearts over time.<br><span class="zh">随时间恢复一定量生命值。</span></td>
+                            <td>—</td><td>IV</td><td>胸甲</td><td>鞘翅</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saturation</strong><br><span class="zh">饱和</span></td>
+                            <td>Restores food over time.<br><span class="zh">随时间恢复一定量饥饿值。</span></td>
+                            <td>—</td><td>II</td><td>头盔</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Speed</strong><br><span class="zh">速度</span></td>
+                            <td>Grants Speed effect.<br><span class="zh">赋予速度效果。</span></td>
+                            <td>—</td><td>II</td><td>靴子</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stopping Force</strong><br><span class="zh">止力</span></td>
+                            <td>Reduces Knockback when getting damage.<br><span class="zh">受到伤害时减少击退。</span></td>
+                            <td>—</td><td>III</td><td>护腿</td><td>—</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Water Breathing</strong><br><span class="zh">水下呼吸</span></td>
+                            <td>Grants Water Breathing.<br><span class="zh">赋予水下呼吸效果。</span></td>
+                            <td>—</td><td>I</td><td>头盔</td><td>—</td><td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bow -->
+        <div class="enchants-category" id="cat-bow">
+            <h2 class="enchants-cat-title">弓 <span>Bow</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bomber</strong><br><span class="zh">轰炸手</span></td>
+                            <td>Shoots TNT instead of arrows.<br><span class="zh">射出TNT代替箭矢。</span></td>
+                            <td>Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Confusing Arrows</strong><br><span class="zh">迷惑之箭</span></td>
+                            <td>Applies Nausea on arrows.<br><span class="zh">箭矢施加反胃效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Darkness Arrows</strong><br><span class="zh">黑暗之箭</span></td>
+                            <td>Applies Darkness on arrows.<br><span class="zh">箭矢施加黑暗效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dragonfire Arrows</strong><br><span class="zh">龙息之箭</span></td>
+                            <td>Applies Dragon's Breath on arrows.<br><span class="zh">箭矢施加龙息效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Electrified Arrows</strong><br><span class="zh">雷电之箭</span></td>
+                            <td>Summons Lightning on hit.<br><span class="zh">命中时召唤闪电。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ender Bow</strong><br><span class="zh">末影弓</span></td>
+                            <td>Shoots Ender Pearls instead of arrows.<br><span class="zh">射出末影珍珠代替箭矢。</span></td>
+                            <td>Bomber, Ghast</td><td>I</td><td>弓</td><td>弩</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Explosive Arrows</strong><br><span class="zh">爆炸之箭</span></td>
+                            <td>Arrows explode on hit.<br><span class="zh">箭矢命中时爆炸。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flare</strong><br><span class="zh">闪光</span></td>
+                            <td>Places a Torch where arrow lands.<br><span class="zh">箭矢落点放置火把。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>I</td><td>弓</td><td>弩</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ghast</strong><br><span class="zh">恶魂</span></td>
+                            <td>Shoots Fireball instead of arrows.<br><span class="zh">射出火球代替箭矢。</span></td>
+                            <td>Bomber, Ender Bow</td><td>I</td><td>弓</td><td>弩</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hover</strong><br><span class="zh">悬浮</span></td>
+                            <td>Applies Levitation on arrows.<br><span class="zh">箭矢施加漂浮效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lingering</strong><br><span class="zh">滞留</span></td>
+                            <td>Arrows with lingering effect on hit.<br><span class="zh">箭矢命中时产生滞留效果区域。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Poisoned Arrows</strong><br><span class="zh">毒箭</span></td>
+                            <td>Applies Poison on arrows.<br><span class="zh">箭矢施加中毒效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sniper</strong><br><span class="zh">狙击</span></td>
+                            <td>Increases projectile speed.<br><span class="zh">增加投射物速度。</span></td>
+                            <td>—</td><td>II</td><td>弓</td><td>弩</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vampiric Arrows</strong><br><span class="zh">吸血之箭</span></td>
+                            <td>Restores health on hit.<br><span class="zh">命中时恢复生命值。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Withered Arrows</strong><br><span class="zh">凋零之箭</span></td>
+                            <td>Applies Wither on arrows.<br><span class="zh">箭矢施加凋零效果。</span></td>
+                            <td>Bomber, Ender Bow, Ghast</td><td>III</td><td>弓</td><td>弩</td><td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tool -->
+        <div class="enchants-category" id="cat-tool">
+            <h2 class="enchants-cat-title">工具 <span>Tool</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Blast Mining</strong><br><span class="zh">爆破采矿</span></td>
+                            <td>Mines blocks with Explosions.<br><span class="zh">用爆炸挖掘方块。</span></td>
+                            <td>Tunnel, Veinminer</td><td>V</td><td>镐</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glass Breaker</strong><br><span class="zh">碎玻璃</span></td>
+                            <td>Breaks glass instantly.<br><span class="zh">瞬间破坏玻璃。</span></td>
+                            <td>—</td><td>I</td><td>镐/斧/锹</td><td>锄/剪刀</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Haste</strong><br><span class="zh">急迫</span></td>
+                            <td>Applies Haste on mining.<br><span class="zh">挖掘时赋予急迫效果。</span></td>
+                            <td>—</td><td>III</td><td>镐/斧/锹</td><td>锄/剪刀</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lucky Miner</strong><br><span class="zh">幸运矿工</span></td>
+                            <td>Produces more XP from mined blocks.<br><span class="zh">从挖掘方块中获得更多经验。</span></td>
+                            <td>—</td><td>III</td><td>镐</td><td>—</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Replanter</strong><br><span class="zh">自动补种</span></td>
+                            <td>Replants Crops on harvest or right-click.<br><span class="zh">收获或右键时自动补种作物。</span></td>
+                            <td>—</td><td>I</td><td>锄</td><td>—</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Silk Chest</strong><br><span class="zh">丝绸宝箱</span></td>
+                            <td>Drops Chests that keeps their content.<br><span class="zh">掉落保留内容的箱子。</span></td>
+                            <td>—</td><td>I</td><td>斧</td><td>镐/锹/锄</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Silk Spawner</strong><br><span class="zh">丝绸刷怪笼</span></td>
+                            <td>Chance to obtain a Monster Spawner.<br><span class="zh">有几率获得刷怪笼。</span></td>
+                            <td>Smelter</td><td>I</td><td>镐</td><td>—</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Smelter</strong><br><span class="zh">冶炼</span></td>
+                            <td>Smelt dropped items according to their Recipes.<br><span class="zh">根据配方自动冶炼掉落物。</span></td>
+                            <td>Silk Touch, Silk Spawner</td><td>V</td><td>镐/斧/锹</td><td>锄/剪刀</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telekinesis</strong><br><span class="zh">隔空取物</span></td>
+                            <td>Moves all block loot directly to inventory.<br><span class="zh">将所有方块掉落物直接移入背包。</span></td>
+                            <td>—</td><td>I</td><td>镐/斧/锹/锄</td><td>剪刀</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Treefeller</strong><br><span class="zh">伐木</span></td>
+                            <td>Cuts down an entire tree.<br><span class="zh">砍倒整棵树。</span></td>
+                            <td>—</td><td>I</td><td>斧</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tunnel</strong><br><span class="zh">隧道</span></td>
+                            <td>Mines 1x2, 2x2, 3x3 area.<br><span class="zh">挖掘1x2、2x2、3x3区域。</span></td>
+                            <td>Veinminer, Blast Mining</td><td>III</td><td>镐</td><td>斧/锹/锄</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Veinminer</strong><br><span class="zh">矿脉挖掘</span></td>
+                            <td>Mines the whole ore vein at once.<br><span class="zh">一次挖完整个矿脉。</span></td>
+                            <td>Tunnel, Blast Mining</td><td>III</td><td>镐</td><td>—</td><td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Fishing -->
+        <div class="enchants-category" id="cat-fishing">
+            <h2 class="enchants-cat-title">钓鱼 <span>Fishing</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Auto Reel</strong><br><span class="zh">自动收杆</span></td>
+                            <td>Automatically reels in on bite.<br><span class="zh">咬钩时自动收杆。</span></td>
+                            <td>—</td><td>I</td><td>钓鱼竿</td><td>—</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curse of Drowned</strong><br><span class="zh">溺尸诅咒</span></td>
+                            <td>Chance to fish up a Drowned.<br><span class="zh">有几率钓上溺尸。</span></td>
+                            <td>—</td><td>III</td><td>钓鱼竿</td><td>—</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Double Catch</strong><br><span class="zh">双倍捕获</span></td>
+                            <td>Increases caught item amount by x2.<br><span class="zh">将捕获物品数量翻倍。</span></td>
+                            <td>—</td><td>III</td><td>钓鱼竿</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>River Master</strong><br><span class="zh">河流大师</span></td>
+                            <td>Increases casting distance.<br><span class="zh">增加抛竿距离。</span></td>
+                            <td>—</td><td>V</td><td>钓鱼竿</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seasoned Angler</strong><br><span class="zh">老练钓手</span></td>
+                            <td>Increases gained XP.<br><span class="zh">增加获得的经验值。</span></td>
+                            <td>—</td><td>III</td><td>钓鱼竿</td><td>—</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Survivalist</strong><br><span class="zh">生存专家</span></td>
+                            <td>Automatically cooks raw fish.<br><span class="zh">若钓到生鱼则自动烹饪。</span></td>
+                            <td>—</td><td>I</td><td>钓鱼竿</td><td>—</td><td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Weapon -->
+        <div class="enchants-category" id="cat-weapon">
+            <h2 class="enchants-cat-title">武器 <span>Weapon</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bane of Netherspawn</strong><br><span class="zh">下界克星</span></td>
+                            <td>Increases damage to nether mobs.<br><span class="zh">增加对下界生物的伤害。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blindness</strong><br><span class="zh">致盲</span></td>
+                            <td>Applies Blindness on target.<br><span class="zh">对目标施加失明效果。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Confusion</strong><br><span class="zh">混乱</span></td>
+                            <td>Applies Nausea on target.<br><span class="zh">对目标施加反胃效果。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cure</strong><br><span class="zh">治愈</span></td>
+                            <td>Cures Zombified Piglins and Zombie Villagers on kill.<br><span class="zh">击杀时治愈僵尸猪灵和僵尸村民。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curse of Death</strong><br><span class="zh">死亡诅咒</span></td>
+                            <td>Killing a player has a chance of dying too.<br><span class="zh">击杀玩家时有几率自己也会死亡。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cutter</strong><br><span class="zh">切割</span></td>
+                            <td>Damages and drops target's armor.<br><span class="zh">损坏并掉落目标的护甲。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decapitator</strong><br><span class="zh">斩首</span></td>
+                            <td>Allows to obtain target's head.<br><span class="zh">允许获得目标头颅。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Double Strike</strong><br><span class="zh">双重打击</span></td>
+                            <td>Increases damage by twice.<br><span class="zh">伤害翻倍。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exhaust</strong><br><span class="zh">衰竭</span></td>
+                            <td>Applies Hunger on target.<br><span class="zh">对目标施加饥饿效果。</span></td>
+                            <td>—</td><td>IV</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ice Aspect</strong><br><span class="zh">冰霜附加</span></td>
+                            <td>Freezes and applies Slowness on target.<br><span class="zh">冻结目标并施加缓慢效果。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infernus</strong><br><span class="zh">地狱火</span></td>
+                            <td>Trident sets targets on fire.<br><span class="zh">三叉戟点燃目标。</span></td>
+                            <td>—</td><td>III</td><td>三叉戟</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nimble</strong><br><span class="zh">敏捷</span></td>
+                            <td>Moves entity's drops directly to inventory.<br><span class="zh">将实体掉落物直接移入背包。</span></td>
+                            <td>—</td><td>I</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paralyze</strong><br><span class="zh">瘫痪</span></td>
+                            <td>Applies Mining Fatigue on target.<br><span class="zh">对目标施加挖掘疲劳效果。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rage</strong><br><span class="zh">狂暴</span></td>
+                            <td>Grants Strength in combat.<br><span class="zh">战斗中赋予力量效果。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rocket</strong><br><span class="zh">火箭</span></td>
+                            <td>Launches target into the air.<br><span class="zh">将目标发射到空中。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Swiper</strong><br><span class="zh">窃取</span></td>
+                            <td>Steals player's XP.<br><span class="zh">偷取玩家的经验值。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temper</strong><br><span class="zh">蓄力</span></td>
+                            <td>Damage increases the less health you have.<br><span class="zh">生命值越低伤害越高。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thrifty</strong><br><span class="zh">慷慨</span></td>
+                            <td>Drops mob's Spawn Egg.<br><span class="zh">掉落生物的刷怪蛋。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thunder</strong><br><span class="zh">雷霆</span></td>
+                            <td>Summons Lightning on target with extra damage.<br><span class="zh">对目标召唤闪电并造成额外伤害。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vampire</strong><br><span class="zh">吸血鬼</span></td>
+                            <td>Steals target's health.<br><span class="zh">偷取目标生命值。</span></td>
+                            <td>—</td><td>III</td><td>剑</td><td>斧</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Venom</strong><br><span class="zh">毒液</span></td>
+                            <td>Applies Poison on target.<br><span class="zh">对目标施加中毒效果。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Village Defender</strong><br><span class="zh">村庄守卫</span></td>
+                            <td>Increases damage to Illagers.<br><span class="zh">增加对灾厄村民的伤害。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wisdom</strong><br><span class="zh">智慧</span></td>
+                            <td>Produces more XP from mobs.<br><span class="zh">从生物中获得更多经验。</span></td>
+                            <td>—</td><td>V</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wither</strong><br><span class="zh">凋零</span></td>
+                            <td>Applies Wither on target.<br><span class="zh">对目标施加凋零效果。</span></td>
+                            <td>—</td><td>II</td><td>剑</td><td>斧</td><td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Universal -->
+        <div class="enchants-category" id="cat-universal">
+            <h2 class="enchants-cat-title">通用 <span>Universal</span></h2>
+            <div class="enchants-table-wrap">
+                <table class="enchants-table">
+                    <thead>
+                        <tr>
+                            <th>名称 Name</th>
+                            <th>描述 Description</th>
+                            <th>不兼容</th>
+                            <th>最高等级</th>
+                            <th>主要物品</th>
+                            <th>次要物品</th>
+                            <th>权重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Curse of Breaking</strong><br><span class="zh">破损诅咒</span></td>
+                            <td>Takes more durability points on use.<br><span class="zh">使用时消耗更多耐久。</span></td>
+                            <td>耐久</td><td>III</td><td>全部物品</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curse of Fragility</strong><br><span class="zh">脆弱诅咒</span></td>
+                            <td>Prevents item from being grindstoned or anviled.<br><span class="zh">阻止物品被砂轮或铁砧处理。</span></td>
+                            <td>—</td><td>I</td><td>全部物品</td><td>—</td><td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curse of Mediocrity</strong><br><span class="zh">平庸诅咒</span></td>
+                            <td>Disenchants block's and mob's loot.<br><span class="zh">降低方块和生物的掉落品质。</span></td>
+                            <td>—</td><td>III</td><td>剑/斧/弓/弩/三叉戟/重锤</td><td>镐/锹/锄/剪刀</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curse of Misfortune</strong><br><span class="zh">不幸诅咒</span></td>
+                            <td>Reduces block's and mob's loot to zero.<br><span class="zh">将方块和生物掉落降至零。</span></td>
+                            <td>时运, 抢夺</td><td>III</td><td>镐/斧/锹/锄/剑/弓/弩/剪刀/三叉戟/重锤</td><td>—</td><td>5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Restore</strong><br><span class="zh">修复</span></td>
+                            <td>Saves item from breaking once.<br><span class="zh">拯救物品免于损坏一次。</span></td>
+                            <td>—</td><td>III</td><td>全部物品</td><td>—</td><td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Soulbound</strong><br><span class="zh">灵魂绑定</span></td>
+                            <td>Prevents item from being dropped upon death.<br><span class="zh">防止物品在死亡时掉落。</span></td>
+                            <td>消失诅咒</td><td>I</td><td>全部物品</td><td>—</td><td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="enchants-note">* 全部物品 = 镐、斧、锹、锄、剑、弓、弩、剪刀、头盔、胸甲、护腿、靴子、鞘翅、盾牌、钓鱼竿、三叉戟、重锤</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="index.html#servers">生存服</a></li>
+                        <li><a href="index.html#servers">起床战争服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Enchantments category tabs
+        document.querySelectorAll('.enchants-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.enchants-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.enchants-category').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('cat-' + this.dataset.category).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

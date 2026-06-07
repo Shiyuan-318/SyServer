@@ -966,6 +966,171 @@ ul {
     margin-bottom: 0.375rem;
 }
 
+/* Wiki More Button */
+.wiki-more {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+}
+
+/* Enchantments Page */
+.enchants-page {
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-xxl);
+    background: var(--color-background-secondary);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.enchants-intro {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    text-align: center;
+}
+
+.enchants-intro strong {
+    color: var(--color-text);
+}
+
+/* Category Tabs */
+.enchants-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.enchants-tab {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: var(--font-family);
+}
+
+.enchants-tab:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.enchants-tab.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+/* Category Sections */
+.enchants-category {
+    display: none;
+}
+
+.enchants-category.active {
+    display: block;
+}
+
+.enchants-cat-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.01em;
+}
+
+.enchants-cat-title span {
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    font-size: 1.25rem;
+    margin-left: 0.5rem;
+}
+
+/* Enchantments Table */
+.enchants-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.enchants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-background);
+    font-size: 0.875rem;
+}
+
+.enchants-table thead {
+    background: var(--color-background-secondary);
+}
+
+.enchants-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.enchants-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.enchants-table tbody tr:hover {
+    background: rgba(0, 113, 227, 0.02);
+}
+
+.enchants-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.enchants-table .zh {
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+}
+
+.enchants-table td:first-child strong {
+    font-size: 0.9375rem;
+}
+
+.enchants-note {
+    margin-top: var(--spacing-md);
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .enchants-table {
+        font-size: 0.8125rem;
+    }
+
+    .enchants-table th,
+    .enchants-table td {
+        padding: 0.5rem 0.625rem;
+    }
+
+    .enchants-tabs {
+        gap: 6px;
+    }
+
+    .enchants-tab {
+        padding: 0.375rem 0.875rem;
+        font-size: 0.8125rem;
+    }
+}
+
 /* Footer */
 .footer {
     padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-lg);
