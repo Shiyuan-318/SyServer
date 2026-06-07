@@ -387,3 +387,21 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         block.style.animation = 'none';
     });
 }
+
+// Wiki accordion
+document.querySelectorAll('.wiki-header').forEach(header => {
+    header.addEventListener('click', function() {
+        const item = this.parentElement;
+        const isActive = item.classList.contains('active');
+
+        // Close all items
+        document.querySelectorAll('.wiki-item').forEach(i => {
+            i.classList.remove('active');
+        });
+
+        // Toggle clicked item
+        if (!isActive) {
+            item.classList.add('active');
+        }
+    });
+});
