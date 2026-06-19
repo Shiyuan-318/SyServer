@@ -49,30 +49,6 @@
                     <h2 class="event-title">SyServer两周年庆典</h2>
                     <p class="event-time">📅 2026.08.20</p>
                     <p class="event-desc">与 SyServer 共度两周年，感谢一路相伴的每一位玩家，更多精彩内容敬请期待。</p>
-                    <div class="event-countdown">
-                        <span class="countdown-label">距活动开始</span>
-                        <div class="countdown-timer">
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-days>00</span>
-                                <span class="countdown-unit-label">天</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-hours>00</span>
-                                <span class="countdown-unit-label">时</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-minutes>00</span>
-                                <span class="countdown-unit-label">分</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-seconds>00</span>
-                                <span class="countdown-unit-label">秒</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </article>
 
@@ -91,30 +67,6 @@
                     <h2 class="event-title">2027跨年活动</h2>
                     <p class="event-time">📅 2026.12.31</p>
                     <p class="event-desc">跨年夜与好友齐聚 SyServer，共同迎接 2027 年的到来，活动详情即将公布。</p>
-                    <div class="event-countdown">
-                        <span class="countdown-label">距活动开始</span>
-                        <div class="countdown-timer">
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-days>00</span>
-                                <span class="countdown-unit-label">天</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-hours>00</span>
-                                <span class="countdown-unit-label">时</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-minutes>00</span>
-                                <span class="countdown-unit-label">分</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" data-seconds>00</span>
-                                <span class="countdown-unit-label">秒</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </article>
         </div>
@@ -163,48 +115,5 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // 活动倒计时
-        function updateCountdowns() {
-            const cards = document.querySelectorAll('.event-card[data-event-date]');
-            const now = new Date().getTime();
-
-            cards.forEach(card => {
-                const target = new Date(card.dataset.eventDate).getTime();
-                const diff = target - now;
-
-                const daysEl = card.querySelector('[data-days]');
-                const hoursEl = card.querySelector('[data-hours]');
-                const minutesEl = card.querySelector('[data-minutes]');
-                const secondsEl = card.querySelector('[data-seconds]');
-                const countdownEl = card.querySelector('.event-countdown');
-                const labelEl = card.querySelector('.countdown-label');
-
-                if (diff <= 0) {
-                    // 活动已开始
-                    daysEl.textContent = '00';
-                    hoursEl.textContent = '00';
-                    minutesEl.textContent = '00';
-                    secondsEl.textContent = '00';
-                    if (labelEl) labelEl.textContent = '活动已开始';
-                    countdownEl.classList.add('countdown-ended');
-                    return;
-                }
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                daysEl.textContent = String(days).padStart(2, '0');
-                hoursEl.textContent = String(hours).padStart(2, '0');
-                minutesEl.textContent = String(minutes).padStart(2, '0');
-                secondsEl.textContent = String(seconds).padStart(2, '0');
-            });
-        }
-
-        updateCountdowns();
-        setInterval(updateCountdowns, 1000);
-    </script>
 </body>
 </html>
