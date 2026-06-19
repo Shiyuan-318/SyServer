@@ -1246,47 +1246,110 @@ ul {
 
 /* Agreement Page */
 .agreement-content {
-    max-width: 760px;
+    max-width: 800px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
 }
 
-.agreement-placeholder {
+.agreement-card {
     background: var(--color-background);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-xxl) var(--spacing-xl);
-    text-align: center;
+    overflow: hidden;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.agreement-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-lg) 0;
+}
+
+.agreement-card-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #005bb5 100%);
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    letter-spacing: -0.02em;
+}
+
+.agreement-card-title-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
+    gap: 0.125rem;
 }
 
-.agreement-placeholder-icon {
-    font-size: 3rem;
-    line-height: 1;
-    margin-bottom: var(--spacing-sm);
-}
-
-.agreement-placeholder-title {
-    font-size: 1.5rem;
+.agreement-card-title {
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
+    line-height: 1.3;
 }
 
-.agreement-placeholder-desc {
-    font-size: 1rem;
+.agreement-card-meta {
+    font-size: 0.8125rem;
     color: var(--color-text-secondary);
     margin: 0;
 }
 
-.agreement-placeholder-note {
-    font-size: 0.875rem;
+.agreement-card-body {
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--color-text);
+}
+
+/* Agreement body content typography */
+.agreement-card-body h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 1.25em 0 0.5em;
+    color: var(--color-text);
+}
+
+.agreement-card-body h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    margin: 1em 0 0.375em;
+    color: var(--color-text);
+}
+
+.agreement-card-body p {
+    margin: 0 0 0.75em;
     color: var(--color-text-secondary);
-    opacity: 0.8;
-    margin: var(--spacing-xs) 0 0;
+}
+
+.agreement-card-body ul,
+.agreement-card-body ol {
+    margin: 0.5em 0 0.75em;
+    padding-left: 1.25em;
+    color: var(--color-text-secondary);
+}
+
+.agreement-card-body li {
+    margin-bottom: 0.25em;
+}
+
+.agreement-card-body strong {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.agreement-placeholder-text {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    opacity: 0.6;
 }
 
 /* Hero Split Layout */
