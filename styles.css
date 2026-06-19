@@ -1308,7 +1308,6 @@ ul {
     font-size: 0.9375rem;
     line-height: 1.75;
     color: var(--color-text);
-    white-space: pre-line;
 }
 
 /* Agreement body content typography */
@@ -1329,6 +1328,13 @@ ul {
 .agreement-card-body p {
     margin: 0 0 0.75em;
     color: var(--color-text-secondary);
+}
+
+.agreement-card-body hr {
+    margin: 1.25em 0;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    opacity: 0.5;
 }
 
 .agreement-card-body ul,
