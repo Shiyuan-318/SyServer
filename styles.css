@@ -1308,6 +1308,7 @@ ul {
     font-size: 0.9375rem;
     line-height: 1.75;
     color: var(--color-text);
+    white-space: pre-line;
 }
 
 /* Agreement body content typography */
