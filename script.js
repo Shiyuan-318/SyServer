@@ -13,13 +13,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // Navigation scroll effect
 function initNavigation() {
     const nav = document.querySelector('.nav');
+    let lastScroll = 0;
+    let scrollTimeout = null;
+    let isScrolling = false;
     
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 10) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
+        const currentScroll = window.pageYOffset;
+        
+        // Hide navigation when scrolling down
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            nav.classList.add('nav-hidden');
         }
+        
+        lastScroll = currentScroll;
+        isScrolling = true;
+        
+        // Clear previous timeout
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        
+        // Show navigation when scrolling stops
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+            nav.classList.remove('nav-hidden');
+        }, 150);
     });
 }
 
