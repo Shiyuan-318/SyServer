@@ -10,67 +10,31 @@ document.addEventListener('DOMContentLoaded', function() {
     initCounterAnimation();
 });
 
-// Navigation scroll effect
+// Navigation - fixed, no hide
 function initNavigation() {
-    const nav = document.querySelector('.nav');
-    let lastScroll = 0;
-    let scrollTimeout = null;
-    let isScrolling = false;
-    
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        // Hide navigation when scrolling down
-        if (currentScroll > lastScroll && currentScroll > 100) {
-            nav.classList.add('nav-hidden');
-        }
-        
-        lastScroll = currentScroll;
-        isScrolling = true;
-        
-        // Clear previous timeout
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        
-        // Show navigation when scrolling stops
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-            nav.classList.remove('nav-hidden');
-        }, 150);
-    });
+    // Navigation is always visible (fixed position)
 }
 
 // Scroll animations using Intersection Observer
 function initScrollAnimations() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    const animateElements = document.querySelectorAll('[data-animate]');
+    
+    if (!animateElements.length) return;
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // Stagger animation for child elements
-                const children = entry.target.querySelectorAll('.stagger-item');
-                children.forEach((child, index) => {
-                    setTimeout(() => {
-                        child.classList.add('visible');
-                    }, index * 100);
-                });
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-    
-    // Observe elements with fade-in class
-    const fadeElements = document.querySelectorAll('.feature-card, .server-card, .stat-item, .section-header');
-    fadeElements.forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
+    }, {
+        root: null,
+        rootMargin: '0px 0px -60px 0px',
+        threshold: 0.1
     });
+    
+    animateElements.forEach(el => observer.observe(el));
 }
 
 // Smooth scroll for navigation links
