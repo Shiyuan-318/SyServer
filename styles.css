@@ -70,24 +70,44 @@ ul {
     list-style: none;
 }
 
-/* Navigation - Liquid Glass */
+/* Navigation - Liquid Glass (morphs from a full-width strip at the very top into the floating rounded pill when scrolled) */
 .nav {
     position: fixed;
-    top: 16px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
+    max-width: 100%;
     z-index: 1000;
-    border-radius: 100px;
-    background: rgba(255, 255, 255, 0.18);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 
+    border: 1px solid transparent;
+    border-bottom-color: rgba(210, 210, 215, 0.45);
+    box-shadow: none;
+    transition:
+        top 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: top, width, border-radius, background, box-shadow;
+}
+
+/* Scrolled state: morph into the floating centered rounded pill */
+.nav.scrolled {
+    top: 16px;
+    width: calc(100% - 32px);
+    max-width: 1120px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
 }
 
 .nav.nav-hidden {
@@ -182,12 +202,70 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
-    padding: var(--spacing-xxl) var(--spacing-lg);
+    padding: 96px 24px 28px;
     background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 50%, #f8fafc 100%);
     position: relative;
     overflow: hidden;
+}
+
+/* Centered in-game screenshot showcase */
+.hero-showcase {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 8px 0 24px;
+}
+
+.hero-showcase-img {
+    width: 100%;
+    max-width: 940px;
+    max-height: 68vh;
+    object-fit: cover;
+    border-radius: 28px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.18),
+        0 10px 30px rgba(0, 0, 0, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Bottom strip: brand on the left, "Learn more" button on the right */
+.hero-bottom-bar {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 20px 16px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.hero-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+}
+
+.hero-brand-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.hero-learn-more {
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
 }
 
 .hero-bg-grid {

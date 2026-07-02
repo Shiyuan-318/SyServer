@@ -10,9 +10,23 @@ document.addEventListener('DOMContentLoaded', function() {
     initCounterAnimation();
 });
 
-// Navigation - fixed, no hide
+// Navigation - morphs from a full-width strip (at the very top) into the
+// floating rounded pill once the user starts scrolling down.
 function initNavigation() {
-    // Navigation is always visible (fixed position)
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    const updateNavState = () => {
+        if (window.pageYOffset > 8) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    };
+
+    updateNavState();
+    window.addEventListener('scroll', updateNavState, { passive: true });
+    window.addEventListener('resize', updateNavState, { passive: true });
 }
 
 // Scroll animations using Intersection Observer
@@ -330,18 +344,34 @@ document.head.appendChild(tooltipStyle);
 // Preload animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    
-    // Animate hero content
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.style.opacity = '0';
-        heroContent.style.transform = 'translateY(30px)';
-        heroContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        
-        setTimeout(() => {
-            heroContent.style.opacity = '1';
-            heroContent.style.transform = 'translateY(0)';
-        }, 100);
+
+    // Animate hero showcase (centered screenshot) + bottom strip on the homepage
+    const showcase = document.querySelector('.hero-showcase');
+    if (showcase) {
+        showcase.style.opacity = '0';
+        showcase.style.transform = 'translateY(28px) scale(0.985)';
+        showcase.style.transition = 'opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)';
+
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                showcase.style.opacity = '1';
+                showcase.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+        });
+    }
+
+    const bottomBar = document.querySelector('.hero-bottom-bar');
+    if (bottomBar) {
+        bottomBar.style.opacity = '0';
+        bottomBar.style.transform = 'translateY(20px)';
+        bottomBar.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s';
+
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                bottomBar.style.opacity = '1';
+                bottomBar.style.transform = 'translateY(0)';
+            }, 160);
+        });
     }
 });
 
