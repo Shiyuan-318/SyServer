@@ -148,7 +148,7 @@ ul {
     height: 48px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 24px;
 }
 
@@ -217,13 +217,13 @@ ul {
     align-items: center;
     justify-content: center;
     z-index: 2;
-    padding: 8px 0 24px;
+    padding: 0 0 24px;
+    margin-top: -10px;
 }
 
 .hero-showcase-img {
-    width: 100%;
-    max-width: 940px;
-    max-height: 68vh;
+    width: min(940px, calc(100vw - 48px));
+    max-height: 72vh;
     object-fit: cover;
     border-radius: 28px;
     box-shadow:
