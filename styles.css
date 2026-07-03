@@ -171,6 +171,7 @@ ul {
 .nav-links {
     display: flex;
     gap: 32px;
+    margin-left: auto;
 }
 
 .nav-links a {
