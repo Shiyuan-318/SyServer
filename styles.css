@@ -1891,7 +1891,7 @@ ul {
 
 .calendar-main {
     flex: 1;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     background: #161617;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
@@ -1900,6 +1900,24 @@ ul {
     flex-direction: column;
     transition: flex 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     overflow: hidden;
+    position: relative;
+}
+
+/* macOS 红绿灯按钮装饰 */
+.calendar-main::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f57;
+    box-shadow:
+        20px 0 0 #febc2e,
+        40px 0 0 #28c840;
+    z-index: 3;
+    pointer-events: none;
 }
 
 /* 选中日期时，日历压缩 */
@@ -1914,6 +1932,7 @@ ul {
     justify-content: center;
     gap: 24px;
     margin-bottom: 20px;
+    padding-top: 14px;
 }
 
 .cal-nav-btn {
