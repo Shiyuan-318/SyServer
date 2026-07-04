@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+        window.THREE = THREE;
+        window.dispatchEvent(new Event('three-ready'));
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -171,6 +176,7 @@
 
     <!-- Community Section -->
     <section id="community" class="community" data-animate>
+        <canvas id="communityCanvas"></canvas>
         <div class="community-content">
             <h2 class="section-title">加入社区</h2>
             <p class="community-description">

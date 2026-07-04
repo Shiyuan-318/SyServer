@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initParallaxEffect();
     initCounterAnimation();
 
+    // Three.js 粒子背景（等模块加载完成）
+    if (window.THREE) {
+        initCommunityParticles();
+    } else {
+        window.addEventListener('three-ready', initCommunityParticles);
+    }
+
     // Random hero showcase image
     const heroImg = document.getElementById('heroShowcaseImg');
     if (heroImg) {
@@ -406,3 +413,128 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         }
     });
 });
+
+// Three.js particle background for community section
+function initCommunityParticles() {
+    const canvas = document.getElementById('communityCanvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const section = canvas.parentElement;
+    let width = section.offsetWidth;
+    let height = section.offsetHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    camera.position.z = 50;
+
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 创建粒子系统
+    const particleCount = 200;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 120;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 60;
+
+        const colorChoice = Math.random();
+        if (colorChoice < 0.5) {
+            colors[i * 3] = 0.0;
+            colors[i * 3 + 1] = 0.44;
+            colors[i * 3 + 2] = 0.89;
+        } else if (colorChoice < 0.8) {
+            colors[i * 3] = 0.37;
+            colors[i * 3 + 1] = 0.36;
+            colors[i * 3 + 2] = 0.9;
+        } else {
+            colors[i * 3] = 1.0;
+            colors[i * 3 + 1] = 1.0;
+            colors[i * 3 + 2] = 1.0;
+        }
+
+        sizes[i] = Math.random() * 2 + 0.5;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 1.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // 鼠标交互
+    let mouseX = 0;
+    let mouseY = 0;
+    section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    });
+
+    let animationId = null;
+
+    function animate() {
+        animationId = requestAnimationFrame(animate);
+
+        particles.rotation.y += 0.0008;
+        particles.rotation.x += 0.0003;
+
+        // 鼠标视差
+        camera.position.x += (mouseX * 10 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 10 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        // 粒子上下浮动
+        const positions = geometry.attributes.position.array;
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3 + 1] += Math.sin(Date.now() * 0.0005 + i) * 0.01;
+        }
+        geometry.attributes.position.needsUpdate = true;
+
+        renderer.render(scene, camera);
+    }
+
+    // 只在社区区域可见时才渲染
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!animationId) animate();
+            } else {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            }
+        });
+    }, { threshold: 0 });
+
+    observer.observe(section);
+
+    // 窗口大小变化时重新调整
+    window.addEventListener('resize', () => {
+        width = section.offsetWidth;
+        height = section.offsetHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    });
+}
