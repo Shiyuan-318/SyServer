@@ -1997,6 +1997,7 @@ ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 2px;
     border-radius: 12px;
     color: #f5f5f7;
     font-size: 1.0625rem;
@@ -2005,6 +2006,18 @@ ul {
     position: relative;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
     border: 1px solid transparent;
+    padding: 6px 0;
+}
+
+.cal-day .solar {
+    line-height: 1.1;
+}
+
+.cal-day .lunar {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: #86868b;
+    line-height: 1;
 }
 
 .cal-day.other-month {
@@ -2012,10 +2025,22 @@ ul {
     cursor: default;
 }
 
+.cal-day.other-month .lunar {
+    color: #3a3a3c;
+}
+
 .cal-day.today {
     background: rgba(10, 132, 255, 0.15);
     border-color: rgba(10, 132, 255, 0.4);
     color: #409cff;
+}
+
+.cal-day.today .lunar {
+    color: #5a9eff;
+}
+
+.cal-day.has-event.selected .lunar {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .cal-day.has-event {
@@ -2070,6 +2095,71 @@ ul {
     width: 36%;
     opacity: 1;
     padding: 32px;
+}
+
+/* 详情红绿灯 */
+.detail-traffic {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.traffic-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: filter 0.2s ease;
+}
+
+.traffic-red {
+    background: #ff5f57;
+    cursor: pointer;
+}
+
+.traffic-yellow {
+    background: #febc2e;
+}
+
+.traffic-green {
+    background: #28c840;
+}
+
+.traffic-red:hover {
+    filter: brightness(1.15);
+}
+
+/* 倒计时 */
+.detail-countdown {
+    margin-top: auto;
+    padding: 16px 20px;
+    background: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: #f5f5f7;
+}
+
+.detail-countdown .countdown-num {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #409cff;
+    letter-spacing: -0.02em;
+}
+
+.detail-countdown.countdown-past {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.detail-countdown.countdown-past .countdown-num {
+    color: #86868b;
 }
 
 /* 空状态 */

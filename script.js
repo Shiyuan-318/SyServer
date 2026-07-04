@@ -421,6 +421,8 @@ document.querySelectorAll('.wiki-header').forEach(header => {
     const shell = document.querySelector('.calendar-shell');
     const detailEmpty = document.getElementById('detailEmpty');
     const detailContent = document.getElementById('detailContent');
+    const detailTraffic = document.getElementById('detailTraffic');
+    const detailClose = document.getElementById('detailClose');
 
     // 活动数据
     const events = [
@@ -468,6 +470,37 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         return `${y}-${m}-${day}`;
     }
 
+    // 获取农历显示文字
+    function getLunarText(year, month, day) {
+        try {
+            if (typeof Lunar === 'undefined') return '';
+            const lunar = Lunar.fromYmd(year, month, day);
+            const dayText = lunar.getDayInChinese();
+            // 如果是初一，显示月份；否则显示日
+            if (lunar.getDay() === 1) {
+                return lunar.getMonthInChinese() + '月';
+            }
+            // 节气优先
+            const jieQi = lunar.getJieQi();
+            if (jieQi) return jieQi;
+            // 节日
+            const festivals = lunar.getFestivals();
+            if (festivals.length > 0) return festivals[0];
+            return dayText;
+        } catch (e) {
+            return '';
+        }
+    }
+
+    // 计算距离某天还有几天（返回负数表示已过）
+    function daysUntil(dateStr) {
+        const target = new Date(dateStr + 'T00:00:00');
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        const diff = target - now;
+        return Math.round(diff / (1000 * 60 * 60 * 24));
+    }
+
     function render() {
         titleEl.textContent = `${viewYear}年 ${viewMonth + 1}月`;
         calendarGrid.innerHTML = '';
@@ -505,7 +538,20 @@ document.querySelectorAll('.wiki-header').forEach(header => {
             if (realMonth > 11) { realMonth = 0; realYear++; }
             const dateStr = `${realYear}-${String(realMonth + 1).padStart(2, '0')}-${String(cell.day).padStart(2, '0')}`;
 
-            el.textContent = cell.day;
+            // 公历
+            const solar = document.createElement('span');
+            solar.className = 'solar';
+            solar.textContent = cell.day;
+            el.appendChild(solar);
+
+            // 农历
+            const lunarText = getLunarText(realYear, realMonth + 1, cell.day);
+            if (lunarText) {
+                const lunar = document.createElement('span');
+                lunar.className = 'lunar';
+                lunar.textContent = lunarText;
+                el.appendChild(lunar);
+            }
 
             // 今天
             if (dateStr === todayStr && !cell.otherMonth) {
@@ -538,14 +584,57 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         shell.classList.add('has-detail');
         detailEmpty.style.display = 'none';
         detailContent.hidden = false;
+        detailTraffic.hidden = false;
 
         // 解析日期
         const [y, m, d] = dateStr.split('-').map(Number);
 
+        // 农历
+        let lunarDisplay = '';
+        try {
+            if (typeof Lunar !== 'undefined') {
+                const lunar = Lunar.fromYmd(y, m, d);
+                const monthStr = lunar.getMonthInChinese() + '月';
+                let dayStr = lunar.getDayInChinese();
+                const jieQi = lunar.getJieQi();
+                if (jieQi) dayStr = jieQi;
+                const festivals = lunar.getFestivals();
+                lunarDisplay = ` · ${monthStr}${dayStr}`;
+                if (festivals.length > 0) lunarDisplay = ` · ${festivals[0]}`;
+            }
+        } catch (e) {}
+
+        // 倒计时
+        const days = daysUntil(dateStr);
+        let countdownHtml = '';
+        if (days > 0) {
+            countdownHtml = `
+                <div class="detail-countdown">
+                    <span>距离活动还有</span>
+                    <span class="countdown-num">${days}</span>
+                    <span>天</span>
+                </div>
+            `;
+        } else if (days === 0) {
+            countdownHtml = `
+                <div class="detail-countdown">
+                    <span class="countdown-num">今天</span>
+                </div>
+            `;
+        } else {
+            countdownHtml = `
+                <div class="detail-countdown countdown-past">
+                    <span>活动已结束</span>
+                    <span class="countdown-num">${Math.abs(days)}</span>
+                    <span>天</span>
+                </div>
+            `;
+        }
+
         detailContent.innerHTML = `
             <div class="detail-date-row">
                 <span class="detail-day">${d}</span>
-                <span class="detail-month-year">${y}年${m}月</span>
+                <span class="detail-month-year">${y}年${m}月${lunarDisplay}</span>
             </div>
             <span class="detail-badge ${ev.badge === '筹备中' ? 'future' : ''}">${ev.badge}</span>
             <h2 class="detail-title">${ev.title}</h2>
@@ -555,7 +644,21 @@ document.querySelectorAll('.wiki-header').forEach(header => {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 <span>${y}.${String(m).padStart(2,'0')}.${String(d).padStart(2,'0')}</span>
             </div>
+            ${countdownHtml}
         `;
+    }
+
+    // 关闭详情
+    function closeDetail() {
+        shell.classList.remove('has-detail');
+        document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+        detailEmpty.style.display = '';
+        detailContent.hidden = true;
+        detailTraffic.hidden = true;
+    }
+
+    if (detailClose) {
+        detailClose.addEventListener('click', closeDetail);
     }
 
     prevBtn.addEventListener('click', () => {
