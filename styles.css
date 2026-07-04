@@ -100,8 +100,8 @@ ul {
 /* Scrolled state: morph into the floating centered rounded pill */
 .nav.scrolled {
     top: 16px;
-    width: calc(100% - 32px);
-    max-width: 1120px;
+    width: fit-content;
+    max-width: 960px;
     border-radius: 100px;
     background: rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.25);
