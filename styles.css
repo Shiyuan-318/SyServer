@@ -2023,6 +2023,7 @@ ul {
     display: flex;
     flex-direction: column;
     will-change: width;
+    position: relative;
 }
 
 .calendar-shell.has-detail .calendar-detail {
