@@ -2162,6 +2162,7 @@ ul {
     display: flex;
     align-items: baseline;
     gap: 10px;
+    margin-top: 24px;
 }
 
 .detail-day {
