@@ -1879,28 +1879,29 @@ ul {
     background: var(--color-background);
 }
 
-/* Calendar Shell - 横屏 16:10 容器 */
+/* Calendar Shell - 横屏 4:3 容器 */
 .calendar-shell {
     max-width: 1280px;
     margin: 0 auto;
     display: flex;
     gap: 20px;
     align-items: stretch;
-    transition: gap 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .calendar-main {
-    flex: 1;
-    aspect-ratio: 4 / 3;
+    flex: none;
+    width: 100%;
+    height: clamp(480px, 62vh, 660px);
     background: #161617;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     padding: 28px 32px 24px;
     display: flex;
     flex-direction: column;
-    transition: flex 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: width 0.6s cubic-bezier(0.32, 0.72, 0, 1);
     overflow: hidden;
     position: relative;
+    will-change: width;
 }
 
 /* macOS 红绿灯按钮装饰 */
@@ -1922,7 +1923,7 @@ ul {
 
 /* 选中日期时，日历压缩 */
 .calendar-shell.has-detail .calendar-main {
-    flex: 0 0 62%;
+    width: 62%;
 }
 
 /* 工具栏 */
@@ -2050,22 +2051,23 @@ ul {
 
 /* 日程详情侧栏 */
 .calendar-detail {
-    flex: 0 0 0;
+    flex: none;
+    width: 0;
     opacity: 0;
     overflow: hidden;
     background: #161617;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
-    padding: 0;
-    transition: flex 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
-                padding 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    padding: 32px 0;
+    transition: width 0.6s cubic-bezier(0.32, 0.72, 0, 1),
+                opacity 0.4s ease 0.15s;
     display: flex;
     flex-direction: column;
+    will-change: width;
 }
 
 .calendar-shell.has-detail .calendar-detail {
-    flex: 0 0 36%;
+    width: 36%;
     opacity: 1;
     padding: 32px;
 }
@@ -2104,12 +2106,12 @@ ul {
     flex-direction: column;
     height: 100%;
     gap: 16px;
-    animation: detailFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: detailFadeIn 0.45s ease 0.2s both;
 }
 
 @keyframes detailFadeIn {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .detail-date-row {
@@ -2255,17 +2257,16 @@ ul {
         flex-direction: column;
     }
 
-    .calendar-main {
-        aspect-ratio: auto;
-        flex: none;
-    }
-
+    .calendar-main,
     .calendar-shell.has-detail .calendar-main {
-        flex: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 
+    .calendar-detail,
     .calendar-shell.has-detail .calendar-detail {
-        flex: none;
+        width: 100%;
     }
 }
 
