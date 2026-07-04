@@ -603,6 +603,14 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         detailContent.hidden = false;
         detailTraffic.hidden = false;
 
+        // 清除 closeDetail 残留的脱离文档流样式，恢复正常布局
+        detailContent.style.position = '';
+        detailContent.style.inset = '';
+        detailContent.style.padding = '';
+        detailContent.style.opacity = '';
+        detailTraffic.style.opacity = '';
+        clearTimeout(closeDetail._timer);
+
         // 解析日期
         const [y, m, d] = dateStr.split('-').map(Number);
 
@@ -670,7 +678,10 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         shell.classList.remove('has-detail');
         document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
 
-        // 先让内容淡出（容器收缩动画 600ms，内容提前淡出）
+        // 让内容脱离文档流后再淡出，避免容器收缩时内容换行撑高详情区域
+        detailContent.style.position = 'absolute';
+        detailContent.style.inset = '0';
+        detailContent.style.padding = '32px';
         detailContent.style.opacity = '0';
         detailTraffic.style.opacity = '0';
 
@@ -679,6 +690,9 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         closeDetail._timer = setTimeout(() => {
             detailContent.hidden = true;
             detailContent.style.opacity = '';
+            detailContent.style.position = '';
+            detailContent.style.inset = '';
+            detailContent.style.padding = '';
             detailTraffic.hidden = true;
             detailTraffic.style.opacity = '';
             detailEmpty.style.display = '';
