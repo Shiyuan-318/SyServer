@@ -88,18 +88,20 @@ ul {
     box-shadow: none;
     transition:
         top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
         box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: max-width, top;
+    will-change: width, top;
 }
 
 /* Scrolled state: morph into the floating centered rounded pill */
 .nav.scrolled {
     top: 16px;
-    max-width: 960px;
+    width: 960px;
+    max-width: calc(100% - 32px);
     border-radius: 100px;
     background: rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.25);
