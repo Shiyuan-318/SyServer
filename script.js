@@ -23,11 +23,28 @@ function initNavigation() {
     const nav = document.querySelector('.nav');
     if (!nav) return;
 
+    // 页面标题元素（活动/Wiki/协议/附魔页有 .wiki-hero-title）
+    const pageTitle = document.querySelector('.wiki-hero-title');
+    const navTitle = document.getElementById('navPageTitle');
+
     const updateNavState = () => {
         if (window.pageYOffset > 8) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
+        }
+
+        // 仅当导航栏存在页面标题占位时才处理
+        if (navTitle && pageTitle) {
+            // 标题底部相对视口的位置
+            const rect = pageTitle.getBoundingClientRect();
+            // 当标题底部已滚出视口顶部（被导航栏遮挡）时显示导航栏标题
+            const navBottom = nav.getBoundingClientRect().bottom;
+            if (rect.bottom < navBottom) {
+                nav.classList.add('show-page-title');
+            } else {
+                nav.classList.remove('show-page-title');
+            }
         }
     };
 

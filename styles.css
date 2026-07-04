@@ -152,6 +152,25 @@ ul {
     gap: 24px;
 }
 
+/* 导航栏中间页面标题 */
+.nav-page-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f5f5f7;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav.scrolled.show-page-title .nav-page-title {
+    opacity: 1;
+}
+
 .nav-logo {
     font-size: 1.25rem;
     font-weight: 600;
