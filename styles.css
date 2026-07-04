@@ -2062,6 +2062,7 @@ ul {
     display: flex;
     gap: 8px;
     z-index: 3;
+    transition: opacity 0.3s ease;
 }
 
 .traffic-dot {
@@ -2154,6 +2155,7 @@ ul {
     height: 100%;
     gap: 16px;
     animation: detailFadeIn 0.45s ease 0.2s both;
+    transition: opacity 0.3s ease;
 }
 
 @keyframes detailFadeIn {

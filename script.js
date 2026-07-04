@@ -669,9 +669,20 @@ document.querySelectorAll('.wiki-header').forEach(header => {
     function closeDetail() {
         shell.classList.remove('has-detail');
         document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
-        detailEmpty.style.display = '';
-        detailContent.hidden = true;
-        detailTraffic.hidden = true;
+
+        // 先让内容淡出（容器收缩动画 600ms，内容提前淡出）
+        detailContent.style.opacity = '0';
+        detailTraffic.style.opacity = '0';
+
+        // 容器收缩完成后，清理内容并恢复空状态
+        clearTimeout(closeDetail._timer);
+        closeDetail._timer = setTimeout(() => {
+            detailContent.hidden = true;
+            detailContent.style.opacity = '';
+            detailTraffic.hidden = true;
+            detailTraffic.style.opacity = '';
+            detailEmpty.style.display = '';
+        }, 600);
     }
 
     if (detailClose) {
