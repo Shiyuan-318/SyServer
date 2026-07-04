@@ -1155,16 +1155,6 @@ ul {
     overflow: hidden;
 }
 
-#communityCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
 .community-glow {
     position: absolute;
     top: 50%;
@@ -1268,35 +1258,6 @@ ul {
 
 .community-qq:hover .qq-number {
     filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4));
-}
-
-.qq-copy-btn {
-    position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.qq-copy-btn:hover {
-    background: rgba(96, 165, 250, 0.12);
-    border-color: rgba(96, 165, 250, 0.3);
-    color: rgba(147, 197, 253, 1);
-}
-
-.qq-copy-btn.copied {
-    background: rgba(93, 140, 56, 0.2);
-    border-color: rgba(93, 140, 56, 0.4);
-    color: #86efac;
 }
 
 .community-cta {
