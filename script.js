@@ -409,3 +409,167 @@ document.querySelectorAll('.wiki-header').forEach(header => {
         }
     });
 });
+
+// ===== 活动页日历 =====
+(function() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) return;
+
+    const titleEl = document.getElementById('calendarTitle');
+    const prevBtn = document.getElementById('prevMonth');
+    const nextBtn = document.getElementById('nextMonth');
+    const shell = document.querySelector('.calendar-shell');
+    const detailEmpty = document.getElementById('detailEmpty');
+    const detailContent = document.getElementById('detailContent');
+
+    // 活动数据
+    const events = [
+        {
+            date: '2026-07-16',
+            title: 'GameDay',
+            desc: '依托即将发布的全新 SyPlugin 系列插件，在生存服中进行小游戏大赛。',
+            badge: '即将到来'
+        },
+        {
+            date: '2026-08-08',
+            title: '建筑节',
+            desc: '在任意位置建设新建筑，看看谁建的更好？',
+            badge: '即将到来'
+        },
+        {
+            date: '2026-08-20',
+            title: 'SyServer两周年庆典',
+            desc: '与 SyServer 共度两周年，感谢一路相伴的每一位玩家，更多精彩内容敬请期待。',
+            badge: '即将到来'
+        },
+        {
+            date: '2026-12-31',
+            title: '2027跨年活动',
+            desc: '跨年夜与好友齐聚 SyServer，共同迎接 2027 年的到来，活动详情即将公布。',
+            badge: '筹备中'
+        }
+    ];
+
+    // 用对象索引活动，方便查找
+    const eventMap = {};
+    events.forEach(e => { eventMap[e.date] = e; });
+
+    const today = new Date();
+    const todayStr = formatDate(today);
+
+    // 当前显示的月份
+    let viewYear = 2026;
+    let viewMonth = 6; // 0-based，6 = 7月
+
+    function formatDate(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+    }
+
+    function render() {
+        titleEl.textContent = `${viewYear}年 ${viewMonth + 1}月`;
+        calendarGrid.innerHTML = '';
+
+        // 当月第一天是星期几
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const daysInPrevMonth = new Date(viewYear, viewMonth, 0).getDate();
+
+        // 生成 42 格（6 行 × 7 列）
+        const cells = [];
+        // 上月剩余
+        for (let i = firstDay - 1; i >= 0; i--) {
+            cells.push({ day: daysInPrevMonth - i, otherMonth: true, monthOffset: -1 });
+        }
+        // 本月
+        for (let d = 1; d <= daysInMonth; d++) {
+            cells.push({ day: d, otherMonth: false, monthOffset: 0 });
+        }
+        // 下月补齐
+        let nextDay = 1;
+        while (cells.length < 42) {
+            cells.push({ day: nextDay++, otherMonth: true, monthOffset: 1 });
+        }
+
+        cells.forEach(cell => {
+            const el = document.createElement('div');
+            el.className = 'cal-day';
+            if (cell.otherMonth) el.classList.add('other-month');
+
+            // 计算真实日期
+            let realYear = viewYear;
+            let realMonth = viewMonth + cell.monthOffset;
+            if (realMonth < 0) { realMonth = 11; realYear--; }
+            if (realMonth > 11) { realMonth = 0; realYear++; }
+            const dateStr = `${realYear}-${String(realMonth + 1).padStart(2, '0')}-${String(cell.day).padStart(2, '0')}`;
+
+            el.textContent = cell.day;
+
+            // 今天
+            if (dateStr === todayStr && !cell.otherMonth) {
+                el.classList.add('today');
+            }
+
+            // 有活动
+            if (eventMap[dateStr]) {
+                el.classList.add('has-event');
+                el.dataset.date = dateStr;
+                const dot = document.createElement('span');
+                dot.className = 'event-dot';
+                el.appendChild(dot);
+
+                el.addEventListener('click', () => selectDate(dateStr, el));
+            }
+
+            calendarGrid.appendChild(el);
+        });
+    }
+
+    function selectDate(dateStr, el) {
+        // 清除之前的选中
+        document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+        el.classList.add('selected');
+
+        const ev = eventMap[dateStr];
+        if (!ev) return;
+
+        shell.classList.add('has-detail');
+        detailEmpty.style.display = 'none';
+        detailContent.hidden = false;
+
+        // 解析日期
+        const [y, m, d] = dateStr.split('-').map(Number);
+
+        detailContent.innerHTML = `
+            <div class="detail-date-row">
+                <span class="detail-day">${d}</span>
+                <span class="detail-month-year">${y}年${m}月</span>
+            </div>
+            <span class="detail-badge ${ev.badge === '筹备中' ? 'future' : ''}">${ev.badge}</span>
+            <h2 class="detail-title">${ev.title}</h2>
+            <div class="detail-divider"></div>
+            <p class="detail-desc">${ev.desc}</p>
+            <div class="detail-meta">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>${y}.${String(m).padStart(2,'0')}.${String(d).padStart(2,'0')}</span>
+            </div>
+        `;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        viewMonth--;
+        if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+        render();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        viewMonth++;
+        if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+        render();
+    });
+
+    render();
+})();
+
