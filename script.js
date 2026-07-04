@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initParallaxEffect();
     initCounterAnimation();
+
+    // Random hero showcase image
+    const heroImg = document.getElementById('heroShowcaseImg');
+    if (heroImg) {
+        const images = ['Picture0.jpg', 'Picture1.jpg'];
+        heroImg.src = images[Math.floor(Math.random() * images.length)];
+    }
 });
 
 // Navigation - morphs from a full-width strip (at the very top) into the

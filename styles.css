@@ -87,14 +87,12 @@ ul {
     border-bottom-color: rgba(210, 210, 215, 0.45);
     box-shadow: none;
     transition:
-        top 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        border-radius 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        background 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: top, width, border-radius, background, box-shadow;
+        top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: top, border-radius;
 }
 
 /* Scrolled state: morph into the floating centered rounded pill */
@@ -223,8 +221,8 @@ ul {
 }
 
 .hero-showcase-img {
-    width: min(940px, calc(100vw - 48px));
-    max-height: 72vh;
+    width: min(987px, calc(100vw - 48px));
+    max-height: 76vh;
     object-fit: cover;
     border-radius: 28px;
     box-shadow:
