@@ -297,34 +297,46 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Copy QQ number to clipboard
+function copyQQNumber() {
+    navigator.clipboard.writeText('250904271').then(() => {
+        // Show tooltip
+        const tooltip = document.createElement('div');
+        tooltip.textContent = '已复制到剪贴板';
+        tooltip.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 10000;
+            animation: fadeInUp 0.3s ease;
+        `;
+        document.body.appendChild(tooltip);
+
+        setTimeout(() => {
+            tooltip.style.animation = 'fadeOutDown 0.3s ease';
+            setTimeout(() => tooltip.remove(), 300);
+        }, 2000);
+    });
+}
+
 const qqNumber = document.querySelector('.qq-number');
 if (qqNumber) {
     qqNumber.style.cursor = 'pointer';
-    qqNumber.addEventListener('click', function() {
-        navigator.clipboard.writeText('250904271').then(() => {
-            // Show tooltip
-            const tooltip = document.createElement('div');
-            tooltip.textContent = '已复制到剪贴板';
-            tooltip.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 12px 24px;
-                border-radius: 8px;
-                font-size: 14px;
-                z-index: 10000;
-                animation: fadeInUp 0.3s ease;
-            `;
-            document.body.appendChild(tooltip);
-            
-            setTimeout(() => {
-                tooltip.style.animation = 'fadeOutDown 0.3s ease';
-                setTimeout(() => tooltip.remove(), 300);
-            }, 2000);
-        });
+    qqNumber.addEventListener('click', copyQQNumber);
+}
+
+const qqCopyBtn = document.getElementById('qqCopyBtn');
+if (qqCopyBtn) {
+    qqCopyBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        copyQQNumber();
+        this.classList.add('copied');
+        setTimeout(() => this.classList.remove('copied'), 2000);
     });
 }
 
