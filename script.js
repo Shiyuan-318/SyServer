@@ -58,47 +58,11 @@ function initNavigation() {
     const navLinks = document.querySelector('.nav-links');
     if (navToggle && nav && navLinks) {
         let closeTimer = null;
-        // 记住下拉菜单原本在导航栏里的父容器，桌面端要把它移回去
-        const linksOriginalParent = navLinks.parentElement;
-
-        // 把下拉菜单挂到 body 下，脱离导航栏的 backdrop-filter 隔离层。
-        // 这样下拉菜单的毛玻璃才能模糊到真正的页面内容，
-        // 而不是只能模糊导航栏自己的深色背景。
-        const detachLinks = () => {
-            if (navLinks.parentElement !== document.body) {
-                document.body.appendChild(navLinks);
-            }
-        };
-        // 桌面端把下拉菜单移回导航栏原位
-        const attachLinks = () => {
-            if (navLinks.parentElement !== linksOriginalParent) {
-                linksOriginalParent.appendChild(navLinks);
-            }
-        };
-        // 同步下拉菜单的 fixed 定位（紧贴导航栏下方）
-        const syncLinksPosition = () => {
-            const rect = nav.getBoundingClientRect();
-            navLinks.style.top = (rect.bottom + 10) + 'px';
-        };
-
-        // 初始化：移动端把下拉菜单移到 body 下
-        if (window.innerWidth <= 768) {
-            detachLinks();
-            syncLinksPosition();
-        }
 
         const openMenu = () => {
             clearTimeout(closeTimer);
-            // 移动端确保下拉菜单挂在 body 下并定位正确
-            if (window.innerWidth <= 768) {
-                detachLinks();
-                syncLinksPosition();
-            }
-            // 第一步：display:flex 让面板出现（此时 opacity:0、transform 偏移）。
-            // 下拉菜单已被移到 body 下，所以显示/隐藏要直接在它自己身上加类，
-            // 不能再依赖 .nav.menu-open 父级前缀。
+            // 第一步：display:flex 让面板出现（此时 opacity:0、transform 偏移）
             nav.classList.add('menu-open');
-            navLinks.classList.add('menu-open-on');
             navToggle.setAttribute('aria-expanded', 'true');
             // 第二步：下一帧再加 is-shown，触发 opacity/transform 过渡
             requestAnimationFrame(() => {
@@ -116,13 +80,12 @@ function initNavigation() {
             clearTimeout(closeTimer);
             closeTimer = setTimeout(() => {
                 nav.classList.remove('menu-open');
-                navLinks.classList.remove('menu-open-on');
             }, 450);
         };
 
         navToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (navLinks.classList.contains('menu-open-on') && navLinks.classList.contains('is-shown')) {
+            if (nav.classList.contains('menu-open') && navLinks.classList.contains('is-shown')) {
                 closeMenu();
             } else {
                 openMenu();
@@ -136,33 +99,18 @@ function initNavigation() {
 
         // 点击导航栏外部关闭菜单
         document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('menu-open-on') && !nav.contains(e.target) && !navLinks.contains(e.target)) {
+            if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
                 closeMenu();
             }
         });
 
-        // 滚动时同步下拉菜单位置（导航栏在滚动时会变成悬浮胶囊形态，位置变化）
-        window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 768 && navLinks.classList.contains('menu-open-on')) {
-                syncLinksPosition();
-            }
-        }, { passive: true });
-
-        // 窗口尺寸变化：移动端↔桌面端切换
+        // 窗口变大到桌面端时关闭菜单
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                // 切到桌面端：关菜单，移回原位，清掉 inline 样式
                 clearTimeout(closeTimer);
                 navLinks.classList.remove('is-shown');
-                navLinks.classList.remove('menu-open-on');
                 nav.classList.remove('menu-open');
                 navToggle.setAttribute('aria-expanded', 'false');
-                attachLinks();
-                navLinks.style.top = '';
-            } else {
-                // 切到移动端：移到 body 下并同步位置
-                detachLinks();
-                syncLinksPosition();
             }
         });
     }
