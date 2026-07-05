@@ -94,8 +94,11 @@ function initNavigation() {
                 detachLinks();
                 syncLinksPosition();
             }
-            // 第一步：display:flex 让面板出现（此时 opacity:0、transform 偏移）
+            // 第一步：display:flex 让面板出现（此时 opacity:0、transform 偏移）。
+            // 下拉菜单已被移到 body 下，所以显示/隐藏要直接在它自己身上加类，
+            // 不能再依赖 .nav.menu-open 父级前缀。
             nav.classList.add('menu-open');
+            navLinks.classList.add('menu-open-on');
             navToggle.setAttribute('aria-expanded', 'true');
             // 第二步：下一帧再加 is-shown，触发 opacity/transform 过渡
             requestAnimationFrame(() => {
@@ -113,12 +116,13 @@ function initNavigation() {
             clearTimeout(closeTimer);
             closeTimer = setTimeout(() => {
                 nav.classList.remove('menu-open');
+                navLinks.classList.remove('menu-open-on');
             }, 450);
         };
 
         navToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (nav.classList.contains('menu-open') && navLinks.classList.contains('is-shown')) {
+            if (navLinks.classList.contains('menu-open-on') && navLinks.classList.contains('is-shown')) {
                 closeMenu();
             } else {
                 openMenu();
@@ -132,14 +136,14 @@ function initNavigation() {
 
         // 点击导航栏外部关闭菜单
         document.addEventListener('click', (e) => {
-            if (nav.classList.contains('menu-open') && !nav.contains(e.target) && !navLinks.contains(e.target)) {
+            if (navLinks.classList.contains('menu-open-on') && !nav.contains(e.target) && !navLinks.contains(e.target)) {
                 closeMenu();
             }
         });
 
         // 滚动时同步下拉菜单位置（导航栏在滚动时会变成悬浮胶囊形态，位置变化）
         window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 768 && nav.classList.contains('menu-open')) {
+            if (window.innerWidth <= 768 && navLinks.classList.contains('menu-open-on')) {
                 syncLinksPosition();
             }
         }, { passive: true });
@@ -150,6 +154,7 @@ function initNavigation() {
                 // 切到桌面端：关菜单，移回原位，清掉 inline 样式
                 clearTimeout(closeTimer);
                 navLinks.classList.remove('is-shown');
+                navLinks.classList.remove('menu-open-on');
                 nav.classList.remove('menu-open');
                 navToggle.setAttribute('aria-expanded', 'false');
                 attachLinks();

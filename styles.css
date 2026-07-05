@@ -346,19 +346,21 @@ ul {
         display: flex;
     }
 
-    /* 打开菜单：显示面板（JS 会在下一帧触发淡入动画） */
-    .nav.menu-open .nav-links {
+    /* 打开菜单：显示面板（JS 会在下一帧触发淡入动画）。
+       下拉菜单已被 JS 移到 body 下，所以用挂在 .nav-links 自身的
+       .menu-open-on 类来控制，不再依赖 .nav.menu-open 父级前缀。 */
+    .nav-links.menu-open-on {
         display: flex;
         pointer-events: auto;
     }
 
     /* 动画进行中：opacity/transform 到位 */
-    .nav.menu-open .nav-links.is-shown {
+    .nav-links.menu-open-on.is-shown {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
 
-    .nav.menu-open .nav-links li {
+    .nav-links.menu-open-on li {
         width: 100%;
         opacity: 0;
         transform: translateY(-4px);
@@ -366,13 +368,13 @@ ul {
     }
 
     /* 每条链接错位淡入，像瀑布一样依次落位 */
-    .nav.menu-open .nav-links.is-shown li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
-    .nav.menu-open .nav-links.is-shown li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.13s; }
-    .nav.menu-open .nav-links.is-shown li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
-    .nav.menu-open .nav-links.is-shown li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.23s; }
-    .nav.menu-open .nav-links.is-shown li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
+    .nav-links.menu-open-on.is-shown li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
+    .nav-links.menu-open-on.is-shown li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.13s; }
+    .nav-links.menu-open-on.is-shown li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+    .nav-links.menu-open-on.is-shown li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.23s; }
+    .nav-links.menu-open-on.is-shown li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
 
-    .nav.menu-open .nav-links a {
+    .nav-links.menu-open-on a {
         display: block;
         padding: 12px 16px;
         font-size: 0.9375rem;
@@ -381,8 +383,8 @@ ul {
         transition: background 0.2s ease, opacity 0.2s ease;
     }
 
-    .nav.menu-open .nav-links a:hover,
-    .nav.menu-open .nav-links a.nav-current {
+    .nav-links.menu-open-on a:hover,
+    .nav-links.menu-open-on a.nav-current {
         background: rgba(255, 255, 255, 0.08);
         opacity: 1;
     }
