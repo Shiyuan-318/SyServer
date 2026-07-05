@@ -154,7 +154,7 @@ function initCounterAnimation() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// 查询 Minecraft 服务器在线人数（sy1.top，通过 mcsrvstat.us 自动解析 SRV 记录）
+// 查询 Minecraft 服务器在线人数（sy1.top，通过国内 MCStatus API 自动解析 SRV 记录）
 function initOnlinePlayers() {
     const span = document.getElementById('onlineCount');
     const dot = document.getElementById('uptimeDot');
@@ -183,7 +183,7 @@ function initOnlinePlayers() {
 
     const fetchOnline = async () => {
         try {
-            const res = await fetch('https://api.mcsrvstat.us/3/sy1.top');
+            const res = await fetch('https://yun.tbedu.top:16666/3/sy1.top');
             if (!res.ok) return;
             const data = await res.json();
             if (data.online && data.players) {
