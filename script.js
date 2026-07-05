@@ -55,20 +55,45 @@ function initNavigation() {
 
     // 移动端汉堡菜单
     const navToggle = document.querySelector('.nav-toggle');
-    if (navToggle && nav) {
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && nav && navLinks) {
+        let closeTimer = null;
+
+        const openMenu = () => {
+            clearTimeout(closeTimer);
+            // 第一步：display:flex 让面板出现（此时 opacity:0、transform 偏移）
+            nav.classList.add('menu-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            // 第二步：下一帧再加 is-shown，触发 opacity/transform 过渡
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    navLinks.classList.add('is-shown');
+                });
+            });
+        };
+
         const closeMenu = () => {
-            nav.classList.remove('menu-open');
+            // 第一步：移除 is-shown，触发淡出动画
+            navLinks.classList.remove('is-shown');
             navToggle.setAttribute('aria-expanded', 'false');
+            // 第二步：等淡出动画跑完，再 display:none
+            clearTimeout(closeTimer);
+            closeTimer = setTimeout(() => {
+                nav.classList.remove('menu-open');
+            }, 450);
         };
 
         navToggle.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isOpen = nav.classList.toggle('menu-open');
-            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (nav.classList.contains('menu-open') && navLinks.classList.contains('is-shown')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
 
         // 点击菜单链接后关闭菜单
-        nav.querySelectorAll('.nav-links a').forEach(link => {
+        navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMenu);
         });
 
@@ -81,7 +106,12 @@ function initNavigation() {
 
         // 窗口变大到桌面端时关闭菜单
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) closeMenu();
+            if (window.innerWidth > 768) {
+                clearTimeout(closeTimer);
+                navLinks.classList.remove('is-shown');
+                nav.classList.remove('menu-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 }

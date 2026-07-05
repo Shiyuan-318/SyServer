@@ -285,16 +285,14 @@ ul {
         box-shadow:
             0 16px 48px rgba(0, 0, 0, 0.55),
             inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        /* 始终保持 flex 布局，靠 visibility + opacity 隐藏 */
-        display: flex;
+        /* 收起：完全隐藏，不占位 */
+        display: none;
         opacity: 0;
         transform: translateY(-10px) scale(0.97);
         transform-origin: top right;
-        visibility: hidden;
         pointer-events: none;
         transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                    visibility 0s linear 0.4s;
+                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         margin-left: 0;
     }
 
@@ -302,15 +300,16 @@ ul {
         display: flex;
     }
 
-    /* 打开菜单：淡入 + 滑出 + 放大，visibility 立即显示 */
+    /* 打开菜单：显示面板（JS 会在下一帧触发淡入动画） */
     .nav.menu-open .nav-links {
+        display: flex;
+        pointer-events: auto;
+    }
+
+    /* 动画进行中：opacity/transform 到位 */
+    .nav.menu-open .nav-links.is-shown {
         opacity: 1;
         transform: translateY(0) scale(1);
-        visibility: visible;
-        pointer-events: auto;
-        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                    visibility 0s linear 0s;
     }
 
     .nav.menu-open .nav-links li {
@@ -321,11 +320,11 @@ ul {
     }
 
     /* 每条链接错位淡入，像瀑布一样依次落位 */
-    .nav.menu-open .nav-links li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-    .nav.menu-open .nav-links li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-    .nav.menu-open .nav-links li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
-    .nav.menu-open .nav-links li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
-    .nav.menu-open .nav-links li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+    .nav.menu-open .nav-links.is-shown li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
+    .nav.menu-open .nav-links.is-shown li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.13s; }
+    .nav.menu-open .nav-links.is-shown li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+    .nav.menu-open .nav-links.is-shown li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.23s; }
+    .nav.menu-open .nav-links.is-shown li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
 
     .nav.menu-open .nav-links a {
         display: block;
