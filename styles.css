@@ -267,6 +267,29 @@ ul {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    /* 导航栏本身：移动端去掉 backdrop-filter 和居中 transform。
+       这两个属性会让导航栏变成一个"隔离层"，导致下拉菜单的毛玻璃
+       只能模糊导航栏自己的深色背景、透不出后面的页面内容。
+       去掉后下拉菜单才能呈现真正的毛玻璃效果。
+       导航栏改用稍不透明的深色背景弥补失去的毛玻璃。 */
+    .nav {
+        left: 0;
+        transform: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(20, 20, 22, 0.92);
+    }
+
+    .nav.scrolled {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(28, 28, 30, 0.88);
+    }
+
+    .nav.nav-hidden {
+        transform: translateY(-100%);
+    }
+
     /* 隐藏横向链接，显示汉堡按钮 */
     .nav-links {
         position: absolute;
@@ -276,15 +299,15 @@ ul {
         flex-direction: column;
         gap: 0;
         padding: 8px;
-        /* 与导航栏完全一致的毛玻璃效果 */
-        background: rgba(28, 28, 30, 0.6);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        /* 毛玻璃效果：降低背景不透明度让底层内容透过被模糊，更明显 */
+        background: rgba(28, 28, 30, 0.5);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 18px;
         box-shadow:
             0 16px 48px rgba(0, 0, 0, 0.55),
-            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
         /* 收起：完全隐藏，不占位 */
         display: none;
         opacity: 0;
@@ -294,6 +317,9 @@ ul {
         transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         margin-left: 0;
+        /* 隔离层叠，避免被导航栏的 backdrop-filter 影响 */
+        isolation: isolate;
+        z-index: 10;
     }
 
     .nav-toggle {
