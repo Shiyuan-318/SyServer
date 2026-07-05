@@ -52,6 +52,38 @@ function initNavigation() {
     updateNavState();
     window.addEventListener('scroll', updateNavState, { passive: true });
     window.addEventListener('resize', updateNavState, { passive: true });
+
+    // 移动端汉堡菜单
+    const navToggle = document.querySelector('.nav-toggle');
+    if (navToggle && nav) {
+        const closeMenu = () => {
+            nav.classList.remove('menu-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        };
+
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = nav.classList.toggle('menu-open');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // 点击菜单链接后关闭菜单
+        nav.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // 点击导航栏外部关闭菜单
+        document.addEventListener('click', (e) => {
+            if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // 窗口变大到桌面端时关闭菜单
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
+        });
+    }
 }
 
 // Scroll animations using Intersection Observer

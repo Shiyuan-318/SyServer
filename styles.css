@@ -219,6 +219,115 @@ ul {
     color: var(--color-primary-hover);
 }
 
+/* 汉堡菜单按钮（桌面端隐藏，移动端显示） */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 0 auto;
+    background: #f5f5f7;
+    border-radius: 2px;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease;
+}
+
+.nav-toggle:hover span {
+    background: #ffffff;
+}
+
+/* 打开时三条横线变成 X */
+.nav.menu-open .nav-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav.menu-open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.nav.menu-open .nav-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    /* 隐藏横向链接，显示汉堡按钮 */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px;
+        background: rgba(28, 28, 30, 0.92);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+        transform-origin: top right;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        margin-left: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    /* 打开菜单时显示下拉面板 */
+    .nav.menu-open .nav-links {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+    }
+
+    .nav.menu-open .nav-links li {
+        width: 100%;
+    }
+
+    .nav.menu-open .nav-links a {
+        display: block;
+        padding: 12px 16px;
+        font-size: 0.9375rem;
+        border-radius: 10px;
+        opacity: 0.9;
+        transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav.menu-open .nav-links a:hover,
+    .nav.menu-open .nav-links a.nav-current {
+        background: rgba(255, 255, 255, 0.08);
+        opacity: 1;
+    }
+
+    /* 页面标题在移动端隐藏，避免和汉堡按钮冲突 */
+    .nav-page-title {
+        display: none;
+    }
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
