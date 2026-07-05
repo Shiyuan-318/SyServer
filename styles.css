@@ -267,21 +267,36 @@ ul {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-    /* 导航栏：移动端始终是居中的悬浮圆角胶囊，左右留白。
-       用 left/right 替代 width+left:50%+translateX(-50%)，
-       避免小屏上 960px 宽度计算导致的居中异常。 */
+    /* 顶部状态：全宽一条贴顶（和桌面端一致） */
     .nav {
+        left: 0;
+        right: 0;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        top: 0;
+        border-radius: 0;
+        background: rgba(20, 20, 22, 0.82);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid transparent;
+        border-bottom-color: rgba(56, 56, 58, 0.45);
+        box-shadow: none;
+    }
+
+    /* 滚动后：变成居中悬浮圆角胶囊。
+       用 left/right 替代 width+left:50%+translateX(-50%)，
+       避免小屏上 960px 宽度计算导致的居中异常。
+       背景降到 0.55 不透明度，让底层页面内容透过被模糊，
+       呈现真正的毛玻璃质感。 */
+    .nav.scrolled {
         left: 12px;
         right: 12px;
-        transform: none;
         width: auto;
         max-width: none;
         top: 12px;
         border-radius: 100px;
-        /* 降低不透明度，让底层页面内容透过被模糊，呈现真正的毛玻璃质感 */
         background: rgba(28, 28, 30, 0.55);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow:
             0 8px 32px rgba(0, 0, 0, 0.5),
