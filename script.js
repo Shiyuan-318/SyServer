@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initParallaxEffect();
     initCounterAnimation();
+    initOnlinePlayers();
 
     // Random hero showcase image
     const heroImg = document.getElementById('heroShowcaseImg');
@@ -151,6 +152,63 @@ function initCounterAnimation() {
     }, { threshold: 0.5 });
     
     stats.forEach(stat => observer.observe(stat));
+}
+
+// 查询 Minecraft 服务器在线人数（sy1.top，通过 mcsrvstat.us 自动解析 SRV 记录）
+function initOnlinePlayers() {
+    const span = document.getElementById('onlineCount');
+    const dot = document.getElementById('uptimeDot');
+    const indicator = document.getElementById('uptimeIndicator');
+    if (!span) return;
+
+    let timer = null;
+
+    const updateUI = (online, count) => {
+        if (online) {
+            span.textContent = `在线 ${count} 人`;
+            if (dot) {
+                dot.style.background = '';
+                dot.style.animation = '';
+            }
+            if (indicator) indicator.style.background = '';
+        } else {
+            span.textContent = '离线';
+            if (dot) {
+                dot.style.background = '#86868b';
+                dot.style.animation = 'none';
+            }
+            if (indicator) indicator.style.background = 'rgba(255, 255, 255, 0.05)';
+        }
+    };
+
+    const fetchOnline = async () => {
+        try {
+            const res = await fetch('https://api.mcsrvstat.us/3/sy1.top');
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data.online && data.players) {
+                updateUI(true, data.players.online);
+            } else {
+                updateUI(false, 0);
+            }
+        } catch (e) {
+            // 查询失败时保持当前显示，不修改
+        }
+    };
+
+    fetchOnline();
+    // 每 60 秒刷新一次（API 自身有约 5 分钟缓存，不会触发频率限制）
+    timer = setInterval(fetchOnline, 60000);
+
+    // 页面隐藏时暂停刷新，可见时立即刷新一次
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (timer) { clearInterval(timer); timer = null; }
+        } else {
+            fetchOnline();
+            if (!timer) timer = setInterval(fetchOnline, 60000);
+        }
+    });
 }
 
 // Button click feedback
