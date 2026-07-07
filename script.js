@@ -886,7 +886,7 @@ document.querySelectorAll('.wiki-header').forEach(header => {
                 const activeLink = toc.querySelector('.toc-link.active');
                 if (activeLink) {
                     const linkRect = activeLink.getBoundingClientRect();
-                    const sidebarRect = sidebar.querySelector('.allwiki-sidebar-inner').getBoundingClientRect();
+                    const sidebarRect = sidebar.getBoundingClientRect();
                     if (linkRect.bottom > sidebarRect.bottom - 8) {
                         activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
                     } else if (linkRect.top < sidebarRect.top + 8) {

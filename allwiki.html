@@ -37,96 +37,88 @@
         </div>
     </section>
 
-    <!-- macOS 风格 Wiki 容器 -->
+    <!-- 完整版 Wiki 容器 -->
     <section class="allwiki-section">
-        <div class="allwiki-window">
-            <!-- 顶部标题栏（红绿灯） -->
-            <div class="allwiki-titlebar">
-                <div class="allwiki-traffic">
-                    <span class="traffic-dot traffic-red"></span>
-                    <span class="traffic-dot traffic-yellow"></span>
-                    <span class="traffic-dot traffic-green"></span>
-                </div>
-                <div class="allwiki-titlebar-text">SyServer Wiki — 完整版</div>
-                <button class="allwiki-sidebar-toggle" id="sidebarToggle" aria-label="目录">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
+        <!-- 移动端目录切换按钮 -->
+        <button class="allwiki-sidebar-toggle" id="sidebarToggle" aria-label="目录">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>目录</span>
+        </button>
 
-            <div class="allwiki-body">
-                <!-- 左侧悬浮圆角毛玻璃目录 -->
-                <aside class="allwiki-sidebar" id="allwikiSidebar">
-                    <div class="allwiki-sidebar-inner">
-                        <div class="allwiki-search">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-                                <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <input type="text" id="wikiSearch" placeholder="搜索目录" autocomplete="off">
-                        </div>
-                        <nav class="allwiki-toc" id="allwikiToc">
-                            <div class="toc-group">
-                                <div class="toc-group-title">入门</div>
-                                <a class="toc-link" href="#section-getting-started" data-section="section-getting-started">
-                                    <span class="toc-icon">🚀</span><span class="toc-text">入门指引</span>
-                                </a>
-                                <a class="toc-link" href="#section-register" data-section="section-register">
-                                    <span class="toc-icon">🔑</span><span class="toc-text">注册与登录</span>
-                                </a>
-                                <a class="toc-link" href="#section-versions" data-section="section-versions">
-                                    <span class="toc-icon">📦</span><span class="toc-text">支持版本</span>
-                                </a>
-                            </div>
-                            <div class="toc-group">
-                                <div class="toc-group-title">指令</div>
-                                <a class="toc-link" href="#section-basic-cmds" data-section="section-basic-cmds">
-                                    <span class="toc-icon">⌨️</span><span class="toc-text">基础指令</span>
-                                </a>
-                                <a class="toc-link" href="#section-economy" data-section="section-economy">
-                                    <span class="toc-icon">💰</span><span class="toc-text">经济系统</span>
-                                </a>
-                                <a class="toc-link" href="#section-teleport" data-section="section-teleport">
-                                    <span class="toc-icon">🌀</span><span class="toc-text">传送指令</span>
-                                </a>
-                                <a class="toc-link" href="#section-home" data-section="section-home">
-                                    <span class="toc-icon">🏠</span><span class="toc-text">家与传送点</span>
-                                </a>
-                                <a class="toc-link" href="#section-claim" data-section="section-claim">
-                                    <span class="toc-icon">🛡️</span><span class="toc-text">领地保护</span>
-                                </a>
-                            </div>
-                            <div class="toc-group">
-                                <div class="toc-group-title">玩法</div>
-                                <a class="toc-link" href="#section-survival" data-section="section-survival">
-                                    <span class="toc-icon">⛏️</span><span class="toc-text">生存服玩法</span>
-                                </a>
-                                <a class="toc-link" href="#section-bedwars" data-section="section-bedwars">
-                                    <span class="toc-icon">🛏️</span><span class="toc-text">起床战争</span>
-                                </a>
-                                <a class="toc-link" href="#section-enchant" data-section="section-enchant">
-                                    <span class="toc-icon">✨</span><span class="toc-text">附魔系统</span>
-                                </a>
-                                <a class="toc-link" href="#section-shop" data-section="section-shop">
-                                    <span class="toc-icon">🏪</span><span class="toc-text">商店系统</span>
-                                </a>
-                            </div>
-                            <div class="toc-group">
-                                <div class="toc-group-title">帮助</div>
-                                <a class="toc-link" href="#section-faq" data-section="section-faq">
-                                    <span class="toc-icon">❓</span><span class="toc-text">常见问题</span>
-                                </a>
-                                <a class="toc-link" href="#section-errors" data-section="section-errors">
-                                    <span class="toc-icon">🔧</span><span class="toc-text">错误排查</span>
-                                </a>
-                                <a class="toc-link" href="#section-contact" data-section="section-contact">
-                                    <span class="toc-icon">💬</span><span class="toc-text">联系与支持</span>
-                                </a>
-                            </div>
-                        </nav>
+        <div class="allwiki-body">
+            <!-- 左侧悬浮目录 -->
+            <aside class="allwiki-sidebar" id="allwikiSidebar">
+                <div class="allwiki-sidebar-inner">
+                    <div class="allwiki-search">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <input type="text" id="wikiSearch" placeholder="搜索目录" autocomplete="off">
                     </div>
-                </aside>
+                    <nav class="allwiki-toc" id="allwikiToc">
+                        <div class="toc-group">
+                            <div class="toc-group-title">入门</div>
+                            <a class="toc-link" href="#section-getting-started" data-section="section-getting-started">
+                                <span class="toc-text">入门指引</span>
+                            </a>
+                            <a class="toc-link" href="#section-register" data-section="section-register">
+                                <span class="toc-text">注册与登录</span>
+                            </a>
+                            <a class="toc-link" href="#section-versions" data-section="section-versions">
+                                <span class="toc-text">支持版本</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">指令</div>
+                            <a class="toc-link" href="#section-basic-cmds" data-section="section-basic-cmds">
+                                <span class="toc-text">基础指令</span>
+                            </a>
+                            <a class="toc-link" href="#section-economy" data-section="section-economy">
+                                <span class="toc-text">经济系统</span>
+                            </a>
+                            <a class="toc-link" href="#section-teleport" data-section="section-teleport">
+                                <span class="toc-text">传送指令</span>
+                            </a>
+                            <a class="toc-link" href="#section-home" data-section="section-home">
+                                <span class="toc-text">家与传送点</span>
+                            </a>
+                            <a class="toc-link" href="#section-claim" data-section="section-claim">
+                                <span class="toc-text">领地保护</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">玩法</div>
+                            <a class="toc-link" href="#section-survival" data-section="section-survival">
+                                <span class="toc-text">生存服玩法</span>
+                            </a>
+                            <a class="toc-link" href="#section-bedwars" data-section="section-bedwars">
+                                <span class="toc-text">起床战争</span>
+                            </a>
+                            <a class="toc-link" href="#section-enchant" data-section="section-enchant">
+                                <span class="toc-text">附魔系统</span>
+                            </a>
+                            <a class="toc-link" href="#section-shop" data-section="section-shop">
+                                <span class="toc-text">商店系统</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">帮助</div>
+                            <a class="toc-link" href="#section-faq" data-section="section-faq">
+                                <span class="toc-text">常见问题</span>
+                            </a>
+                            <a class="toc-link" href="#section-errors" data-section="section-errors">
+                                <span class="toc-text">错误排查</span>
+                            </a>
+                            <a class="toc-link" href="#section-contact" data-section="section-contact">
+                                <span class="toc-text">联系与支持</span>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </aside>
 
                 <!-- 右侧 Wiki 内容 -->
                 <div class="allwiki-content" id="allwikiContent">
@@ -752,7 +744,6 @@
                     </a>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Footer -->
