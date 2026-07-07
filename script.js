@@ -838,3 +838,149 @@ document.querySelectorAll('.wiki-header').forEach(header => {
     render();
 })();
 
+// ===== 完整版 Wiki (allwiki) 交互 =====
+(function() {
+    const sidebar = document.getElementById('allwikiSidebar');
+    if (!sidebar) return;
+
+    const toc = document.getElementById('allwikiToc');
+    const tocLinks = Array.from(toc.querySelectorAll('.toc-link'));
+    const sections = tocLinks
+        .map(link => document.getElementById(link.dataset.section))
+        .filter(Boolean);
+    const searchInput = document.getElementById('wikiSearch');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const content = document.getElementById('allwikiContent');
+    const backTop = document.getElementById('backTop');
+
+    // 1. 目录点击：平滑滚动到对应章节，并关闭移动端目录
+    tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(link.dataset.section);
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // 关闭移动端目录
+            sidebar.classList.remove('open');
+            // 更新选中状态
+            tocLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+
+    // 2. 滚动时高亮当前所在章节
+    let currentActive = null;
+    const highlightObserver = new IntersectionObserver((entries) => {
+        // 找到当前最靠近视口顶部、且可见的章节
+        const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+            const id = visible[0].target.id;
+            if (currentActive !== id) {
+                currentActive = id;
+                tocLinks.forEach(l => {
+                    l.classList.toggle('active', l.dataset.section === id);
+                });
+                // 让活跃项保持在目录可视区域内
+                const activeLink = toc.querySelector('.toc-link.active');
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const sidebarRect = sidebar.querySelector('.allwiki-sidebar-inner').getBoundingClientRect();
+                    if (linkRect.bottom > sidebarRect.bottom - 8) {
+                        activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                    } else if (linkRect.top < sidebarRect.top + 8) {
+                        activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                    }
+                }
+            }
+        }
+    }, {
+        root: null,
+        rootMargin: '-96px 0px -60% 0px',
+        threshold: 0
+    });
+
+    sections.forEach(section => highlightObserver.observe(section));
+
+    // 3. 指令复制按钮
+    document.querySelectorAll('.cmd-copy').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const codeEl = btn.parentElement.querySelector('code');
+            if (!codeEl) return;
+            const text = codeEl.textContent;
+            const showCopied = () => {
+                const original = btn.textContent;
+                btn.textContent = '已复制';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = original;
+                    btn.classList.remove('copied');
+                }, 1500);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(showCopied).catch(() => fallbackCopy(text, showCopied));
+            } else {
+                fallbackCopy(text, showCopied);
+            }
+        });
+    });
+
+    function fallbackCopy(text, cb) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); cb && cb(); } catch (e) {}
+        document.body.removeChild(ta);
+    }
+
+    // 4. FAQ 折叠
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const q = item.querySelector('.faq-q');
+        if (!q) return;
+        q.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            // 关闭其他项（手风琴效果）
+            document.querySelectorAll('.faq-item.open').forEach(other => {
+                if (other !== item) other.classList.remove('open');
+            });
+            item.classList.toggle('open', !isOpen);
+        });
+    });
+
+    // 5. 目录搜索过滤
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const kw = searchInput.value.trim().toLowerCase();
+            tocLinks.forEach(link => {
+                const text = link.querySelector('.toc-text').textContent.toLowerCase();
+                const match = !kw || text.indexOf(kw) !== -1;
+                link.classList.toggle('hidden', !match);
+            });
+            // 隐藏完全没有匹配项的分组标题
+            toc.querySelectorAll('.toc-group').forEach(group => {
+                const hasVisible = group.querySelector('.toc-link:not(.hidden)');
+                group.style.display = hasVisible ? '' : 'none';
+            });
+        });
+    }
+
+    // 6. 移动端目录切换
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    }
+
+    // 7. 返回顶部
+    if (backTop) {
+        backTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+})();
+
