@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完整版Wiki - SyServer</title>
+    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="Picture2.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <div class="nav-page-title" id="navPageTitle">完整版Wiki</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="event.html">活动</a></li>
+                <li><a href="announcement.html">公告</a></li>
+                <li><a href="wiki.html" class="nav-current">Wiki</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="wiki-hero">
+        <div class="wiki-hero-content">
+            <h1 class="wiki-hero-title">完整版Wiki</h1>
+            <p class="wiki-hero-subtitle">SyServer 全部玩法与指令详解</p>
+        </div>
+    </section>
+
+    <!-- 完整版 Wiki 容器 -->
+    <section class="allwiki-section">
+        <!-- 移动端目录切换按钮 -->
+        <button class="allwiki-sidebar-toggle" id="sidebarToggle" aria-label="目录">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>目录</span>
+        </button>
+
+        <div class="allwiki-body">
+            <!-- 左侧悬浮目录 -->
+            <aside class="allwiki-sidebar" id="allwikiSidebar">
+                <div class="allwiki-sidebar-inner">
+                    <div class="allwiki-search">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <input type="text" id="wikiSearch" placeholder="搜索目录" autocomplete="off">
+                    </div>
+                    <nav class="allwiki-toc" id="allwikiToc">
+                        <div class="toc-group">
+                            <div class="toc-group-title">入门</div>
+                            <a class="toc-link" href="#section-getting-started" data-section="section-getting-started">
+                                <span class="toc-text">入门指引</span>
+                            </a>
+                            <a class="toc-link" href="#section-register" data-section="section-register">
+                                <span class="toc-text">注册与登录</span>
+                            </a>
+                            <a class="toc-link" href="#section-versions" data-section="section-versions">
+                                <span class="toc-text">支持版本</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">指令</div>
+                            <a class="toc-link" href="#section-basic-cmds" data-section="section-basic-cmds">
+                                <span class="toc-text">基础指令</span>
+                            </a>
+                            <a class="toc-link" href="#section-economy" data-section="section-economy">
+                                <span class="toc-text">经济系统</span>
+                            </a>
+                            <a class="toc-link" href="#section-teleport" data-section="section-teleport">
+                                <span class="toc-text">传送指令</span>
+                            </a>
+                            <a class="toc-link" href="#section-home" data-section="section-home">
+                                <span class="toc-text">家与传送点</span>
+                            </a>
+                            <a class="toc-link" href="#section-claim" data-section="section-claim">
+                                <span class="toc-text">领地保护</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">玩法</div>
+                            <a class="toc-link" href="#section-survival" data-section="section-survival">
+                                <span class="toc-text">生存服玩法</span>
+                            </a>
+                            <a class="toc-link" href="#section-bedwars" data-section="section-bedwars">
+                                <span class="toc-text">起床战争</span>
+                            </a>
+                            <a class="toc-link" href="#section-enchant" data-section="section-enchant">
+                                <span class="toc-text">附魔系统</span>
+                            </a>
+                            <a class="toc-link" href="#section-shop" data-section="section-shop">
+                                <span class="toc-text">商店系统</span>
+                            </a>
+                        </div>
+                        <div class="toc-group">
+                            <div class="toc-group-title">帮助</div>
+                            <a class="toc-link" href="#section-faq" data-section="section-faq">
+                                <span class="toc-text">常见问题</span>
+                            </a>
+                            <a class="toc-link" href="#section-errors" data-section="section-errors">
+                                <span class="toc-text">错误排查</span>
+                            </a>
+                            <a class="toc-link" href="#section-contact" data-section="section-contact">
+                                <span class="toc-text">联系与支持</span>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </aside>
+
+                <!-- 右侧 Wiki 内容 -->
+                <div class="allwiki-content" id="allwikiContent">
+                    <!-- 入门指引 -->
+                    <article class="wiki-section" id="section-getting-started">
+                        <h2 class="wiki-section-title">入门指引</h2>
+                        <p class="wiki-section-desc">欢迎来到 SyServer！这里将带你从零开始，一步步了解如何加入并畅玩我们的服务器。</p>
+                        <div class="wiki-card">
+                            <h3>1. 获取服务器地址</h3>
+                            <p>服务器地址为 <code>sy1.top</code>。在 Minecraft 多人游戏界面点击「添加服务器」，输入该地址即可。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>2. 选择合适的版本</h3>
+                            <p>服务器支持 <strong>1.8 - 26.1.1</strong> 版本进服，但强烈推荐使用 <strong>1.21.11</strong> 以获得最佳体验。请勿使用 26.x 版本，可能无法正常移动。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>3. 第一次进服</h3>
+                            <p>首次进入服务器需要注册账号，注册成功后即可开始游玩。详细步骤见下方「注册与登录」。</p>
+                        </div>
+                    </article>
+
+                    <!-- 注册与登录 -->
+                    <article class="wiki-section" id="section-register">
+                        <h2 class="wiki-section-title">注册与登录</h2>
+                        <p class="wiki-section-desc">SyServer 使用账号密码登录系统，确保你的游戏身份安全。首次加服请务必仔细阅读本节。</p>
+                        <div class="wiki-card">
+                            <h3>注册账号</h3>
+                            <p>第一次进入服务器时需要注册，指令如下：</p>
+                            <div class="cmd-block">
+                                <code>/register &lt;密码&gt; &lt;密码&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <ul class="wiki-list">
+                                <li><code>&lt;&gt;</code> 不用输入，仅作占位</li>
+                                <li>密码需要输入两遍，确保无误</li>
+                                <li>请打字快一点，避免登录超时被踢出</li>
+                                <li>建议使用复杂密码，避免被他人盗用</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>登录账号</h3>
+                            <p>每次加入服务器都需要登录，指令如下：</p>
+                            <div class="cmd-block">
+                                <code>/login &lt;密码&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <ul class="wiki-list">
+                                <li>密码填写注册时设置的密码</li>
+                                <li>密码只用输一遍</li>
+                                <li>登录成功后即可自由移动</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-tip">
+                            <span class="tip-icon">💡</span>
+                            <div>
+                                <strong>小贴士：</strong>如果忘记密码，请在 QQ 群内联系管理员重置。切勿将密码告诉他人。
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 支持版本 -->
+                    <article class="wiki-section" id="section-versions">
+                        <h2 class="wiki-section-title">支持版本</h2>
+                        <p class="wiki-section-desc">SyServer 兼容多个 Minecraft 版本，让你和朋友都能畅快游玩。</p>
+                        <div class="wiki-table-wrap">
+                            <table class="wiki-table">
+                                <thead>
+                                    <tr>
+                                        <th>版本范围</th>
+                                        <th>推荐程度</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1.21.11</strong></td>
+                                        <td><span class="tag tag-recommend">强烈推荐</span></td>
+                                        <td>最佳体验版本，所有功能正常</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.8 - 1.20.x</td>
+                                        <td><span class="tag tag-ok">可游玩</span></td>
+                                        <td>部分新内容可能无法显示</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.21.x（除 1.21.11）</td>
+                                        <td><span class="tag tag-ok">可游玩</span></td>
+                                        <td>体验良好，建议优先选择 1.21.11</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26.x</td>
+                                        <td><span class="tag tag-warn">不建议</span></td>
+                                        <td>可能出现无法移动等问题</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <!-- 基础指令 -->
+                    <article class="wiki-section" id="section-basic-cmds">
+                        <h2 class="wiki-section-title">基础指令</h2>
+                        <p class="wiki-section-desc">日常游玩最常用的指令集合，掌握这些就能在服务器里畅通无阻。</p>
+                        <div class="wiki-table-wrap">
+                            <table class="wiki-table">
+                                <thead>
+                                    <tr>
+                                        <th>指令</th>
+                                        <th>说明</th>
+                                        <th>示例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>/ping</code></td>
+                                        <td>查看当前网络延迟</td>
+                                        <td><code>/ping</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <!-- 经济系统 -->
+                    <article class="wiki-section" id="section-economy">
+                        <h2 class="wiki-section-title">经济系统</h2>
+                        <p class="wiki-section-desc">SyServer 拥有完善的经济系统，你可以通过游玩、出售物品等方式获取金币，并用金币购买所需物品。</p>
+                        <div class="wiki-card">
+                            <h3>查询余额</h3>
+                            <div class="cmd-block">
+                                <code>/money</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>查看自己当前持有的 Scoin 数量。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>转账给其他玩家</h3>
+                            <div class="cmd-block">
+                                <code>/pay &lt;玩家&gt; &lt;金额&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>将金币转给其他玩家，例如 <code>/pay Steve 100</code> 表示给 Steve 转 100 金币。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>查看财富排行</h3>
+                            <div class="cmd-block">
+                                <code>/baltop</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>查看服务器金币排行榜，看看谁是真正的「富翁」。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>获取金币的方式</h3>
+                            <ul class="wiki-list">
+                                <li>出售物品给系统商店</li>
+                                <li>在玩家商店出售商品</li>
+                                <li>参与服务器举办的活动</li>
+                                <li>签到与每日任务</li>
+                                <li>击杀怪物掉落的金币</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- 传送指令 -->
+                    <article class="wiki-section" id="section-teleport">
+                        <h2 class="wiki-section-title">传送指令</h2>
+                        <p class="wiki-section-desc">服务器使用 SyTP 传送插件，支持传送请求、传送费用、传送延迟和粒子效果。</p>
+                        <div class="wiki-table-wrap">
+                            <table class="wiki-table">
+                                <thead>
+                                    <tr>
+                                        <th>指令</th>
+                                        <th>说明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>/tpa &lt;玩家&gt;</code></td>
+                                        <td>请求传送到指定玩家身边，需对方同意</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/tpc &lt;玩家&gt;</code></td>
+                                        <td>请求对方传送到你身边</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/tpw</code></td>
+                                        <td>邀请服务器所有玩家传送到你身边</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/tpaccept</code></td>
+                                        <td>接受传送请求</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>/tpdeny</code></td>
+                                        <td>拒绝传送请求</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>传送机制</h3>
+                            <ul class="wiki-list">
+                                <li><strong>传送费用：</strong>TPA、TPC 和 TPW 均花费 1 Scoin（SyServer 游戏币）</li>
+                                <li><strong>传送延迟：</strong>发起传送后有 3 秒等待时间，期间移动会取消传送</li>
+                                <li><strong>请求超时：</strong>传送请求有 30 秒有效期，超时未响应将自动取消</li>
+                                <li><strong>传送冷却：</strong>传送完成后有 10 秒冷却时间</li>
+                                <li><strong>粒子效果：</strong>传送完成时会有粒子特效</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-tip">
+                            <span class="tip-icon">💡</span>
+                            <div>
+                                <strong>小贴士：</strong>管理员可以无视传送费用和传送延迟。传送请求会弹出 GUI 界面，点击即可接受或拒绝。
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 家与传送点 -->
+                    <article class="wiki-section" id="section-home">
+                        <h2 class="wiki-section-title">家与传送点</h2>
+                        <p class="wiki-section-desc">设置个人「家」，方便快速回到自己的基地。</p>
+                        <div class="wiki-card">
+                            <h3>设置家</h3>
+                            <div class="cmd-block">
+                                <code>/sethome &lt;名称&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>将当前位置保存为一个家，例如 <code>/sethome base</code>。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>回到家</h3>
+                            <div class="cmd-block">
+                                <code>/home &lt;名称&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>传送到你设置的家。直接输入 <code>/home</code> 可查看所有家的列表。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>删除家</h3>
+                            <div class="cmd-block">
+                                <code>/delhome &lt;名称&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>删除不再需要的家。</p>
+                        </div>
+                        <div class="wiki-tip">
+                            <span class="tip-icon">💡</span>
+                            <div>
+                                <strong>小贴士：</strong>普通玩家可设置的家数量有限，提升等级或赞助可解锁更多家的上限。
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 领地保护 -->
+                    <article class="wiki-section" id="section-claim">
+                        <h2 class="wiki-section-title">领地保护</h2>
+                        <p class="wiki-section-desc">使用 Residence 插件保护你的建筑和箱子不被他人破坏或盗取。</p>
+                        <div class="wiki-card">
+                            <h3>创建领地</h3>
+                            <p>使用木锄头圈地：</p>
+                            <ol class="wiki-list ordered">
+                                <li>手持木锄头，右键点击第一个角点</li>
+                                <li>走到对角线位置，再次右键点击</li>
+                                <li>输入 <code>/res create &lt;名称&gt;</code> 创建领地</li>
+                            </ol>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>常用领地指令</h3>
+                            <div class="wiki-table-wrap">
+                                <table class="wiki-table">
+                                    <thead>
+                                        <tr>
+                                            <th>指令</th>
+                                            <th>说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>/res create &lt;名称&gt;</code></td>
+                                            <td>创建领地</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res remove &lt;名称&gt;</code></td>
+                                            <td>删除领地</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res set</code></td>
+                                            <td>打开领地权限设置 GUI</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res pset &lt;领地&gt; &lt;玩家&gt; &lt;权限&gt; &lt;值&gt;</code></td>
+                                            <td>设置指定玩家在领地的权限</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res tp &lt;名称&gt;</code></td>
+                                            <td>传送到自己的领地</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res list</code></td>
+                                            <td>查看自己所有领地</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/res info &lt;名称&gt;</code></td>
+                                            <td>查看领地详细信息</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 生存服玩法 -->
+                    <article class="wiki-section" id="section-survival">
+                        <h2 class="wiki-section-title">生存服玩法</h2>
+                        <p class="wiki-section-desc">原汁原味的 Minecraft 生存体验，加入了丰富的扩展内容让游戏更有趣。</p>
+                        <div class="wiki-card">
+                            <h3>核心玩法</h3>
+                            <ul class="wiki-list">
+                                <li>自由建造：在世界中任意位置建造你的家园</li>
+                                <li>资源采集：挖矿、伐木、种植，收集各种原材料</li>
+                                <li>怪物战斗：夜晚出现的怪物会掉落稀有物品</li>
+                                <li>红石科技：利用红石电路构建自动化装置</li>
+                                <li>附魔装备：在附魔台或铁砧上强化你的工具和武器</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>扩展内容</h3>
+                            <ul class="wiki-list">
+                                <li><strong>更多附魔：</strong>服务器安装了 ExcellentEnchants 插件，提供 81 种扩展附魔，详见<a href="enchantments.html" class="wiki-link">附魔列表</a></li>
+                                <li><strong>玩家商店：</strong>可以建立自己的商店出售物品</li>
+                                <li><strong>领地系统：</strong>保护你的建筑不被破坏</li>
+                                <li><strong>经济系统：</strong>完整的金币流通体系</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>新手建议</h3>
+                            <ol class="wiki-list ordered">
+                                <li>进服后先熟悉服务器各项功能</li>
+                                <li>找一块空地建立自己的小基地</li>
+                                <li>先用木锄头圈好领地，防止他人破坏</li>
+                                <li>通过挖矿和打怪积累初始资金</li>
+                                <li>逐步扩展基地，提升装备和附魔等级</li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <!-- 起床战争 -->
+                    <article class="wiki-section" id="section-bedwars">
+                        <h2 class="wiki-section-title">起床战争</h2>
+                        <p class="wiki-section-desc">经典的小游戏玩法，与朋友组队对抗，保护自己的床并摧毁敌人的床。</p>
+                        <div class="wiki-card">
+                            <h3>玩法规则</h3>
+                            <ul class="wiki-list">
+                                <li>每位玩家出生在自己的岛屿上</li>
+                                <li>岛屿上有一张床，床存在时玩家可无限复活</li>
+                                <li>床被摧毁后，玩家将无法复活</li>
+                                <li>最后存活的队伍获胜</li>
+                                <li>通过购买装备和道具提升战斗力</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>加入方法</h3>
+                            <p>在 Minecraft 多人游戏界面点击「添加服务器」，输入起床服地址：</p>
+                            <div class="cmd-block">
+                                <code>mc1-v4.msst2031.cn</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>新手技巧</h3>
+                            <ul class="wiki-list">
+                                <li>优先用方块搭桥到中央资源点</li>
+                                <li>购买羊毛或防爆方块保护自己的床</li>
+                                <li>积累绿宝石购买强力装备</li>
+                                <li>团队协作，分工防御与进攻</li>
+                                <li>注意防范敌人的偷袭</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- 附魔系统 -->
+                    <article class="wiki-section" id="section-enchant">
+                        <h2 class="wiki-section-title">附魔系统</h2>
+                        <p class="wiki-section-desc">SyServer 通过 ExcellentEnchants 插件大幅扩展了原版附魔，提供 81 种全新附魔效果。</p>
+                        <div class="wiki-card">
+                            <h3>附魔获取方式</h3>
+                            <ul class="wiki-list">
+                                <li><strong>附魔台：</strong>消耗经验和青金石，随机获得附魔（主要物品）</li>
+                                <li><strong>铁砧 + 附魔书：</strong>将附魔书应用到装备上（包括次要物品）</li>
+                                <li><strong>战利品：</strong>击杀怪物或开宝箱有概率获得已附魔的装备</li>
+                                <li><strong>交易：</strong>与村民交易获取附魔书</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>附魔属性说明</h3>
+                            <ul class="wiki-list">
+                                <li><strong>最大等级：</strong>附魔可达到的最高等级</li>
+                                <li><strong>主要物品：</strong>可在附魔台获得的物品类型</li>
+                                <li><strong>次要物品：</strong>只能通过铁砧 + 附魔书获得的物品类型</li>
+                                <li><strong>权重：</strong>附魔被提供的相对概率，数值越低越稀有</li>
+                                <li><strong>不兼容：</strong>无法同时存在于同一物品上的附魔</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-tip">
+                            <span class="tip-icon">📖</span>
+                            <div>
+                                完整的附魔列表（共 81 个）请查看<a href="enchantments.html" class="wiki-link">更多附魔</a>页面。
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 商店系统 -->
+                    <article class="wiki-section" id="section-shop">
+                        <h2 class="wiki-section-title">商店系统</h2>
+                        <p class="wiki-section-desc">通过商店系统买卖物品，是获取和流通金币的重要途径。</p>
+                        <div class="wiki-card">
+                            <h3>系统商店</h3>
+                            <p>服务器设有系统商店，可使用指令快速打开：</p>
+                            <div class="cmd-block">
+                                <code>/shop</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <p>系统商店提供基础物品的买卖服务，价格固定。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>创建玩家商店</h3>
+                            <p>放置一个箱子，然后使用以下指令创建商店：</p>
+                            <div class="cmd-block">
+                                <code>/shop create &lt;买入价&gt; &lt;卖出价&gt;</code>
+                                <button class="cmd-copy" aria-label="复制">复制</button>
+                            </div>
+                            <ul class="wiki-list">
+                                <li>需要手持你要出售的物品</li>
+                                <li>买入价是别人买你物品时付的钱</li>
+                                <li>卖出价是别人把物品卖给你时收的钱</li>
+                                <li>价格设为 0 表示关闭该方向交易</li>
+                            </ul>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>管理商店</h3>
+                            <div class="wiki-table-wrap">
+                                <table class="wiki-table">
+                                    <thead>
+                                        <tr>
+                                            <th>指令</th>
+                                            <th>说明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>/shop list</code></td>
+                                            <td>查看自己所有的商店</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/shop remove</code></td>
+                                            <td>删除指定的商店</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/shop price &lt;新价格&gt;</code></td>
+                                            <td>修改商店价格</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 常见问题 -->
+                    <article class="wiki-section" id="section-faq">
+                        <h2 class="wiki-section-title">常见问题</h2>
+                        <p class="wiki-section-desc">汇总玩家最常遇到的问题，帮你快速解决疑惑。</p>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>无法移动是什么原因？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>请确认您是否已成功登录或注册。另外请使用 <strong>1.21.11</strong> 进服，不要使用 26.x 版本，否则可能出现无法移动的问题。</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>忘记密码怎么办？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>请在 QQ 群内联系管理员，提供你的游戏 ID，管理员会帮你重置密码。请勿在游戏内随意将密码告诉他人。</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>如何切换到起床战争服？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>在 Minecraft 多人游戏界面添加服务器地址 <code>mc1-v4.msst2031.cn</code> 即可加入。</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>怎么保护自己的建筑不被破坏？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>使用木锄头圈出领地范围，再用 <code>/res create &lt;名称&gt;</code> 创建领地。详细操作见上方「领地保护」章节。</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>金币不够用怎么办？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>可以通过出售物品给系统商店、建立玩家商店、参与服务器活动、完成签到任务或击杀怪物等方式获取金币。</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-q">
+                                <span class="faq-icon">+</span>
+                                <span>服务器支持基岩版吗？</span>
+                            </div>
+                            <div class="faq-a">
+                                <p>目前服务器主要面向 Java 版玩家。基岩版的支持情况请关注 QQ 群公告获取最新信息。</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 错误排查 -->
+                    <article class="wiki-section" id="section-errors">
+                        <h2 class="wiki-section-title">错误排查</h2>
+                        <p class="wiki-section-desc">遇到连接或游戏问题？对照下面的常见错误进行排查。</p>
+
+                        <div class="wiki-card error-card">
+                            <h3>1. Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host</h3>
+                            <p>连接被服务器强制关闭。</p>
+                            <p><strong>解决方法：</strong>重启客户端再次尝试连接。如反复出现，请检查网络是否稳定。</p>
+                        </div>
+
+                        <div class="wiki-card error-card">
+                            <h3>2. Connection refused: no further information / Unknown host</h3>
+                            <p>无法连接到服务器。</p>
+                            <p><strong>解决方法：</strong>检查服务器 IP 输入是否正确，正确地址为 <code>sy1.top</code>，注意没有空格和多余字符。</p>
+                        </div>
+
+                        <div class="wiki-card error-card">
+                            <h3>3. Connection timed out / Read timed out</h3>
+                            <p>连接超时。</p>
+                            <p><strong>解决方法：</strong>网络卡顿导致，请更换网络（如切换 WiFi / 4G），或离路由器近一点再尝试。</p>
+                        </div>
+
+                        <div class="wiki-card error-card">
+                            <h3>4. 无法注册或登录</h3>
+                            <p>注册或登录指令无响应。</p>
+                            <p><strong>解决方法：</strong>请确认指令格式正确，密码需要输入两遍（注册）或一遍（登录）。如仍有问题，请询问任意 AI：「Minecraft 服务器无法注册怎么办，请一步步教我」。</p>
+                        </div>
+
+                        <div class="wiki-card error-card">
+                            <h3>5. 进服后看不到任何建筑</h3>
+                            <p>进入服务器后画面是空的。</p>
+                            <p><strong>解决方法：</strong>可能是资源加载延迟，请稍等片刻。如果长时间无法加载，尝试调低渲染距离或重启客户端。</p>
+                        </div>
+                    </article>
+
+                    <!-- 联系与支持 -->
+                    <article class="wiki-section" id="section-contact">
+                        <h2 class="wiki-section-title">联系与支持</h2>
+                        <p class="wiki-section-desc">遇到 Wiki 中没有覆盖的问题？通过以下方式联系我们。</p>
+                        <div class="wiki-card">
+                            <h3>加入 QQ 群</h3>
+                            <p>QQ 群是获取帮助最快的方式，群内有管理员和热心玩家为你解答问题。</p>
+                            <a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank" class="btn btn-primary">加入 QQ 群</a>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>查看插件源码</h3>
+                            <p>SyServer 自研插件开源在 SyPlugins，欢迎开发者查看与交流。</p>
+                            <a href="https://pn.sy1.top" target="_blank" class="btn btn-secondary">访问 SyPlugins</a>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>查看活动</h3>
+                            <p>不定期举办各类活动，参与活动可获得丰厚奖励。</p>
+                            <a href="event.html" class="btn btn-secondary">查看活动</a>
+                        </div>
+                        <div class="wiki-tip">
+                            <span class="tip-icon">📝</span>
+                            <div>
+                                <strong>反馈建议：</strong>如果在 Wiki 中发现错误或有内容建议，欢迎在 QQ 群内反馈，我们会持续完善本 Wiki。
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 返回顶部 -->
+                    <a href="#section-getting-started" class="allwiki-back-top" id="backTop">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        返回顶部
+                    </a>
+                </div>
+            </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="index.html#servers">生存服</a></li>
+                        <li><a href="index.html#servers">起床战争服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
