@@ -4,22 +4,21 @@
     <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活动 - SyServer</title>
+    <title>网站地图 - SyServer</title>
     <link rel="stylesheet" href="styles.css?v=20260707">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.11/lunar.js"></script>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><img src="logo.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
-            <div class="nav-page-title" id="navPageTitle">活动</div>
+            <div class="nav-page-title" id="navPageTitle">网站地图</div>
             <ul class="nav-links">
                 <li><a href="index.html">首页</a></li>
-                <li><a href="event.html" class="nav-current">活动</a></li>
+                <li><a href="event.html">活动</a></li>
                 <li><a href="announcement.html">公告</a></li>
                 <li><a href="wiki.html">Wiki</a></li>
             </ul>
@@ -31,45 +30,27 @@
         </div>
     </nav>
 
-    <!-- Event Header -->
+    <!-- Header -->
     <section class="wiki-hero">
         <div class="wiki-hero-content">
-            <h1 class="wiki-hero-title">活动</h1>
-            <p class="wiki-hero-subtitle">SyServer 精彩活动，等你参与</p>
+            <h1 class="wiki-hero-title">网站地图</h1>
+            <p class="wiki-hero-subtitle">SyServer 全站页面索引</p>
         </div>
     </section>
 
-    <!-- Events Content -->
-    <section class="events-page">
-        <div class="calendar-shell">
-            <div class="calendar-main" id="calendarMain">
-                <div class="calendar-toolbar">
-                    <button class="cal-nav-btn" id="prevMonth" aria-label="上一月">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <div class="calendar-title" id="calendarTitle">2026年 7月</div>
-                    <button class="cal-nav-btn" id="nextMonth" aria-label="下一月">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
+    <!-- 正文 -->
+    <section class="announcement-section">
+        <div class="announcement-container">
+            <div class="coming-soon">
+                <div class="coming-soon-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
-                <div class="calendar-weekdays">
-                    <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
-                </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
+                <h2 class="coming-soon-title">待开发</h2>
+                <p class="coming-soon-text">网站地图页面正在准备中，请关注后续更新。</p>
             </div>
-            <aside class="calendar-detail" id="calendarDetail">
-                <div class="detail-traffic" id="detailTraffic" hidden>
-                    <span class="traffic-dot traffic-red" id="detailClose" title="关闭"></span>
-                    <span class="traffic-dot traffic-yellow"></span>
-                    <span class="traffic-dot traffic-green"></span>
-                </div>
-                <div class="detail-empty" id="detailEmpty">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                    <p>点击日历中有活动的日期</p>
-                    <p class="detail-empty-sub">查看活动详情</p>
-                </div>
-                <div class="detail-content" id="detailContent" hidden></div>
-            </aside>
         </div>
     </section>
 
