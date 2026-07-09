@@ -1485,7 +1485,10 @@ ul {
 }
 
 .wiki-item.active .wiki-content {
-    max-height: 600px;
+    /* 用足够大的 max-height 保证手机窄屏上长内容也能完整展开。
+       之前 600px 在手机上会被 overflow:hidden 截断，导致内容看不全、
+       且展开动画期间布局抖动造成滑动异常。 */
+    max-height: 2000px;
     padding: 0 1.5rem 1.5rem;
 }
 
