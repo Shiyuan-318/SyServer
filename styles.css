@@ -3356,6 +3356,80 @@ ul {
     border-radius: var(--radius-lg);
 }
 
+/* 生存服状态卡片 */
+.server-status-card {
+    background: var(--color-background-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.server-status-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.server-status-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.server-status-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.server-status-info {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.server-status-label {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+}
+
+.server-status-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.server-status-ip {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: none;
+    padding: 0;
+    user-select: all;
+}
+
+.server-status-tip {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+    margin: 0;
+}
+
 .coming-soon-icon {
     color: var(--color-text-secondary);
     opacity: 0.5;
@@ -3402,5 +3476,24 @@ ul {
 
     .coming-soon-title {
         font-size: 1.5rem;
+    }
+
+    .server-status-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .server-status-header {
+        margin-bottom: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .server-status-title {
+        font-size: 1.25rem;
+    }
+
+    /* 手机上信息卡片改成单列，避免挤成一条 */
+    .server-status-body {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
 }

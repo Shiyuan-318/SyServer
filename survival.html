@@ -41,15 +41,30 @@
     <!-- 正文 -->
     <section class="announcement-section">
         <div class="announcement-container">
-            <div class="coming-soon">
-                <div class="coming-soon-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+            <!-- 服务器状态卡片：实时显示在线人数 -->
+            <div class="server-status-card">
+                <div class="server-status-header">
+                    <h2 class="server-status-title">服务器状态</h2>
+                    <div class="uptime-indicator" id="uptimeIndicator">
+                        <div class="uptime-dot" id="uptimeDot"></div>
+                        <span id="onlineCount">查询中…</span>
+                    </div>
                 </div>
-                <h2 class="coming-soon-title">敬请期待</h2>
-                <p class="coming-soon-text">页面内容正在准备中，请关注后续更新。</p>
+                <div class="server-status-body">
+                    <div class="server-status-info">
+                        <span class="server-status-label">服务器地址</span>
+                        <code class="server-status-ip">sy1.top</code>
+                    </div>
+                    <div class="server-status-info">
+                        <span class="server-status-label">推荐版本</span>
+                        <span class="server-status-value">1.21.11</span>
+                    </div>
+                    <div class="server-status-info">
+                        <span class="server-status-label">支持版本</span>
+                        <span class="server-status-value">1.8 - 26.1.1</span>
+                    </div>
+                </div>
+                <p class="server-status-tip">在线人数每分钟自动刷新</p>
             </div>
         </div>
     </section>
