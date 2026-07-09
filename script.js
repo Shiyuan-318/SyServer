@@ -216,12 +216,22 @@ function initCounterAnimation() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// 查询 Minecraft 服务器在线人数（sy1.top，通过国内 MCStatus API 自动解析 SRV 记录）
+// 查询 Minecraft 服务器在线人数（通过国内 MCStatus API 自动解析 SRV 记录）
+// 根据当前页面自动选择对应的服务器地址：
+//   - 主页 / survival.html → 生存服 sy1.top
+//   - bedwars.html → 起床战争服 mc1-v4.msst2031.cn
 function initOnlinePlayers() {
     const span = document.getElementById('onlineCount');
     const dot = document.getElementById('uptimeDot');
     const indicator = document.getElementById('uptimeIndicator');
     if (!span) return;
+
+    // 根据页面路径选服务器地址
+    const page = window.location.pathname.split('/').pop();
+    let serverHost = 'sy1.top';
+    if (page === 'bedwars.html') {
+        serverHost = 'mc1-v4.msst2031.cn';
+    }
 
     let timer = null;
 
@@ -245,7 +255,7 @@ function initOnlinePlayers() {
 
     const fetchOnline = async () => {
         try {
-            const res = await fetch('https://yun.tbedu.top:16666/3/sy1.top');
+            const res = await fetch(`https://yun.tbedu.top:16666/3/${serverHost}`);
             if (!res.ok) return;
             const data = await res.json();
             if (data.online && data.players) {
