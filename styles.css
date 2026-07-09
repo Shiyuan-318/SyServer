@@ -3386,7 +3386,7 @@ ul {
 
 .server-status-body {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -3428,6 +3428,17 @@ ul {
     color: var(--color-text-secondary);
     opacity: 0.7;
     margin: 0;
+}
+
+.server-status-link {
+    color: var(--color-primary);
+    opacity: 1;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.server-status-link:hover {
+    opacity: 0.8;
 }
 
 .coming-soon-icon {
