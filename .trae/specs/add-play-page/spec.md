@@ -4,8 +4,8 @@
 用户希望在网站上增加一个可玩的 Minecraft 风格小游戏页面，让访客不用装客户端也能在浏览器里体验类似 MC 1.21.x 的玩法，作为网站的趣味互动内容。
 
 ## What Changes
-- 新增 `play.html` 页面，中文名"在线玩"，复用全站导航栏、深色渐变背景、footer 主题设计
-- 全站导航栏（所有页面的 `nav-links`）新增"在线玩"入口，指向 `play.html`
+- 新增 `play.html` 页面，中文名"在线玩"，复用全站深色渐变背景、footer 主题设计
+- 入口仅在所有页面的**页脚（footer）**显示"在线玩"链接，不在顶部导航栏显示
 - 页面主体为一个圆角矩形的游戏画布区域，用 Canvas 渲染第一人称的方块世界
 - 游戏画布下方提供"全屏"按钮，点击后游戏进入浏览器全屏模式
 - 游戏内容模拟 Minecraft 1.21.x 风格：
@@ -24,21 +24,26 @@
   - 新增 `play.html`
   - 新增 `play.js`（游戏逻辑）
   - 新增 `play.css` 或在 `styles.css` 追加样式（推荐独立文件，避免污染全站样式）
-  - 修改所有页面的 `nav-links`，新增"在线玩"链接（index.html / event.html / announcement.html / wiki.html / allwiki.html / survival.html / bedwars.html / enchantments.html / agreement.html / admin.html / sitemap.html / 404.html / play.html 自身）
-  - `script.js` 无需改动（导航栏汉堡菜单逻辑通用）
+  - 修改所有页面的 **footer（页脚）**，新增"在线玩"链接（index.html / event.html / announcement.html / wiki.html / allwiki.html / survival.html / bedwars.html / enchantments.html / agreement.html / admin.html / sitemap.html / 404.html / play.html 自身）
+  - **不修改**任何页面的顶部导航栏（nav-links）
+  - `script.js` 无需改动
 
 ## ADDED Requirements
 
 ### Requirement: 在线玩页面入口
-系统 SHALL 在全站导航栏提供"在线玩"入口，点击跳转到 `play.html`。
+系统 SHALL 仅在所有页面的**页脚（footer）**提供"在线玩"入口，点击跳转到 `play.html`。入口**不**出现在顶部导航栏。
 
-#### Scenario: 桌面端导航
-- **WHEN** 用户在任意页面点击导航栏"在线玩"
+#### Scenario: 桌面端页脚入口
+- **WHEN** 用户在任意页面滚动到页脚，点击"在线玩"链接
 - **THEN** 跳转到 `play.html`
 
-#### Scenario: 移动端导航
-- **WHEN** 移动端用户展开汉堡菜单，点击"在线玩"
+#### Scenario: 移动端页脚入口
+- **WHEN** 移动端用户滚动到页脚，点击"在线玩"链接
 - **THEN** 跳转到 `play.html`
+
+#### Scenario: 导航栏不含入口
+- **WHEN** 用户查看任意页面顶部导航栏（桌面端导航或移动端汉堡菜单）
+- **THEN** 导航栏中**不**出现"在线玩"链接
 
 ### Requirement: 页面主题一致
 `play.html` SHALL 复用全站导航栏、深色渐变背景、footer，视觉风格与其他页面一致。

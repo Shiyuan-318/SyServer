@@ -1,36 +1,36 @@
 # Tasks
 
-- [ ] Task 1: 创建 play.html 页面骨架
-  - [ ] 复用全站导航栏、深色渐变背景、footer
-  - [ ] 主体添加圆角矩形容器（包裹 Canvas）
-  - [ ] Canvas 下方添加"全屏"按钮
-  - [ ] 页面标题设为"在线玩 - SyServer"
-- [ ] Task 2: 创建 play.css 样式文件
-  - [ ] 游戏容器圆角、边框、阴影、响应式宽度
-  - [ ] 全屏按钮样式（与其他页面按钮风格统一）
-  - [ ] "点击开始"覆盖层样式
-  - [ ] hotbar、准星、移动端虚拟控制按钮样式
-- [ ] Task 3: 创建 play.js 游戏核心
-  - [ ] SubTask 3.1: 世界数据结构（方块类型定义、区块存储）
-  - [ ] SubTask 3.2: 世界生成（草地地表、泥土、石头、树木）
-  - [ ] SubTask 3.3: 第一人称相机与鼠标锁定（Pointer Lock API）
-  - [ ] SubTask 3.4: 键盘输入（WASD 移动、空格跳跃、数字键 1-9 切换方块）
-  - [ ] SubTask 3.5: 方块破坏与放置（射线检测、左键破坏、右键放置）
-  - [ ] SubTask 3.6: Canvas 渲染（方块面剔除、简单光照、像素风纹理）
-  - [ ] SubTask 3.7: hotbar 渲染与切换（9 格、当前格高亮）
-  - [ ] SubTask 3.8: 准星渲染（像素风十字）
-  - [ ] SubTask 3.9: 重力与碰撞检测（玩家不能穿墙、不能掉出世界）
-  - [ ] SubTask 3.10: "点击开始"提示与游戏暂停/恢复
-- [ ] Task 4: 实现全屏按钮功能
-  - [ ] 点击进入 Fullscreen API 全屏（游戏容器）
-  - [ ] ESC 或再次点击退出全屏
-  - [ ] 全屏时 Canvas 尺寸自适应
-- [ ] Task 5: 移动端触摸控制
-  - [ ] 检测触摸设备，显示虚拟摇杆（左下）
-  - [ ] 右下显示跳跃、破坏、放置按钮
-  - [ ] 触摸拖动控制视角
-- [ ] Task 6: 全站导航栏添加"在线玩"入口
-  - [ ] 在以下所有页面的 nav-links 中新增 `<li><a href="play.html">在线玩</a></li>`（位置放在 Wiki 之后）：
+- [x] Task 1: 创建 play.html 页面骨架
+  - [x] 复用全站导航栏、深色渐变背景、footer
+  - [x] 主体添加圆角矩形容器（包裹 Canvas）
+  - [x] Canvas 下方添加"全屏"按钮
+  - [x] 页面标题设为"在线玩 - SyServer"
+- [x] Task 2: 创建 play.css 样式文件
+  - [x] 游戏容器圆角、边框、阴影、响应式宽度
+  - [x] 全屏按钮样式（与其他页面按钮风格统一）
+  - [x] "点击开始"覆盖层样式
+  - [x] hotbar、准星、移动端虚拟控制按钮样式
+- [x] Task 3: 创建 play.js 游戏核心
+  - [x] SubTask 3.1: 世界数据结构（方块类型定义、区块存储）
+  - [x] SubTask 3.2: 世界生成（草地地表、泥土、石头、树木）
+  - [x] SubTask 3.3: 第一人称相机与鼠标锁定（Pointer Lock API）
+  - [x] SubTask 3.4: 键盘输入（WASD 移动、空格跳跃、数字键 1-9 切换方块）
+  - [x] SubTask 3.5: 方块破坏与放置（射线检测、左键破坏、右键放置）
+  - [x] SubTask 3.6: Canvas 渲染（方块面剔除、简单光照、像素风纹理）
+  - [x] SubTask 3.7: hotbar 渲染与切换（9 格、当前格高亮）
+  - [x] SubTask 3.8: 准星渲染（像素风十字）
+  - [x] SubTask 3.9: 重力与碰撞检测（玩家不能穿墙、不能掉出世界）
+  - [x] SubTask 3.10: "点击开始"提示与游戏暂停/恢复
+- [x] Task 4: 实现全屏按钮功能
+  - [x] 点击进入 Fullscreen API 全屏（游戏容器）
+  - [x] ESC 或再次点击退出全屏
+  - [x] 全屏时 Canvas 尺寸自适应
+- [x] Task 5: 移动端触摸控制
+  - [x] 检测触摸设备，显示虚拟摇杆（左下）
+  - [x] 右下显示跳跃、破坏、放置按钮
+  - [x] 触摸拖动控制视角
+- [x] Task 6: 全站页脚添加"在线玩"入口
+  - [x] 在以下所有页面的 **footer**（页脚）中新增"在线玩"链接 `<a href="play.html">在线玩</a>`，放在 footer-bottom 区域，与"用户协议"并列（参考 agreement.html 的 footer 结构）：
     - index.html
     - event.html
     - announcement.html
@@ -43,14 +43,16 @@
     - admin.html
     - sitemap.html
     - 404.html
-    - play.html（自身，当前页高亮 `nav-current`）
-- [ ] Task 7: 引入 play.js 和 play.css
-  - [ ] play.html 中 `<link rel="stylesheet" href="play.css">`
-  - [ ] play.html 中 `<script src="play.js"></script>`
-- [ ] Task 8: 本地验证
-  - [ ] 桌面端：打开 play.html，点击开始，WASD 移动、鼠标转向、左键破坏、右键放置、数字键切换方块、全屏按钮可用
-  - [ ] 移动端：虚拟摇杆和按钮可用
-  - [ ] 导航栏"在线玩"入口在所有页面可见且跳转正确
+    - play.html（自身）
+  - [x] **不**修改任何页面的顶部导航栏（nav-links）
+- [x] Task 7: 引入 play.js 和 play.css
+  - [x] play.html 中 `<link rel="stylesheet" href="play.css">`
+  - [x] play.html 中 `<script src="play.js"></script>`
+- [x] Task 8: 本地验证
+  - [x] 桌面端：打开 play.html，点击开始，WASD 移动、鼠标转向、左键破坏、右键放置、数字键切换方块、全屏按钮可用
+  - [x] 移动端：虚拟摇杆和按钮可用
+  - [x] 页脚"在线玩"入口在所有页面可见且跳转正确
+  - [x] 确认顶部导航栏中**不**出现"在线玩"链接
 
 # Task Dependencies
 - Task 3 依赖 Task 1、Task 2（需要 HTML 容器和 CSS）
