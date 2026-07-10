@@ -228,9 +228,15 @@ function initOnlinePlayers() {
 
     // 根据页面路径选服务器地址
     const page = window.location.pathname.split('/').pop();
-    let serverHost = 'sy1.top';
-    if (page === 'bedwars.html') {
-        serverHost = 'mc1-v4.msst2031.cn';
+    // 主页同时查生存服和起床服，显示总在线人数；其他页面只查对应服
+    const isHome = page === '' || page === 'index.html';
+    let serverHosts;
+    if (isHome) {
+        serverHosts = ['sy1.top', 'mc1-v4.msst2031.cn'];
+    } else if (page === 'bedwars.html') {
+        serverHosts = ['mc1-v4.msst2031.cn'];
+    } else {
+        serverHosts = ['sy1.top'];
     }
 
     let timer = null;
@@ -253,19 +259,25 @@ function initOnlinePlayers() {
         }
     };
 
-    const fetchOnline = async () => {
+    // 查询单个服务器，返回在线人数（离线返回 0）
+    const queryOne = async (host) => {
         try {
-            const res = await fetch(`https://yun.tbedu.top:16666/3/${serverHost}`);
-            if (!res.ok) return;
+            const res = await fetch(`https://yun.tbedu.top:16666/3/${host}`);
+            if (!res.ok) return 0;
             const data = await res.json();
-            if (data.online && data.players) {
-                updateUI(true, data.players.online);
-            } else {
-                updateUI(false, 0);
-            }
+            if (data.online && data.players) return data.players.online;
+            return 0;
         } catch (e) {
-            // 查询失败时保持当前显示，不修改
+            return 0;
         }
+    };
+
+    const fetchOnline = async () => {
+        // 并发查询所有服务器
+        const counts = await Promise.all(serverHosts.map(queryOne));
+        const total = counts.reduce((a, b) => a + b, 0);
+        // 至少有一个服务器在线就显示总人数；全部离线才显示离线
+        updateUI(total > 0, total);
     };
 
     fetchOnline();
