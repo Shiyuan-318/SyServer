@@ -1,0 +1,61 @@
+# Tasks
+
+- [ ] Task 1: 创建 play.html 页面骨架
+  - [ ] 复用全站导航栏、深色渐变背景、footer
+  - [ ] 主体添加圆角矩形容器（包裹 Canvas）
+  - [ ] Canvas 下方添加"全屏"按钮
+  - [ ] 页面标题设为"在线玩 - SyServer"
+- [ ] Task 2: 创建 play.css 样式文件
+  - [ ] 游戏容器圆角、边框、阴影、响应式宽度
+  - [ ] 全屏按钮样式（与其他页面按钮风格统一）
+  - [ ] "点击开始"覆盖层样式
+  - [ ] hotbar、准星、移动端虚拟控制按钮样式
+- [ ] Task 3: 创建 play.js 游戏核心
+  - [ ] SubTask 3.1: 世界数据结构（方块类型定义、区块存储）
+  - [ ] SubTask 3.2: 世界生成（草地地表、泥土、石头、树木）
+  - [ ] SubTask 3.3: 第一人称相机与鼠标锁定（Pointer Lock API）
+  - [ ] SubTask 3.4: 键盘输入（WASD 移动、空格跳跃、数字键 1-9 切换方块）
+  - [ ] SubTask 3.5: 方块破坏与放置（射线检测、左键破坏、右键放置）
+  - [ ] SubTask 3.6: Canvas 渲染（方块面剔除、简单光照、像素风纹理）
+  - [ ] SubTask 3.7: hotbar 渲染与切换（9 格、当前格高亮）
+  - [ ] SubTask 3.8: 准星渲染（像素风十字）
+  - [ ] SubTask 3.9: 重力与碰撞检测（玩家不能穿墙、不能掉出世界）
+  - [ ] SubTask 3.10: "点击开始"提示与游戏暂停/恢复
+- [ ] Task 4: 实现全屏按钮功能
+  - [ ] 点击进入 Fullscreen API 全屏（游戏容器）
+  - [ ] ESC 或再次点击退出全屏
+  - [ ] 全屏时 Canvas 尺寸自适应
+- [ ] Task 5: 移动端触摸控制
+  - [ ] 检测触摸设备，显示虚拟摇杆（左下）
+  - [ ] 右下显示跳跃、破坏、放置按钮
+  - [ ] 触摸拖动控制视角
+- [ ] Task 6: 全站导航栏添加"在线玩"入口
+  - [ ] 在以下所有页面的 nav-links 中新增 `<li><a href="play.html">在线玩</a></li>`（位置放在 Wiki 之后）：
+    - index.html
+    - event.html
+    - announcement.html
+    - wiki.html
+    - allwiki.html
+    - survival.html
+    - bedwars.html
+    - enchantments.html
+    - agreement.html
+    - admin.html
+    - sitemap.html
+    - 404.html
+    - play.html（自身，当前页高亮 `nav-current`）
+- [ ] Task 7: 引入 play.js 和 play.css
+  - [ ] play.html 中 `<link rel="stylesheet" href="play.css">`
+  - [ ] play.html 中 `<script src="play.js"></script>`
+- [ ] Task 8: 本地验证
+  - [ ] 桌面端：打开 play.html，点击开始，WASD 移动、鼠标转向、左键破坏、右键放置、数字键切换方块、全屏按钮可用
+  - [ ] 移动端：虚拟摇杆和按钮可用
+  - [ ] 导航栏"在线玩"入口在所有页面可见且跳转正确
+
+# Task Dependencies
+- Task 3 依赖 Task 1、Task 2（需要 HTML 容器和 CSS）
+- Task 4 依赖 Task 1
+- Task 5 依赖 Task 3
+- Task 6 可与 Task 1-5 并行
+- Task 7 依赖 Task 1、Task 2、Task 3
+- Task 8 依赖 Task 1-7 全部完成
