@@ -1651,6 +1651,20 @@ ul {
     color: var(--color-text);
 }
 
+/* AI 翻译提示框 */
+.enchants-notice {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    padding: 0.875rem 1.25rem;
+    background: rgba(255, 180, 0, 0.08);
+    border: 1px solid rgba(255, 180, 0, 0.25);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #e8b339;
+    line-height: 1.6;
+    text-align: center;
+}
+
 /* Category Tabs */
 .enchants-tabs {
     display: flex;
