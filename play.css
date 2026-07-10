@@ -221,6 +221,160 @@ body {
     z-index: 1;
 }
 
+/* ============ 背包面板 ============ */
+.play-inventory {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 60;
+    background: rgba(0, 0, 0, 0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+.play-inventory.open {
+    display: flex;
+}
+
+/* MC 风格石板灰面板 */
+.play-inv-panel {
+    width: 86%;
+    max-width: 520px;
+    max-height: 92%;
+    overflow: auto;
+    background: #c6c6c6;
+    border: 3px solid #1a1a1a;
+    border-radius: 4px;
+    padding: 14px 14px 12px;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.45),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.35),
+        0 14px 44px rgba(0, 0, 0, 0.6);
+    font-family: var(--font-harmony);
+    color: #2a2a2a;
+}
+
+.play-inv-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.play-inv-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #262626;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.play-inv-hint {
+    font-size: 0.72rem;
+    color: #4a4a4a;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
+
+.play-inv-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 3px;
+    padding: 6px;
+    background: #8b8b8b;
+    border: 2px solid #2a2a2a;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.play-inv-slot {
+    aspect-ratio: 1 / 1;
+    background-color: #8b8b8b;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid #2a2a2a;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    transition: filter 0.1s ease, border-color 0.1s ease;
+}
+
+.play-inv-slot:hover {
+    filter: brightness(1.28);
+    border-color: #ffffff;
+}
+
+.play-inv-slot:active {
+    filter: brightness(1.5);
+}
+
+.play-inv-section-label {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #3a3a3a;
+    margin: 11px 0 5px;
+    letter-spacing: 1px;
+}
+
+.play-inv-hotbar {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 3px;
+    padding: 5px;
+    background: #8b8b8b;
+    border: 2px solid #2a2a2a;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.play-inv-hotbar-slot {
+    aspect-ratio: 1 / 1;
+    background-color: #8b8b8b;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid #2a2a2a;
+    box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.25),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    position: relative;
+    transition: filter 0.1s ease;
+}
+
+.play-inv-hotbar-slot:hover {
+    filter: brightness(1.2);
+}
+
+/* 选中的快捷栏格：金色描边 */
+.play-inv-hotbar-slot.active {
+    border-color: #ffd83b;
+    box-shadow:
+        0 0 0 2px #ffd83b,
+        inset 2px 2px 0 rgba(255, 255, 255, 0.3),
+        inset -2px -2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.play-inv-footer {
+    text-align: center;
+    font-size: 0.72rem;
+    color: #4a4a4a;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+/* 触摸设备：背包面板稍紧凑 */
+.play-container.touch .play-inv-panel {
+    width: 92%;
+    max-width: none;
+}
+
 /* ============ 触摸控制（默认隐藏） ============ */
 .play-touch-controls {
     display: none;

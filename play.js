@@ -11,9 +11,30 @@
   var P_H = 1.8;           // 玩家高度
   var P_R = 0.3;           // 玩家半宽
 
-  var BLOCK = { AIR: 0, GRASS: 1, DIRT: 2, STONE: 3, WOOD: 4, LEAVES: 5, SAND: 6, COBBLE: 7, PLANKS: 8, GLASS: 9 };
-  var BLOCK_NAME = { 1: '草地', 2: '泥土', 3: '石头', 4: '木头', 5: '树叶', 6: '沙子', 7: '圆石', 8: '木板', 9: '玻璃' };
+  var BLOCK = {
+    AIR: 0, GRASS: 1, DIRT: 2, STONE: 3, WOOD: 4, LEAVES: 5, SAND: 6, COBBLE: 7, PLANKS: 8, GLASS: 9,
+    SANDSTONE: 10, GRAVEL: 11, BRICK: 12, STONE_BRICK: 13, MOSSY_COBBLE: 14, DARK_PLANKS: 15,
+    WOOL: 16, RED_WOOL: 17, BLUE_WOOL: 18, YELLOW_WOOL: 19,
+    MELON: 20, PUMPKIN: 21, BOOKSHELF: 22, LAVA: 23, WATER: 24, OBSIDIAN: 25, SNOW: 26,
+    CACTUS: 27, DIAMOND_BLOCK: 28, GOLD_BLOCK: 29, IRON_BLOCK: 30, COAL_BLOCK: 31
+  };
+  var BLOCK_NAME = {
+    1: '草地', 2: '泥土', 3: '石头', 4: '木头', 5: '树叶', 6: '沙子', 7: '圆石', 8: '木板', 9: '玻璃',
+    10: '砂岩', 11: '砾石', 12: '砖块', 13: '石砖', 14: '苔石', 15: '深色木板',
+    16: '白色羊毛', 17: '红色羊毛', 18: '蓝色羊毛', 19: '黄色羊毛',
+    20: '西瓜', 21: '南瓜', 22: '书架', 23: '熔岩', 24: '水', 25: '黑曜石', 26: '雪块',
+    27: '仙人掌', 28: '钻石块', 29: '金块', 30: '铁块', 31: '煤块'
+  };
   var HOTBAR = [BLOCK.GRASS, BLOCK.DIRT, BLOCK.STONE, BLOCK.WOOD, BLOCK.LEAVES, BLOCK.SAND, BLOCK.COBBLE, BLOCK.PLANKS, BLOCK.GLASS];
+  // 背包里展示的所有可用方块（31 种）
+  var ALL_BLOCKS = [
+    BLOCK.GRASS, BLOCK.DIRT, BLOCK.STONE, BLOCK.COBBLE, BLOCK.MOSSY_COBBLE, BLOCK.SAND, BLOCK.SANDSTONE, BLOCK.GRAVEL, BLOCK.SNOW,
+    BLOCK.WOOD, BLOCK.PLANKS, BLOCK.DARK_PLANKS, BLOCK.LEAVES, BLOCK.BOOKSHELF, BLOCK.BRICK, BLOCK.STONE_BRICK, BLOCK.OBSIDIAN, BLOCK.CACTUS,
+    BLOCK.GLASS, BLOCK.WOOL, BLOCK.RED_WOOL, BLOCK.BLUE_WOOL, BLOCK.YELLOW_WOOL,
+    BLOCK.MELON, BLOCK.PUMPKIN,
+    BLOCK.COAL_BLOCK, BLOCK.IRON_BLOCK, BLOCK.GOLD_BLOCK, BLOCK.DIAMOND_BLOCK,
+    BLOCK.WATER, BLOCK.LAVA
+  ];
 
   // ============ 状态 ============
   var blocks = new Map();   // "x,y,z" -> 方块类型
@@ -31,6 +52,7 @@
   var gameActive = false;
   var gameStarted = false;
   var isTouch = false;
+  var inventoryOpen = false;   // 背包是否打开（打开时游戏暂停）
 
   // 触摸追踪
   var joyTouchId = null, lookTouchId = null, joyCenter = null, lookLast = null;
@@ -38,6 +60,7 @@
 
   // ============ DOM 引用 ============
   var container, canvas, overlay, overlayTitle, overlaySub, hotbarEl, blockNameEl, fsBtn, joyBase, joyKnob;
+  var inventoryEl, invGridEl, invHotbarEl;
 
   // ============ 工具函数 ============
   function key(x, y, z) { return x + ',' + y + ',' + z; }
@@ -149,6 +172,204 @@
         ctx.strokeStyle = 'rgba(220,240,250,0.9)'; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, 15, 15);
         ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.fillRect(2, 2, 4, 1); ctx.fillRect(2, 2, 1, 4);
         break;
+      case BLOCK.SANDSTONE:
+        if (face === 'top') {
+          noiseFill(ctx, 226, 212, 158, 10);
+        } else if (face === 'bottom') {
+          noiseFill(ctx, 198, 178, 128, 10);
+        } else {
+          noiseFill(ctx, 218, 200, 150, 10);
+          ctx.fillStyle = 'rgba(150,130,90,0.9)';
+          ctx.fillRect(0, 0, 16, 3); ctx.fillRect(0, 13, 16, 3);
+          ctx.fillStyle = 'rgba(180,160,110,0.8)';
+          ctx.fillRect(0, 7, 16, 1); ctx.fillRect(0, 9, 16, 1);
+        }
+        break;
+      case BLOCK.GRAVEL:
+        noiseFill(ctx, 120, 110, 120, 14);
+        for (var gvi = 0; gvi < 42; gvi++) {
+          var gvsh = (Math.random() - 0.5) * 30;
+          px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 90 + gvsh, 82 + gvsh, 95 + gvsh);
+        }
+        for (var gvj = 0; gvj < 22; gvj++) {
+          px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 150, 142, 155);
+        }
+        break;
+      case BLOCK.BRICK:
+        noiseFill(ctx, 150, 65, 50, 8);
+        ctx.fillStyle = 'rgba(195,188,180,0.95)';
+        for (var bky = 0; bky < 16; bky += 4) ctx.fillRect(0, bky, 16, 1);
+        ctx.fillRect(8, 1, 1, 3);
+        ctx.fillRect(4, 5, 1, 3); ctx.fillRect(12, 5, 1, 3);
+        ctx.fillRect(8, 9, 1, 3);
+        ctx.fillRect(4, 13, 1, 3); ctx.fillRect(12, 13, 1, 3);
+        break;
+      case BLOCK.STONE_BRICK:
+        noiseFill(ctx, 122, 122, 122, 12);
+        ctx.fillStyle = 'rgba(60,60,60,0.85)';
+        ctx.fillRect(0, 0, 16, 1); ctx.fillRect(0, 8, 16, 1); ctx.fillRect(0, 15, 16, 1);
+        ctx.fillRect(0, 0, 1, 8); ctx.fillRect(8, 0, 1, 8); ctx.fillRect(15, 0, 1, 8);
+        ctx.fillRect(4, 8, 1, 8); ctx.fillRect(12, 8, 1, 8); ctx.fillRect(0, 8, 1, 8); ctx.fillRect(15, 8, 1, 8);
+        for (var sbi = 0; sbi < 9; sbi++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 88, 88, 88);
+        break;
+      case BLOCK.MOSSY_COBBLE:
+        drawFace(BLOCK.COBBLE, face, ctx);
+        for (var mci = 0; mci < 44; mci++) {
+          var mcsh = (Math.random() - 0.5) * 20;
+          px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 58 + mcsh, 100 + mcsh, 45 + mcsh);
+        }
+        break;
+      case BLOCK.DARK_PLANKS:
+        noiseFill(ctx, 90, 60, 35, 10);
+        ctx.fillStyle = 'rgba(55,35,20,0.9)';
+        for (var dpky = 0; dpky < 16; dpky += 5) ctx.fillRect(0, dpky, 16, 1);
+        ctx.fillRect(0, 0, 1, 5); ctx.fillRect(8, 5, 1, 5); ctx.fillRect(4, 10, 1, 6);
+        break;
+      case BLOCK.WOOL:
+        noiseFill(ctx, 235, 235, 235, 8);
+        break;
+      case BLOCK.RED_WOOL:
+        noiseFill(ctx, 170, 45, 40, 10);
+        break;
+      case BLOCK.BLUE_WOOL:
+        noiseFill(ctx, 50, 70, 170, 10);
+        break;
+      case BLOCK.YELLOW_WOOL:
+        noiseFill(ctx, 220, 200, 60, 10);
+        break;
+      case BLOCK.MELON:
+        if (face === 'top') {
+          noiseFill(ctx, 240, 120, 130, 8);
+          ctx.fillStyle = 'rgba(60,140,55,0.9)'; ctx.fillRect(6, 6, 4, 4);
+          px(ctx, 7, 8, 40, 40, 30); px(ctx, 9, 8, 40, 40, 30);
+          px(ctx, 8, 7, 40, 40, 30); px(ctx, 8, 9, 40, 40, 30);
+        } else if (face === 'bottom') {
+          noiseFill(ctx, 70, 150, 60, 10);
+        } else {
+          noiseFill(ctx, 75, 150, 60, 10);
+          ctx.fillStyle = 'rgba(140,200,110,0.85)';
+          for (var mly = 0; mly < 16; mly += 4) ctx.fillRect(0, mly, 16, 1);
+          ctx.fillStyle = 'rgba(55,120,45,0.8)';
+          for (var mlx = 0; mlx < 16; mlx += 8) ctx.fillRect(mlx, 0, 1, 16);
+        }
+        break;
+      case BLOCK.PUMPKIN:
+        if (face === 'top') {
+          noiseFill(ctx, 200, 110, 30, 10);
+          ctx.fillStyle = 'rgba(80,120,45,1)'; ctx.fillRect(7, 7, 3, 3);
+        } else if (face === 'bottom') {
+          noiseFill(ctx, 200, 110, 30, 10);
+        } else {
+          noiseFill(ctx, 210, 120, 35, 12);
+          ctx.fillStyle = 'rgba(170,85,20,0.6)';
+          ctx.fillRect(2, 0, 1, 16); ctx.fillRect(7, 0, 1, 16); ctx.fillRect(13, 0, 1, 16);
+          ctx.fillStyle = 'rgba(40,25,10,1)';
+          ctx.fillRect(4, 5, 2, 2); ctx.fillRect(5, 6, 1, 1);
+          ctx.fillRect(10, 5, 2, 2); ctx.fillRect(10, 6, 1, 1);
+          ctx.fillRect(4, 10, 8, 1);
+          ctx.fillRect(4, 11, 1, 1); ctx.fillRect(6, 11, 1, 1); ctx.fillRect(9, 11, 1, 1); ctx.fillRect(11, 11, 1, 1);
+        }
+        break;
+      case BLOCK.BOOKSHELF:
+        if (face === 'top' || face === 'bottom') {
+          drawFace(BLOCK.PLANKS, face, ctx);
+        } else {
+          drawFace(BLOCK.PLANKS, 'side', ctx);
+          ctx.fillStyle = 'rgba(60,40,25,1)';
+          ctx.fillRect(1, 4, 14, 4); ctx.fillRect(1, 9, 14, 4);
+          var bkCols = [[170, 50, 50], [60, 90, 170], [180, 150, 50], [60, 140, 70], [150, 80, 160], [200, 100, 50]];
+          for (var bkRow = 0; bkRow < 2; bkRow++) {
+            var bkY = bkRow === 0 ? 4 : 9;
+            var bkX = 1;
+            while (bkX < 15) {
+              var bkC = bkCols[(Math.random() * bkCols.length) | 0];
+              var bkW = 1 + ((Math.random() * 2) | 0);
+              for (var bkXX = 0; bkXX < bkW && bkX + bkXX < 15; bkXX++) {
+                var bkN = (Math.random() - 0.5) * 20;
+                px(ctx, bkX + bkXX, bkY, bkC[0] + bkN, bkC[1] + bkN, bkC[2] + bkN);
+                px(ctx, bkX + bkXX, bkY + 1, bkC[0] + bkN, bkC[1] + bkN, bkC[2] + bkN);
+                px(ctx, bkX + bkXX, bkY + 2, bkC[0] + bkN, bkC[1] + bkN, bkC[2] + bkN);
+                px(ctx, bkX + bkXX, bkY + 3, bkC[0] + bkN, bkC[1] + bkN, bkC[2] + bkN);
+              }
+              bkX += bkW;
+              if (bkX < 15) {
+                px(ctx, bkX, bkY, 40, 28, 18); px(ctx, bkX, bkY + 1, 40, 28, 18);
+                px(ctx, bkX, bkY + 2, 40, 28, 18); px(ctx, bkX, bkY + 3, 40, 28, 18);
+                bkX++;
+              }
+            }
+          }
+        }
+        break;
+      case BLOCK.LAVA:
+        noiseFill(ctx, 220, 90, 20, 18);
+        ctx.fillStyle = 'rgba(255,200,60,0.9)';
+        for (var lvy = 0; lvy < 16; lvy++) {
+          if (Math.random() < 0.32) {
+            var lvx = (Math.random() * 14) | 0;
+            ctx.fillRect(lvx, lvy, 2 + ((Math.random() * 3) | 0), 1);
+          }
+        }
+        for (var lhi = 0; lhi < 12; lhi++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 255, 240, 180);
+        break;
+      case BLOCK.WATER:
+        noiseFill(ctx, 50, 90, 200, 14);
+        ctx.fillStyle = 'rgba(120,170,240,0.5)';
+        for (var wty = 0; wty < 16; wty += 3) ctx.fillRect(0, wty, 16, 1);
+        break;
+      case BLOCK.OBSIDIAN:
+        noiseFill(ctx, 30, 25, 45, 10);
+        for (var obi = 0; obi < 14; obi++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 90, 60, 130);
+        for (var obj = 0; obj < 8; obj++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 55, 40, 80);
+        break;
+      case BLOCK.SNOW:
+        noiseFill(ctx, 240, 245, 250, 6);
+        break;
+      case BLOCK.CACTUS:
+        if (face === 'top') {
+          noiseFill(ctx, 90, 150, 70, 10);
+          ctx.fillStyle = 'rgba(60,110,50,0.9)'; ctx.fillRect(2, 2, 12, 12);
+          ctx.strokeStyle = 'rgba(70,130,60,0.8)'; ctx.lineWidth = 1; ctx.strokeRect(2.5, 2.5, 11, 11);
+        } else if (face === 'bottom') {
+          noiseFill(ctx, 90, 150, 70, 10);
+        } else {
+          noiseFill(ctx, 80, 140, 60, 10);
+          ctx.fillStyle = 'rgba(220,230,200,0.9)';
+          for (var ccy = 1; ccy < 16; ccy += 3) {
+            for (var ccx = 1; ccx < 16; ccx += 4) ctx.fillRect(ccx, ccy, 1, 1);
+          }
+          ctx.fillStyle = 'rgba(55,100,45,0.7)';
+          ctx.fillRect(0, 0, 1, 16); ctx.fillRect(15, 0, 1, 16);
+        }
+        break;
+      case BLOCK.DIAMOND_BLOCK:
+        noiseFill(ctx, 90, 220, 215, 12);
+        ctx.fillStyle = 'rgba(180,245,240,0.85)';
+        ctx.fillRect(3, 3, 3, 3); ctx.fillRect(10, 3, 3, 3); ctx.fillRect(3, 10, 3, 3); ctx.fillRect(10, 10, 3, 3);
+        ctx.fillStyle = 'rgba(220,255,250,0.9)'; ctx.fillRect(7, 7, 2, 2);
+        ctx.fillStyle = 'rgba(50,160,155,0.6)';
+        ctx.fillRect(0, 0, 16, 1); ctx.fillRect(0, 15, 16, 1); ctx.fillRect(0, 0, 1, 16); ctx.fillRect(15, 0, 1, 16);
+        break;
+      case BLOCK.GOLD_BLOCK:
+        noiseFill(ctx, 230, 190, 70, 12);
+        ctx.fillStyle = 'rgba(255,230,140,0.85)';
+        ctx.fillRect(3, 3, 3, 3); ctx.fillRect(10, 3, 3, 3); ctx.fillRect(3, 10, 3, 3); ctx.fillRect(10, 10, 3, 3);
+        ctx.fillStyle = 'rgba(255,245,180,0.9)'; ctx.fillRect(7, 7, 2, 2);
+        ctx.fillStyle = 'rgba(170,130,30,0.6)';
+        ctx.fillRect(0, 0, 16, 1); ctx.fillRect(0, 15, 16, 1); ctx.fillRect(0, 0, 1, 16); ctx.fillRect(15, 0, 1, 16);
+        break;
+      case BLOCK.IRON_BLOCK:
+        noiseFill(ctx, 220, 220, 225, 8);
+        ctx.fillStyle = 'rgba(240,240,245,0.7)';
+        ctx.fillRect(3, 3, 3, 3); ctx.fillRect(10, 10, 3, 3);
+        ctx.fillStyle = 'rgba(160,160,170,0.6)';
+        ctx.fillRect(0, 0, 16, 1); ctx.fillRect(0, 15, 16, 1); ctx.fillRect(0, 0, 1, 16); ctx.fillRect(15, 0, 1, 16);
+        break;
+      case BLOCK.COAL_BLOCK:
+        noiseFill(ctx, 30, 30, 32, 8);
+        for (var cbi = 0; cbi < 14; cbi++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 60, 58, 62);
+        for (var cbj = 0; cbj < 6; cbj++) px(ctx, (Math.random() * 16) | 0, (Math.random() * 16) | 0, 15, 15, 16);
+        break;
     }
   }
 
@@ -160,6 +381,11 @@
       var mm = new THREE.MeshLambertMaterial({ map: t });
       if (type === BLOCK.GLASS) { mm.transparent = true; mm.opacity = 0.65; }
       if (type === BLOCK.LEAVES) { mm.transparent = true; mm.opacity = 0.96; }
+      if (type === BLOCK.WATER) { mm.transparent = true; mm.opacity = 0.72; }
+      // 自发光方块：熔岩强烈发光，钻石块/金块微微闪光
+      if (type === BLOCK.LAVA) { mm.emissive = new THREE.Color(0xff5a10); mm.emissiveIntensity = 0.9; }
+      if (type === BLOCK.DIAMOND_BLOCK) { mm.emissive = new THREE.Color(0x4ad8d0); mm.emissiveIntensity = 0.4; }
+      if (type === BLOCK.GOLD_BLOCK) { mm.emissive = new THREE.Color(0x6a5a10); mm.emissiveIntensity = 0.32; }
       return mm;
     }
     var top = m('top'), bottom = m('bottom'), side = m('side');
@@ -240,6 +466,9 @@
     var mesh = new THREE.Mesh(boxGeo, getMats(type));
     mesh.position.set(x + 0.5, y + 0.5, z + 0.5);
     mesh.userData = { x: x, y: y, z: z };
+    // 阴影：所有方块接收阴影；非透明方块投射阴影（玻璃/水不投射，避免怪异黑影）
+    mesh.castShadow = !(type === BLOCK.GLASS || type === BLOCK.WATER);
+    mesh.receiveShadow = true;
     scene.add(mesh);
     meshes.set(k, mesh);
   }
@@ -341,10 +570,28 @@
   }
 
   // ============ 场景初始化 ============
+  // 生成竖向天空渐变纹理（天顶浅蓝 -> 地平线偏白）
+  function makeSkyTexture() {
+    var c = document.createElement('canvas');
+    c.width = 2; c.height = 256;
+    var ctx = c.getContext('2d');
+    var grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#5aa8e6');    // 天顶
+    grad.addColorStop(0.5, '#9fd2f5');   // 中部
+    grad.addColorStop(1, '#dcefff');     // 地平线偏白
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 2, 256);
+    var tex = new THREE.CanvasTexture(c);
+    if (THREE.sRGBEncoding !== undefined) tex.encoding = THREE.sRGBEncoding;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
   function setupScene() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87ceeb);
-    scene.fog = new THREE.Fog(0x87ceeb, 18, 42);
+    scene.background = makeSkyTexture();
+    var fogColor = 0xcfe8ff;
+    scene.fog = new THREE.Fog(fogColor, 20, 50);
 
     camera = new THREE.PerspectiveCamera(72, 16 / 9, 0.1, 200);
     camera.rotation.order = 'YXZ';
@@ -352,14 +599,34 @@
     renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     if (THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
+    // 开启阴影映射
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // 环境光 + 方向光（模拟太阳）
-    scene.add(new THREE.AmbientLight(0xffffff, 0.62));
-    var sun = new THREE.DirectionalLight(0xffffff, 0.72);
-    sun.position.set(40, 80, 30);
+    // 半球光：天空蓝 + 地面褐绿，柔和环境光，阴影区不死黑
+    var hemi = new THREE.HemisphereLight(0xbfe3ff, 0x6b5a3a, 0.55);
+    scene.add(hemi);
+    // 弱环境光兜底
+    scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+
+    // 太阳光（暖白，开启阴影）
+    var sun = new THREE.DirectionalLight(0xfff5e0, 0.95);
+    sun.position.set(30, 60, 20);
+    sun.castShadow = true;
+    sun.shadow.mapSize.width = 2048;
+    sun.shadow.mapSize.height = 2048;
+    sun.shadow.camera.near = 1;
+    sun.shadow.camera.far = 160;
+    sun.shadow.camera.left = -28;
+    sun.shadow.camera.right = 28;
+    sun.shadow.camera.top = 28;
+    sun.shadow.camera.bottom = -28;
+    sun.shadow.bias = -0.0005;
+    sun.target.position.set(12, 6, 12);
     scene.add(sun);
+    scene.add(sun.target);
     // 填充光，让背光面不太黑
-    var fill = new THREE.DirectionalLight(0xbfd8ff, 0.25);
+    var fill = new THREE.DirectionalLight(0xbfd8ff, 0.22);
     fill.position.set(-30, 40, -20);
     scene.add(fill);
 
@@ -485,6 +752,78 @@
     blockNameEl.textContent = BLOCK_NAME[HOTBAR[selectedSlot]] || '';
   }
 
+  // ============ 背包系统 ============
+  function openInventory() {
+    if (inventoryOpen) return;
+    inventoryOpen = true;
+    renderInventory();
+    inventoryEl.classList.add('open');
+    // 打开背包时解锁鼠标、暂停游戏
+    if (!isTouch && document.pointerLockElement === container) {
+      document.exitPointerLock();
+    }
+    gameActive = false;
+  }
+
+  function closeInventory() {
+    if (!inventoryOpen) return;
+    inventoryOpen = false;
+    inventoryEl.classList.remove('open');
+    // 关闭背包后恢复游戏（重新锁定鼠标）
+    if (!isTouch && gameStarted) {
+      container.requestPointerLock();
+    } else if (isTouch && gameStarted) {
+      gameActive = true;
+    }
+  }
+
+  function toggleInventory() {
+    if (inventoryOpen) closeInventory();
+    else openInventory();
+  }
+
+  function renderInventory() {
+    // 上方网格：所有可用方块
+    invGridEl.innerHTML = '';
+    for (var i = 0; i < ALL_BLOCKS.length; i++) {
+      var type = ALL_BLOCKS[i];
+      var slot = document.createElement('div');
+      slot.className = 'play-inv-slot';
+      slot.style.backgroundImage = 'url(' + makeIconURL(type) + ')';
+      slot.title = BLOCK_NAME[type] || '';
+      (function (t) {
+        slot.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          // 点击方块 -> 放入当前选中的快捷栏格（替换该格方块类型）
+          HOTBAR[selectedSlot] = t;
+          renderInventory();
+          renderHotbar();
+          updateBlockName();
+        });
+      })(type);
+      invGridEl.appendChild(slot);
+    }
+    // 底部快捷栏预览：可点击选中某格
+    invHotbarEl.innerHTML = '';
+    for (var j = 0; j < HOTBAR.length; j++) {
+      var hslot = document.createElement('div');
+      hslot.className = 'play-inv-hotbar-slot';
+      if (j === selectedSlot) hslot.classList.add('active');
+      hslot.style.backgroundImage = 'url(' + makeIconURL(HOTBAR[j]) + ')';
+      hslot.title = BLOCK_NAME[HOTBAR[j]] || '';
+      (function (idx) {
+        hslot.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          selectedSlot = idx;
+          renderInventory();
+          updateHotbarUI();
+          updateBlockName();
+        });
+      })(j);
+      invHotbarEl.appendChild(hslot);
+    }
+  }
+
   // ============ 方块破坏 / 放置 ============
   function breakBlock() {
     var hit = raycastVoxel(REACH);
@@ -512,6 +851,12 @@
       selectedSlot = parseInt(e.key, 10) - 1;
       updateHotbarUI();
       updateBlockName();
+      if (inventoryOpen) renderInventory(); // 同步背包内快捷栏预览的选中态
+    }
+    // E 键打开/关闭背包（仅游戏开始后可用）
+    if (k === 'e' && gameStarted) {
+      e.preventDefault();
+      toggleInventory();
     }
     // ESC 由 Pointer Lock 自动处理，这里不需要额外逻辑
   }
@@ -563,8 +908,9 @@
       hideOverlay();
     } else {
       gameActive = false;
-      if (gameStarted) {
-        showOverlay('已暂停，点击继续', 'WASD 移动 · 鼠标视角 · 空格跳跃 · 左键破坏 · 右键放置 · 滚轮/数字键切换方块');
+      // 背包打开时不显示暂停遮罩（背包面板本身已遮罩）
+      if (gameStarted && !inventoryOpen) {
+        showOverlay('已暂停，点击继续', 'WASD 移动 · 鼠标视角 · 空格跳跃 · 左键破坏 · 右键放置 · 滚轮/数字键切换方块 · 按 E 打开背包');
       }
     }
   }
@@ -741,6 +1087,9 @@
     fsBtn = document.getElementById('playFullscreenBtn');
     joyBase = document.getElementById('playJoystickBase');
     joyKnob = document.getElementById('playJoystickKnob');
+    inventoryEl = document.getElementById('playInventory');
+    invGridEl = document.getElementById('playInvGrid');
+    invHotbarEl = document.getElementById('playInvHotbar');
 
     isTouch = 'ontouchstart' in window;
     if (isTouch) container.classList.add('touch');
@@ -772,6 +1121,11 @@
 
     overlay.addEventListener('click', onOverlayClick);
     document.addEventListener('pointerlockchange', onPointerLockChange);
+
+    // 背包：点击遮罩空白处关闭（点面板内部不关闭）
+    inventoryEl.addEventListener('click', function (e) {
+      if (e.target === inventoryEl) closeInventory();
+    });
 
     fsBtn.addEventListener('click', toggleFullscreen);
     document.addEventListener('fullscreenchange', onResize);

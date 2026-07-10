@@ -56,6 +56,20 @@
                 <!-- Hotbar -->
                 <div class="play-hotbar" id="playHotbar"></div>
 
+                <!-- 背包面板（按 E 打开） -->
+                <div class="play-inventory" id="playInventory">
+                    <div class="play-inv-panel">
+                        <div class="play-inv-header">
+                            <div class="play-inv-title">背包</div>
+                            <div class="play-inv-hint">点击方块放入下方选中的快捷栏格子</div>
+                        </div>
+                        <div class="play-inv-grid" id="playInvGrid"></div>
+                        <div class="play-inv-section-label">快捷栏（点击选中格子）</div>
+                        <div class="play-inv-hotbar" id="playInvHotbar"></div>
+                        <div class="play-inv-footer">按 E 键关闭背包</div>
+                    </div>
+                </div>
+
                 <!-- 触摸控制（默认隐藏，触摸设备显示） -->
                 <div class="play-touch-controls" id="playTouchControls">
                     <div class="play-joystick">
@@ -73,7 +87,7 @@
                 <!-- 覆盖层：点击开始 / 已暂停 -->
                 <div class="play-overlay" id="playOverlay">
                     <h2 class="play-overlay-title" id="playOverlayTitle">点击开始</h2>
-                    <p class="play-overlay-sub" id="playOverlaySub">WASD 移动 · 鼠标视角 · 空格跳跃 · 左键破坏 · 右键放置 · 滚轮/数字键切换方块</p>
+                    <p class="play-overlay-sub" id="playOverlaySub">WASD 移动 · 鼠标视角 · 空格跳跃 · 左键破坏 · 右键放置 · 滚轮/数字键切换方块 · 按 E 打开背包</p>
                 </div>
             </div>
 
