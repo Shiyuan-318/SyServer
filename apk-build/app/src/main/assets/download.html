@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载 - SyServer</title>
+    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .download-section {
+            padding: 64px 24px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .download-card {
+            position: relative;
+            background: rgba(40, 40, 42, 0.72);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 28px;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .download-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .download-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        .download-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.18) 0%, rgba(94, 92, 230, 0.18) 100%);
+            border: 1px solid rgba(10, 132, 255, 0.25);
+            color: var(--color-primary-hover);
+        }
+        .download-card-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+        .download-card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .download-card-subtitle {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .download-card-body {
+            margin-top: auto;
+        }
+        .apk-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .apk-meta-item {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            padding: 5px 12px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .apk-meta-item strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+        .apk-status {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 20px;
+            min-height: 20px;
+        }
+        .apk-status.loading::after {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-left: 6px;
+            border: 2px solid var(--color-text-secondary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 980px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #0a84ff 0%, #0062c4 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            background: linear-gradient(135deg, #409cff 0%, #0077ed 100%);
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+        .download-btn.secondary {
+            background: rgba(10, 132, 255, 0.12);
+            color: var(--color-primary-hover);
+            border: 1px solid rgba(10, 132, 255, 0.3);
+            box-shadow: none;
+        }
+        .download-btn.secondary:hover {
+            background: rgba(10, 132, 255, 0.2);
+            transform: translateY(-1px);
+            box-shadow: none;
+        }
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        /* 开发中卡片 */
+        .dev-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 980px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--color-border);
+            align-self: flex-start;
+        }
+        .dev-badge .dev-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff9f0a;
+            box-shadow: 0 0 0 4px rgba(255, 159, 10, 0.15);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .dev-hint {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            opacity: 0.7;
+            margin-top: 14px;
+        }
+        .download-card.disabled {
+            opacity: 0.85;
+        }
+        .download-card.disabled:hover {
+            transform: none;
+        }
+        @media (max-width: 760px) {
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+            .download-section {
+                padding: 40px 16px 72px;
+            }
+            .download-card {
+                padding: 32px 24px;
+            }
+            .download-card-title {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="logo.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <div class="nav-page-title" id="navPageTitle">下载</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="event.html">活动</a></li>
+                <li><a href="announcement.html">公告</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="wiki-hero">
+        <div class="wiki-hero-content">
+            <h1 class="wiki-hero-title">下载</h1>
+            <p class="wiki-hero-subtitle">获取 SyServer 应用程序与启动器</p>
+        </div>
+    </section>
+
+    <!-- 下载内容 -->
+    <section class="download-section">
+        <div class="download-grid">
+            <!-- 下载 SyServer 应用程序 -->
+            <div class="download-card">
+                <div class="download-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                </div>
+                <h2 class="download-card-title">下载 SyServer 应用程序</h2>
+                <p class="download-card-subtitle">该软件为 SyServer 官网，但是更新可能不及时</p>
+                <div class="download-card-body">
+                    <div class="apk-meta" id="apkMeta" style="display:none;"></div>
+                    <p class="apk-status loading" id="apkStatus">正在获取最新版本…</p>
+                    <a class="download-btn" id="apkDownloadBtn" href="https://github.com/Shiyuan-318/syserver/releases" target="_blank" rel="noopener" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        <span id="apkBtnText">下载 APK</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 下载 SyServer 启动器 -->
+            <div class="download-card disabled">
+                <div class="download-card-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </div>
+                <h2 class="download-card-title">下载 SyServer 启动器</h2>
+                <p class="download-card-subtitle">可通过该启动器直接免登录进入 SyServer</p>
+                <div class="download-card-body">
+                    <span class="dev-badge">
+                        <span class="dev-dot"></span>
+                        开发中
+                    </span>
+                    <p class="dev-hint">启动器仍在开发中，敬请期待。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="index.html#servers">生存服</a></li>
+                        <li><a href="index.html#servers">起床战争服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- 动态获取 GitHub 最新 release 的 APK 文件 -->
+    <script>
+    (function () {
+        const REPO_API = 'https://api.github.com/repos/Shiyuan-318/syserver/releases/latest';
+        const RELEASES_PAGE = 'https://github.com/Shiyuan-318/syserver/releases';
+        const statusEl = document.getElementById('apkStatus');
+        const metaEl = document.getElementById('apkMeta');
+        const btnEl = document.getElementById('apkDownloadBtn');
+        const btnText = document.getElementById('apkBtnText');
+
+        const formatSize = (bytes) => {
+            if (!bytes) return '未知';
+            const mb = bytes / (1024 * 1024);
+            if (mb >= 1) return mb.toFixed(1) + ' MB';
+            return (bytes / 1024).toFixed(0) + ' KB';
+        };
+
+        const formatDate = (iso) => {
+            if (!iso) return '';
+            const d = new Date(iso);
+            if (isNaN(d)) return '';
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        };
+
+        const showMeta = (items) => {
+            metaEl.innerHTML = '';
+            items.forEach(({ label, value }) => {
+                if (!value) return;
+                const span = document.createElement('span');
+                span.className = 'apk-meta-item';
+                span.innerHTML = label + ' <strong>' + value + '</strong>';
+                metaEl.appendChild(span);
+            });
+            if (metaEl.children.length) metaEl.style.display = 'flex';
+        };
+
+        const fail = (msg) => {
+            statusEl.classList.remove('loading');
+            statusEl.textContent = msg || '暂未找到可下载的 APK，可前往 GitHub 查看。';
+            btnEl.href = RELEASES_PAGE;
+            btnEl.style.display = 'inline-flex';
+            btnText.textContent = '前往 GitHub 查看';
+            btnEl.classList.add('secondary');
+        };
+
+        fetch(REPO_API)
+            .then(res => {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            })
+            .then(data => {
+                if (!data || !data.tag_name) { fail(); return; }
+                const apk = (data.assets || []).find(a => /\.apk$/i.test(a.name));
+                if (!apk) { fail('最新版本未包含 APK 文件，可前往 GitHub 查看。'); return; }
+
+                statusEl.classList.remove('loading');
+                statusEl.textContent = '';
+
+                showMeta([
+                    { label: '版本', value: data.tag_name },
+                    { label: '大小', value: formatSize(apk.size) },
+                    { label: '发布', value: formatDate(data.published_at) },
+                    { label: '下载量', value: (typeof apk.download_count === 'number') ? apk.download_count + ' 次' : '' }
+                ]);
+
+                btnEl.href = apk.browser_download_url;
+                btnEl.style.display = 'inline-flex';
+                btnText.textContent = '下载 APK';
+            })
+            .catch(() => fail('获取版本信息失败，可前往 GitHub 查看。'));
+    })();
+    </script>
+</body>
+</html>
