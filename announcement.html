@@ -53,6 +53,14 @@
                     <p>由于服务器近期使用了 AI 管理服务器，AI 误操作导致插件功能损坏（包括箱子商店、附魔、经济），将于 2026.07.16 日前修复完成，敬请谅解。</p>
                     <p>修复期间，您仍可以进入服务器，但是无法使用相关功能，修复成功后方可恢复。期间内，请不要对有特殊附魔的装备进行再次附魔。</p>
                 </div>
+                <div class="announcement-actions" data-notice="ann_20260711">
+                    <button class="vote-btn" data-vote="like" data-key="syserver_ann_20260711_like">
+                        <span class="vote-icon">👍</span><span class="vote-count">0</span>
+                    </button>
+                    <button class="vote-btn" data-vote="dislike" data-key="syserver_ann_20260711_dislike">
+                        <span class="vote-icon">👎</span><span class="vote-count">0</span>
+                    </button>
+                </div>
             </article>
             <article class="announcement-item">
                 <div class="announcement-header">
@@ -66,6 +74,14 @@
                     <p>为保证游戏平衡、增加更多玩法，现对服务器部分插件进行调整：</p>
                     <p>1. 禁用部分特殊附魔（已附魔的无实际效果）<br>2. 允许玩家自行创建箱子商店<br>3. 系统商店增加更多商品</p>
                 </div>
+                <div class="announcement-actions" data-notice="ann_20260710">
+                    <button class="vote-btn" data-vote="like" data-key="syserver_ann_20260710_like">
+                        <span class="vote-icon">👍</span><span class="vote-count">0</span>
+                    </button>
+                    <button class="vote-btn" data-vote="dislike" data-key="syserver_ann_20260710_dislike">
+                        <span class="vote-icon">👎</span><span class="vote-count">0</span>
+                    </button>
+                </div>
             </article>
             <article class="announcement-item">
                 <div class="announcement-header">
@@ -78,6 +94,14 @@
                 <div class="announcement-body">
                     <p>由于服务器硬盘剩余空间告急，且当前地图为 1.20.1 升级到 1.21.11 的，地图里有的 1.21.x 新增结构较少，所以暑假可能会开个新图换个服务器新核心，敬请谅解。</p>
                     <p>当然请不要担心，重置前会收集大家的建筑所在区块，重置后这些区块保持不变，不会对建筑造成影响。</p>
+                </div>
+                <div class="announcement-actions" data-notice="ann_20260707">
+                    <button class="vote-btn" data-vote="like" data-key="syserver_ann_20260707_like">
+                        <span class="vote-icon">👍</span><span class="vote-count">0</span>
+                    </button>
+                    <button class="vote-btn" data-vote="dislike" data-key="syserver_ann_20260707_dislike">
+                        <span class="vote-icon">👎</span><span class="vote-count">0</span>
+                    </button>
                 </div>
             </article>
         </div>
@@ -127,5 +151,99 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- 公告投票（点赞/踩）：免费计数 API + localStorage 防重复 -->
+    <script>
+    (function () {
+        const API = 'https://countapi.mileshilliard.com/api/v1';
+
+        // 仅获取值（不增加）
+        const getCount = async (key) => {
+            try {
+                const res = await fetch(`${API}/get/${key}`);
+                if (!res.ok) return 0;
+                const data = await res.json();
+                return parseInt(data.value, 10) || 0;
+            } catch (e) {
+                return 0;
+            }
+        };
+
+        // +1 并返回新值
+        const hitCount = async (key) => {
+            try {
+                const res = await fetch(`${API}/hit/${key}`);
+                if (!res.ok) return null;
+                const data = await res.json();
+                return parseInt(data.value, 10) || 0;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        const STORAGE_PREFIX = 'syserver_voted_';
+
+        // 读取某条通知是否已投票，返回 'like' / 'dislike' / null
+        const getVoted = (notice) => {
+            try {
+                return localStorage.getItem(STORAGE_PREFIX + notice) || null;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        const setVoted = (notice, type) => {
+            try {
+                localStorage.setItem(STORAGE_PREFIX + notice, type);
+            } catch (e) { /* 忽略隐私模式写入失败 */ }
+        };
+
+        // 应用"已投票"状态到按钮组
+        const applyVotedState = (actions, votedType) => {
+            const btns = actions.querySelectorAll('.vote-btn');
+            btns.forEach(btn => {
+                const type = btn.dataset.vote;
+                btn.classList.remove('voted-like', 'voted-dislike', 'locked', 'voted');
+                if (votedType) {
+                    if (type === votedType) {
+                        btn.classList.add('voted', 'voted-' + votedType);
+                    } else {
+                        btn.classList.add('locked');
+                    }
+                }
+            });
+        };
+
+        document.querySelectorAll('.announcement-actions').forEach(actions => {
+            const notice = actions.dataset.notice;
+            const likeBtn = actions.querySelector('[data-vote="like"]');
+            const dislikeBtn = actions.querySelector('[data-vote="dislike"]');
+
+            // 初始化：拉取每个按钮的当前数字
+            [likeBtn, dislikeBtn].forEach(async btn => {
+                const count = await getCount(btn.dataset.key);
+                btn.querySelector('.vote-count').textContent = count;
+            });
+
+            // 恢复已投票状态
+            const voted = getVoted(notice);
+            if (voted) applyVotedState(actions, voted);
+
+            // 点击投票
+            const handleVote = async (btn) => {
+                if (btn.classList.contains('locked') || btn.classList.contains('voted')) return;
+                const type = btn.dataset.vote;
+                const newCount = await hitCount(btn.dataset.key);
+                if (newCount !== null) {
+                    btn.querySelector('.vote-count').textContent = newCount;
+                }
+                setVoted(notice, type);
+                applyVotedState(actions, type);
+            };
+
+            likeBtn.addEventListener('click', () => handleVote(likeBtn));
+            dislikeBtn.addEventListener('click', () => handleVote(dislikeBtn));
+        });
+    })();
+    </script>
 </body>
 </html>
