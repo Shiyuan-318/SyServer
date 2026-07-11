@@ -3361,6 +3361,68 @@ ul {
     margin-bottom: 0;
 }
 
+/* 公告投票按钮（点赞 / 踩） */
+.announcement-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.625rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.vote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    user-select: none;
+}
+
+.vote-btn:hover:not(.locked):not(.voted) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.vote-btn .vote-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.vote-btn .vote-count {
+    font-variant-numeric: tabular-nums;
+    min-width: 1.5em;
+    text-align: center;
+}
+
+/* 已选中状态：点赞高亮绿，踩高亮红 */
+.vote-btn.voted-like {
+    background: rgba(48, 209, 88, 0.15);
+    border-color: rgba(48, 209, 88, 0.5);
+    color: #30d158;
+}
+
+.vote-btn.voted-dislike {
+    background: rgba(255, 69, 58, 0.15);
+    border-color: rgba(255, 69, 58, 0.5);
+    color: #ff453a;
+}
+
+/* 同条通知另一按钮被锁定（互斥） */
+.vote-btn.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 /* 敬请期待 */
 .coming-soon {
     text-align: center;
