@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.syserver.app-mergeReleaseResources-19:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "/root/.gradle/caches/8.14.4/transforms/54214a010cbd5545b9685dd58432e1ea/transformed/appcompat-1.6.1/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "/root/.gradle/caches/8.14.4/transforms/540a58e5f87dc0de9a40b6c5cd32b9a9/transformed/core-1.9.0/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                }
+            ]
+        }
+    ]
+}

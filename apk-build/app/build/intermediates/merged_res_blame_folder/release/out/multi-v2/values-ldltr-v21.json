@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.syserver.app-mergeReleaseResources-19:/values-ldltr-v21/values-ldltr-v21.xml",
+            "map": [
+                {
+                    "source": "/root/.gradle/caches/8.14.4/transforms/54214a010cbd5545b9685dd58432e1ea/transformed/appcompat-1.6.1/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
+                    }
+                }
+            ]
+        }
+    ]
+}

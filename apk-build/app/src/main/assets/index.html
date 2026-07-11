@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyServer - Minecraft 服务器</title>
+    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo"><img src="logo.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="event.html">活动</a></li>
+                <li><a href="announcement.html">公告</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <!-- Center: in-game screenshot -->
+        <div class="hero-showcase">
+            <img src="Picture0.jpg" alt="SyServer 游戏截图" class="hero-showcase-img" id="heroShowcaseImg">
+        </div>
+        <!-- Bottom strip: brand (left) + learn more (right) -->
+        <div class="hero-bottom-bar">
+            <a href="index.html" class="hero-brand">
+                <img src="logo.png" alt="SyServer Logo" class="hero-brand-logo">
+                <span>SyServer</span>
+            </a>
+            <a href="#features" class="btn btn-primary hero-learn-more">了解更多</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features" data-animate>
+        <div class="section-header">
+            <h2 class="section-title">服务器特色</h2>
+            <p class="section-subtitle">精心打造的游戏体验</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card feature-large">
+                <div class="feature-content">
+                    <h3 class="feature-title">多版本支持</h3>
+                    <p class="feature-description">
+                        支持 Minecraft 1.8 至 26.1.1 版本<br>
+                        推荐使用 1.21.11 获得最佳体验
+                    </p>
+                </div>
+                <div class="feature-visual version-visual">
+                    <div class="version-badges">
+                        <span class="version-badge">1.8</span>
+                        <span class="version-arrow">→</span>
+                        <span class="version-badge recommended">26.1.1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-content">
+                    <h3 class="feature-title">活跃社区</h3>
+                    <p class="feature-description">900+ 注册玩家，活跃的QQ群交流</p>
+                </div>
+                <div class="feature-visual community-visual">
+                    <div class="player-icons">
+                        <img src="Shiyuan.jpg" alt="玩家头像" class="player-avatar" loading="lazy">
+                        <img src="Sat.jpg" alt="玩家头像" class="player-avatar" loading="lazy">
+                        <img src="Ziye.jpg" alt="玩家头像" class="player-avatar" loading="lazy">
+                        <div class="player-icon more">+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-content">
+                    <h3 class="feature-title">稳定运行</h3>
+                    <p class="feature-description">自2024年8月20日开服以来稳定运行</p>
+                </div>
+                <div class="feature-visual uptime-visual">
+                    <div class="uptime-indicator" id="uptimeIndicator">
+                        <div class="uptime-dot" id="uptimeDot"></div>
+                        <span id="onlineCount">在线</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servers Section -->
+    <section id="servers" class="servers" data-animate>
+        <div class="section-header">
+            <h2 class="section-title">游戏服务器</h2>
+            <p class="section-subtitle">多种玩法，任你选择</p>
+        </div>
+        <div class="servers-grid">
+            <a href="survival.html" class="server-card survival-server">
+                <div class="server-image survival-image">
+                    <div class="screenshot-slider">
+                        <img src="Picture0.jpg" alt="生存服截图1" class="server-screenshot active" loading="lazy">
+                        <img src="Picture1.jpg" alt="生存服截图2" class="server-screenshot" loading="lazy">
+                        <img src="Picture3.png" alt="生存服截图3" class="server-screenshot" loading="lazy">
+                        <div class="screenshot-dots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="server-info">
+                    <h3 class="server-name">生存服</h3>
+                    <p class="server-description">
+                        经典生存玩法，自由建造与探索<br>
+                        与好友一起创造属于你们的世界<br>
+                        <span class="plugin-info">50+ 插件：tpa、rtp、经济、领地、更多附魔书等</span>
+                    </p>
+                    <div class="server-meta">
+                        <span class="server-tag">高版本插件服</span>
+                        <span class="server-tag">建筑友好</span>
+                        <span class="server-tag">公益服</span>
+                    </div>
+                </div>
+            </a>
+            <a href="bedwars.html" class="server-card">
+                <div class="server-image bedwars-image">
+                    <img src="Picture4.png" alt="起床战争服截图" class="server-screenshot active" loading="lazy">
+                </div>
+                <div class="server-info">
+                    <h3 class="server-name">起床战争服</h3>
+                    <p class="server-description">
+                        紧张刺激的PVP对战<br>
+                        保护你的床，摧毁敌人的床
+                    </p>
+                    <div class="server-meta">
+                        <span class="server-tag">PVP</span>
+                        <span class="server-tag">竞技</span>
+                        <span class="server-tag">公益服</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links" data-animate>
+        <div class="section-header">
+            <h2 class="section-title">快速入口</h2>
+            <p class="section-subtitle">了解服务器的更多动态与幕后故事</p>
+        </div>
+        <div class="quick-links-grid">
+            <a href="announcement.html" class="quick-link-card">
+                <div class="quick-link-icon quick-link-icon-news">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 11l18-5v12L3 14v-3z"/>
+                        <path d="M11.6 16.8a3 3 0 11-5.8-1.6"/>
+                    </svg>
+                </div>
+                <h3 class="quick-link-title">公告</h3>
+                <p class="quick-link-desc">查看服务器最新通知、活动与维护信息</p>
+                <span class="quick-link-arrow">→</span>
+            </a>
+            <a href="admin.html" class="quick-link-card">
+                <div class="quick-link-icon quick-link-icon-team">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                </div>
+                <h3 class="quick-link-title">运营团队</h3>
+                <p class="quick-link-desc">认识 SyServer 背后的管理员与服主</p>
+                <span class="quick-link-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community" data-animate>
+        <div class="community-glow"></div>
+        <div class="community-content">
+            <div class="community-eyebrow">JOIN US</div>
+            <h2 class="section-title">加入社区</h2>
+            <p class="community-description">
+                加入我们的QQ群，获取服务器IP<br>
+                与众多玩家一起游戏、交流
+            </p>
+            <div class="community-qq">
+                <span class="qq-label">QQ群号</span>
+                <span class="qq-number">250904271</span>
+            </div>
+            <a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank" class="btn btn-primary btn-large community-cta">立即加入</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="#servers">生存服</a></li>
+                        <li><a href="#servers">起床战争服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

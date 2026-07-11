@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 找不到页面 | SyServer</title>
+    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- HarmonyOS Sans 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* HarmonyOS Sans 字体栈：优先用本地安装的，没有则回退到 Inter */
+        :root {
+            --font-harmony: 'HarmonyOS Sans SC', 'HarmonyOS Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* 全站字体覆盖为 HarmonyOS Sans */
+        body {
+            font-family: var(--font-harmony);
+        }
+
+        /* 404 主体分栏区域 */
+        .error-section {
+            min-height: calc(100vh - 48px - 200px);
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(180deg, #1c1c1e 0%, #000000 50%, #0a0a0a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 左侧：服务器图标 + SyServer 字样，居中显示 */
+        .error-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: errorFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+        }
+
+        .error-brand-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(41, 151, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .error-brand-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            letter-spacing: -0.02em;
+            font-family: var(--font-harmony);
+        }
+
+        /* 右侧：404 + 按钮 */
+        .error-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: errorFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 16vw, 9rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            color: var(--color-text);
+            font-family: var(--font-harmony);
+            margin: 0;
+            background: linear-gradient(135deg, #f5f5f7 0%, #a1a1a6 50%, #0a84ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 0;
+            letter-spacing: -0.01em;
+            font-family: var(--font-harmony);
+        }
+
+        .error-desc {
+            font-size: 1.0625rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin: 0;
+            max-width: 380px;
+            font-family: var(--font-harmony);
+        }
+
+        /* 两个横着放的按钮 */
+        .error-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .error-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            font-family: var(--font-harmony);
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        background 0.3s ease,
+                        border-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .error-btn-primary {
+            background: #0a84ff;
+            color: #ffffff;
+        }
+
+        .error-btn-primary:hover {
+            background: #0070ee;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.35);
+        }
+
+        .error-btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .error-btn-ghost {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f5f5f7;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .error-btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .error-btn-ghost:active {
+            transform: translateY(0);
+        }
+
+        .error-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        /* 背景装饰光晕，和主页风格统一 */
+        .error-bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .error-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 113, 227, 0.25) 0%, transparent 70%);
+            top: -10%;
+            right: -5%;
+        }
+
+        .error-orb-2 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(41, 151, 255, 0.15) 0%, transparent 70%);
+            bottom: 5%;
+            left: -8%;
+        }
+
+        @keyframes errorFadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 移动端：改成上下布局，左在上右在下 */
+        @media (max-width: 768px) {
+            .error-section {
+                padding: 4rem 1.25rem 3rem;
+            }
+
+            .error-container {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .error-brand-logo {
+                width: 88px;
+                height: 88px;
+                border-radius: 18px;
+            }
+
+            .error-brand-name {
+                font-size: 1.5rem;
+            }
+
+            .error-content {
+                align-items: center;
+                text-align: center;
+            }
+
+            .error-code {
+                font-size: clamp(5rem, 22vw, 7rem);
+            }
+
+            .error-desc {
+                max-width: none;
+            }
+
+            .error-actions {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .error-btn {
+                flex: 1;
+                padding: 0.875rem 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .error-brand,
+            .error-content {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="logo.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <div class="nav-page-title" id="navPageTitle">404</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="event.html">活动</a></li>
+                <li><a href="announcement.html">公告</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 404 主体 -->
+    <section class="error-section">
+        <div class="error-bg-orb error-orb-1"></div>
+        <div class="error-bg-orb error-orb-2"></div>
+        <div class="error-container">
+            <!-- 左侧：服务器图标 + SyServer 字样 -->
+            <div class="error-brand">
+                <img src="logo.png" alt="SyServer Logo" class="error-brand-logo">
+                <span class="error-brand-name">SyServer</span>
+            </div>
+            <!-- 右侧：404 + 说明 + 按钮 -->
+            <div class="error-content">
+                <h1 class="error-code">404</h1>
+                <h2 class="error-title">找不到该页面</h2>
+                <p class="error-desc">你寻找的页面可能已被移除、改名，或暂时不可用。</p>
+                <div class="error-actions">
+                    <a href="javascript:history.back()" class="error-btn error-btn-ghost">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 12H5"/>
+                            <path d="M12 19l-7-7 7-7"/>
+                        </svg>
+                        返回上一页
+                    </a>
+                    <a href="index.html" class="error-btn error-btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12l9-9 9 9"/>
+                            <path d="M5 10v10h14V10"/>
+                        </svg>
+                        回到主页
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="index.html#servers">生存服</a></li>
+                        <li><a href="index.html#servers">起床战争服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
