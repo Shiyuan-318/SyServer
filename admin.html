@@ -9,6 +9,362 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============ 运营团队页：组织架构 ============ */
+        .admin-section {
+            padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-xxl);
+            background: var(--color-background);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景氛围光晕：蓝（管理员侧）+ 金（服主侧），呼应角色配色 */
+        .admin-section::before,
+        .admin-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .admin-section::before {
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(circle, rgba(0, 113, 227, 0.45) 0%, transparent 70%);
+            top: 8%;
+            left: -10%;
+            opacity: 0.22;
+        }
+        .admin-section::after {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.4) 0%, transparent 70%);
+            bottom: 6%;
+            right: -10%;
+            opacity: 0.18;
+        }
+
+        .admin-container {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-intro {
+            max-width: 620px;
+            margin: 0 auto var(--spacing-xl);
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+        }
+
+        /* 组织架构整体 */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .org-tier {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 层级标签：管理员 / 服主 */
+        .org-tier-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 0.4rem 1.1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .org-label-admin {
+            color: #66b0ff;
+            background: rgba(10, 132, 255, 0.12);
+            border: 1px solid rgba(10, 132, 255, 0.3);
+        }
+        .org-label-owner {
+            color: #ffd76b;
+            background: rgba(234, 179, 8, 0.12);
+            border: 1px solid rgba(234, 179, 8, 0.32);
+        }
+
+        /* 管理员一行三卡 */
+        .org-admin-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* 服主一行单卡居中 */
+        .org-owner-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* 人员卡片 */
+        .org-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1.85rem 1.25rem;
+            margin: 0 14px;
+            background: rgba(40, 40, 42, 0.65);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow:
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            transition:
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 顶部高光线 */
+        .org-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+        }
+        .org-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.18);
+            background: rgba(50, 50, 53, 0.8);
+            box-shadow:
+                0 24px 56px rgba(0, 0, 0, 0.5),
+                0 8px 24px rgba(10, 132, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* 服主卡片：金色强调 */
+        .org-card-owner {
+            border-color: rgba(234, 179, 8, 0.28);
+            background: rgba(46, 42, 28, 0.6);
+        }
+        .org-card-owner::before {
+            background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.55), transparent);
+        }
+        .org-card-owner:hover {
+            border-color: rgba(234, 179, 8, 0.5);
+            background: rgba(56, 50, 30, 0.75);
+            box-shadow:
+                0 24px 56px rgba(0, 0, 0, 0.5),
+                0 8px 28px rgba(234, 179, 8, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* 头像：渐变圆圈 + 首字母 */
+        .org-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--g, linear-gradient(135deg, #0a84ff, #5e5ce6));
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+        /* 头像外圈 */
+        .org-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            pointer-events: none;
+        }
+        .org-card-owner .org-avatar {
+            width: 82px;
+            height: 82px;
+            font-size: 2rem;
+        }
+
+        .org-name {
+            font-size: 1.0625rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        /* 角色小标签 */
+        .org-role {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.25rem 0.8rem;
+            border-radius: 100px;
+        }
+        .org-role-admin {
+            color: #66b0ff;
+            background: rgba(10, 132, 255, 0.16);
+            border: 1px solid rgba(10, 132, 255, 0.32);
+        }
+        .org-role-owner {
+            color: #ffd76b;
+            background: rgba(234, 179, 8, 0.16);
+            border: 1px solid rgba(234, 179, 8, 0.34);
+        }
+
+        /* ===== 流程图连线（纯 CSS） ===== */
+        .org-connector {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .org-stems {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            height: 28px;
+        }
+        .org-stems span {
+            width: 2px;
+            height: 100%;
+            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(10, 132, 255, 0.55), rgba(123, 97, 255, 0.4));
+            border-radius: 2px;
+        }
+        .org-hbar {
+            position: relative;
+            height: 2px;
+            margin: 0 calc(100% / 6);
+            background: linear-gradient(90deg, rgba(10, 132, 255, 0.55), rgba(123, 97, 255, 0.55));
+            border-radius: 2px;
+        }
+        /* 汇合处节点 */
+        .org-hbar::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(123, 97, 255, 0.85);
+            box-shadow: 0 0 10px rgba(123, 97, 255, 0.7);
+        }
+        .org-stem-down {
+            width: 2px;
+            height: 40px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(123, 97, 255, 0.55), rgba(234, 179, 8, 0.55));
+            border-radius: 2px;
+        }
+
+        /* 服主层级标签更紧凑，让连线视觉连贯 */
+        .org-owner-tier .org-tier-label {
+            margin-bottom: 1.25rem;
+        }
+
+        /* ===== 入场动画：依次淡入上浮 ===== */
+        @keyframes orgRise {
+            from { opacity: 0; transform: translateY(26px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes orgFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .org-label-admin { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.05s; }
+        .org-admin-row .org-card:nth-child(1) { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.18s; }
+        .org-admin-row .org-card:nth-child(2) { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.32s; }
+        .org-admin-row .org-card:nth-child(3) { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.46s; }
+        .org-connector { animation: orgFade 0.6s ease both; animation-delay: 0.6s; }
+        .org-label-owner { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.72s; }
+        .org-card-owner { animation: orgRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.84s; }
+
+        /* ===== 移动端：管理员竖排，连线改为纵向链条 ===== */
+        @media (max-width: 768px) {
+            .admin-section {
+                padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-xxl);
+            }
+            .admin-intro {
+                font-size: 0.9375rem;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .org-admin-row {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                max-width: 340px;
+            }
+            .org-card {
+                margin: 0;
+                padding: 1.5rem 1.25rem;
+            }
+            /* 卡片之间的纵向连线 */
+            .org-admin-row .org-card:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -18px;
+                width: 2px;
+                height: 18px;
+                transform: translateX(-50%);
+                background: linear-gradient(180deg, rgba(10, 132, 255, 0.55), rgba(123, 97, 255, 0.4));
+                border-radius: 2px;
+            }
+
+            /* 隐藏桌面三段式连线，只保留下行竖线连到服主 */
+            .org-connector {
+                max-width: 340px;
+            }
+            .org-stems,
+            .org-hbar {
+                display: none;
+            }
+            .org-stem-down {
+                height: 34px;
+                background: linear-gradient(180deg, rgba(123, 97, 255, 0.55), rgba(234, 179, 8, 0.55));
+            }
+        }
+
+        /* 尊重无障碍：减少动画 */
+        @media (prefers-reduced-motion: reduce) {
+            .org-card,
+            .org-connector,
+            .org-label-admin,
+            .org-label-owner,
+            .org-card-owner {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -23,14 +379,12 @@
                 <li><a href="wiki.html">Wiki</a></li>
             </ul>
             <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <!-- Header -->
+    <!-- Hero -->
     <section class="wiki-hero">
         <div class="wiki-hero-content">
             <h1 class="wiki-hero-title">运营团队</h1>
@@ -38,18 +392,54 @@
         </div>
     </section>
 
-    <!-- 正文 -->
-    <section class="announcement-section">
-        <div class="announcement-container">
-            <div class="coming-soon">
-                <div class="coming-soon-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+    <!-- 正文：组织架构流程图 -->
+    <section class="admin-section">
+        <div class="admin-container">
+            <p class="admin-intro">SyServer 的日常运营由一支小而精的团队共同维护。下方为团队组织架构，管理员负责日常管理与玩家服务，服主统筹服务器整体方向。</p>
+
+            <div class="org-chart">
+                <!-- 管理员层 -->
+                <div class="org-tier org-admin-tier">
+                    <div class="org-tier-label org-label-admin">管理员</div>
+                    <div class="org-admin-row">
+                        <div class="org-card">
+                            <div class="org-avatar" style="--g: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);">S</div>
+                            <div class="org-name">Sat.</div>
+                            <span class="org-role org-role-admin">管理员</span>
+                        </div>
+                        <div class="org-card">
+                            <div class="org-avatar" style="--g: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);">SF</div>
+                            <div class="org-name">StarSky_Furina</div>
+                            <span class="org-role org-role-admin">管理员</span>
+                        </div>
+                        <div class="org-card">
+                            <div class="org-avatar" style="--g: linear-gradient(135deg, #f97316 0%, #ef4444 100%);">爱</div>
+                            <div class="org-name">爱学习MC的人</div>
+                            <span class="org-role org-role-admin">管理员</span>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="coming-soon-title">待开发</h2>
-                <p class="coming-soon-text">运营团队介绍页面正在准备中，请关注后续更新。</p>
+
+                <!-- 连线 -->
+                <div class="org-connector" aria-hidden="true">
+                    <div class="org-stems">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="org-hbar"></div>
+                    <div class="org-stem-down"></div>
+                </div>
+
+                <!-- 服主层 -->
+                <div class="org-tier org-owner-tier">
+                    <div class="org-tier-label org-label-owner">服主</div>
+                    <div class="org-owner-row">
+                        <div class="org-card org-card-owner">
+                            <div class="org-avatar" style="--g: linear-gradient(135deg, #facc15 0%, #22c55e 100%);">Sy</div>
+                            <div class="org-name">Shiyuan</div>
+                            <span class="org-role org-role-owner">服主</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -93,7 +483,7 @@
         <div class="footer-bottom">
             <p>© 2024-2026 SyServer. 保留所有权利。</p>
             <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
-            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="play.html" class="footer-link">在线玩</a></p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
         </div>
     </footer>
 

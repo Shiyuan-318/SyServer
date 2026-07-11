@@ -9,6 +9,102 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .sitemap-section {
+            padding: 80px 24px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .sitemap-group {
+            margin-bottom: 48px;
+        }
+        .sitemap-group:last-child {
+            margin-bottom: 0;
+        }
+        .sitemap-group-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            padding-left: 4px;
+            text-transform: uppercase;
+        }
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .sitemap-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 96px;
+            padding: 22px 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .sitemap-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            background: rgba(41, 151, 255, 0.06);
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.12);
+        }
+        .sitemap-card-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sitemap-card-desc {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+        .sitemap-card-current {
+            border-color: var(--color-primary);
+            background: rgba(10, 132, 255, 0.08);
+            cursor: default;
+        }
+        .sitemap-card-current:hover {
+            transform: none;
+            border-color: var(--color-primary);
+            background: rgba(10, 132, 255, 0.08);
+            box-shadow: none;
+        }
+        .sitemap-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+            padding: 2px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.02em;
+        }
+        @media (max-width: 900px) {
+            .sitemap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 560px) {
+            .sitemap-section {
+                padding: 48px 16px 72px;
+            }
+            .sitemap-grid {
+                grid-template-columns: 1fr;
+            }
+            .sitemap-card {
+                min-height: 80px;
+                padding: 18px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -30,7 +126,7 @@
         </div>
     </nav>
 
-    <!-- Header -->
+    <!-- Hero -->
     <section class="wiki-hero">
         <div class="wiki-hero-content">
             <h1 class="wiki-hero-title">网站地图</h1>
@@ -39,17 +135,94 @@
     </section>
 
     <!-- 正文 -->
-    <section class="announcement-section">
-        <div class="announcement-container">
-            <div class="coming-soon">
-                <div class="coming-soon-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h2 class="coming-soon-title">待开发</h2>
-                <p class="coming-soon-text">网站地图页面正在准备中，请关注后续更新。</p>
+    <section class="sitemap-section">
+        <div class="sitemap-group">
+            <h2 class="sitemap-group-title">主要页面</h2>
+            <div class="sitemap-grid">
+                <a href="index.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">首页</div>
+                        <p class="sitemap-card-desc">服务器介绍、特色、统计</p>
+                    </div>
+                </a>
+                <a href="event.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">活动</div>
+                        <p class="sitemap-card-desc">服务器活动信息</p>
+                    </div>
+                </a>
+                <a href="announcement.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">公告</div>
+                        <p class="sitemap-card-desc">最新通知与公告</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="sitemap-group">
+            <h2 class="sitemap-group-title">Wiki 文档</h2>
+            <div class="sitemap-grid">
+                <a href="wiki.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">Wiki 首页</div>
+                        <p class="sitemap-card-desc">基础玩法指南</p>
+                    </div>
+                </a>
+                <a href="allwiki.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">完整版 Wiki</div>
+                        <p class="sitemap-card-desc">全部玩法与指令详解</p>
+                    </div>
+                </a>
+                <a href="enchantments.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">附魔列表</div>
+                        <p class="sitemap-card-desc">78 种扩展附魔中英对照</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="sitemap-group">
+            <h2 class="sitemap-group-title">服务器</h2>
+            <div class="sitemap-grid">
+                <a href="survival.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">生存服</div>
+                        <p class="sitemap-card-desc">原版生存玩法</p>
+                    </div>
+                </a>
+                <a href="bedwars.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">起床战争服</div>
+                        <p class="sitemap-card-desc">起床战争小游戏</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="sitemap-group">
+            <h2 class="sitemap-group-title">关于</h2>
+            <div class="sitemap-grid">
+                <a href="agreement.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">用户协议</div>
+                        <p class="sitemap-card-desc">服务条款与隐私政策</p>
+                    </div>
+                </a>
+                <a href="admin.html" class="sitemap-card">
+                    <div>
+                        <div class="sitemap-card-name">运营团队</div>
+                        <p class="sitemap-card-desc">管理团队介绍</p>
+                    </div>
+                </a>
+                <a href="sitemap.html" class="sitemap-card sitemap-card-current">
+                    <div>
+                        <div class="sitemap-card-name">网站地图 <span class="sitemap-badge">当前</span></div>
+                        <p class="sitemap-card-desc">当前页面</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -93,7 +266,7 @@
         <div class="footer-bottom">
             <p>© 2024-2026 SyServer. 保留所有权利。</p>
             <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
-            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="play.html" class="footer-link">在线玩</a></p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
         </div>
     </footer>
 
