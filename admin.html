@@ -46,7 +46,7 @@
         }
 
         .admin-container {
-            max-width: 960px;
+            max-width: 1080px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -97,13 +97,14 @@
             border: 1px solid rgba(234, 179, 8, 0.32);
         }
 
-        /* 管理员一行三卡 */
+        /* 管理员一行三卡（加大） */
         .org-admin-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             width: 100%;
-            max-width: 720px;
+            max-width: 960px;
             margin: 0 auto;
+            gap: 24px;
         }
 
         /* 服主一行单卡居中 */
@@ -112,21 +113,24 @@
             justify-content: center;
             width: 100%;
         }
+        .org-owner-row .org-card {
+            max-width: 340px;
+            width: 100%;
+        }
 
-        /* 人员卡片 */
+        /* 人员卡片（加大） */
         .org-card {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.85rem;
-            padding: 1.85rem 1.25rem;
-            margin: 0 14px;
+            gap: 1rem;
+            padding: 2.5rem 1.75rem 2rem;
             background: rgba(40, 40, 42, 0.65);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            border-radius: 24px;
             box-shadow:
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 0 1px 2px rgba(0, 0, 0, 0.3),
@@ -175,15 +179,15 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        /* 头像：渐变圆圈 + 首字母 */
+        /* 头像：图片或渐变圆圈（加大） */
         .org-avatar {
-            width: 72px;
-            height: 72px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #fff;
             background: var(--g, linear-gradient(135deg, #0a84ff, #5e5ce6));
@@ -193,6 +197,14 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
             position: relative;
             letter-spacing: -0.02em;
+            overflow: hidden;
+        }
+        /* 头像图片 */
+        .org-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
         /* 头像外圈 */
         .org-avatar::after {
@@ -204,13 +216,13 @@
             pointer-events: none;
         }
         .org-card-owner .org-avatar {
-            width: 82px;
-            height: 82px;
-            font-size: 2rem;
+            width: 120px;
+            height: 120px;
+            font-size: 2.75rem;
         }
 
         .org-name {
-            font-size: 1.0625rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #fff;
             letter-spacing: -0.01em;
@@ -237,10 +249,66 @@
             border: 1px solid rgba(234, 179, 8, 0.34);
         }
 
+        /* 介绍列表 */
+        .org-desc {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+            width: 100%;
+            text-align: center;
+        }
+        .org-desc li {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            padding: 0.15rem 0;
+        }
+
+        /* 点赞按钮 */
+        .org-like {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1.1rem;
+            margin-top: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            user-select: none;
+        }
+        .org-like:hover:not(.liked) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        .org-like .like-icon {
+            font-size: 1rem;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+        .org-like .like-count {
+            font-variant-numeric: tabular-nums;
+            min-width: 1.5em;
+            text-align: center;
+        }
+        .org-like.liked {
+            background: rgba(48, 209, 88, 0.15);
+            border-color: rgba(48, 209, 88, 0.5);
+            color: #30d158;
+        }
+        .org-like.liked .like-icon {
+            transform: scale(1.2);
+        }
+
         /* ===== 流程图连线（纯 CSS） ===== */
         .org-connector {
             width: 100%;
-            max-width: 720px;
+            max-width: 960px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -321,11 +389,10 @@
             .org-admin-row {
                 grid-template-columns: 1fr;
                 gap: 18px;
-                max-width: 340px;
+                max-width: 380px;
             }
             .org-card {
-                margin: 0;
-                padding: 1.5rem 1.25rem;
+                padding: 2rem 1.5rem 1.75rem;
             }
             /* 卡片之间的纵向连线 */
             .org-admin-row .org-card:not(:last-child)::after {
@@ -342,7 +409,7 @@
 
             /* 隐藏桌面三段式连线，只保留下行竖线连到服主 */
             .org-connector {
-                max-width: 340px;
+                max-width: 380px;
             }
             .org-stems,
             .org-hbar {
@@ -402,20 +469,47 @@
                 <div class="org-tier org-admin-tier">
                     <div class="org-tier-label org-label-admin">管理员</div>
                     <div class="org-admin-row">
+                        <!-- Sat. -->
                         <div class="org-card">
-                            <div class="org-avatar" style="--g: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);">S</div>
+                            <div class="org-avatar">
+                                <img src="Sat.jpg" alt="Sat." loading="lazy">
+                            </div>
                             <div class="org-name">Sat.</div>
                             <span class="org-role org-role-admin">管理员</span>
+                            <ul class="org-desc">
+                                <li>SyServer 生存服管理员</li>
+                                <li>SyServer 生存服代理服主</li>
+                            </ul>
+                            <button class="org-like" data-key="syserver_admin_sat_like">
+                                <span class="like-icon">👍</span><span class="like-count">0</span>
+                            </button>
                         </div>
+                        <!-- StarSky_Furina（头像为 Ziye.jpg） -->
                         <div class="org-card">
-                            <div class="org-avatar" style="--g: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);">SF</div>
+                            <div class="org-avatar">
+                                <img src="Ziye.jpg" alt="StarSky_Furina" loading="lazy">
+                            </div>
                             <div class="org-name">StarSky_Furina</div>
                             <span class="org-role org-role-admin">管理员</span>
+                            <ul class="org-desc">
+                                <li>SyServer 生存服管理员</li>
+                            </ul>
+                            <button class="org-like" data-key="syserver_admin_starsky_like">
+                                <span class="like-icon">👍</span><span class="like-count">0</span>
+                            </button>
                         </div>
+                        <!-- 爱学习MC的人（无头像，用渐变圆圈） -->
                         <div class="org-card">
                             <div class="org-avatar" style="--g: linear-gradient(135deg, #f97316 0%, #ef4444 100%);">爱</div>
                             <div class="org-name">爱学习MC的人</div>
                             <span class="org-role org-role-admin">管理员</span>
+                            <ul class="org-desc">
+                                <li>SyServer 起床服（原 BedWars）服主</li>
+                                <li>SyServer 生存服管理员</li>
+                            </ul>
+                            <button class="org-like" data-key="syserver_admin_aixuexi_like">
+                                <span class="like-icon">👍</span><span class="like-count">0</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -434,9 +528,18 @@
                     <div class="org-tier-label org-label-owner">服主</div>
                     <div class="org-owner-row">
                         <div class="org-card org-card-owner">
-                            <div class="org-avatar" style="--g: linear-gradient(135deg, #facc15 0%, #22c55e 100%);">Sy</div>
+                            <div class="org-avatar">
+                                <img src="Shiyuan.jpg" alt="Shiyuan" loading="lazy">
+                            </div>
                             <div class="org-name">Shiyuan</div>
                             <span class="org-role org-role-owner">服主</span>
+                            <ul class="org-desc">
+                                <li>SyServer 服主</li>
+                                <li>SyServer 起床服（原 BedWars）管理员</li>
+                            </ul>
+                            <button class="org-like" data-key="syserver_admin_shiyuan_like">
+                                <span class="like-icon">👍</span><span class="like-count">0</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -488,5 +591,76 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- 团队成员点赞：免费计数 API + localStorage 防重复 -->
+    <script>
+    (function () {
+        const API = 'https://countapi.mileshilliard.com/api/v1';
+        const STORAGE_PREFIX = 'syserver_admin_liked_';
+
+        // 获取当前值（不增加）
+        const getCount = async (key) => {
+            try {
+                const res = await fetch(`${API}/get/${key}`);
+                if (!res.ok) return 0;
+                const data = await res.json();
+                return parseInt(data.value, 10) || 0;
+            } catch (e) {
+                return 0;
+            }
+        };
+
+        // +1 并返回新值
+        const hitCount = async (key) => {
+            try {
+                const res = await fetch(`${API}/hit/${key}`);
+                if (!res.ok) return null;
+                const data = await res.json();
+                return parseInt(data.value, 10) || 0;
+            } catch (e) {
+                return null;
+            }
+        };
+
+        const isLiked = (key) => {
+            try {
+                return localStorage.getItem(STORAGE_PREFIX + key) === '1';
+            } catch (e) {
+                return false;
+            }
+        };
+
+        const setLiked = (key) => {
+            try {
+                localStorage.setItem(STORAGE_PREFIX + key, '1');
+            } catch (e) { /* 忽略隐私模式写入失败 */ }
+        };
+
+        document.querySelectorAll('.org-like').forEach(btn => {
+            const key = btn.dataset.key;
+            const countEl = btn.querySelector('.like-count');
+
+            // 初始化：拉取当前点赞数
+            getCount(key).then(count => {
+                countEl.textContent = count;
+            });
+
+            // 恢复已点赞状态
+            if (isLiked(key)) {
+                btn.classList.add('liked');
+            }
+
+            // 点击点赞
+            btn.addEventListener('click', async () => {
+                if (btn.classList.contains('liked')) return; // 已点赞，不能再点
+                const newCount = await hitCount(key);
+                if (newCount !== null) {
+                    countEl.textContent = newCount;
+                }
+                setLiked(key);
+                btn.classList.add('liked');
+            });
+        });
+    })();
+    </script>
 </body>
 </html>
