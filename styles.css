@@ -3361,6 +3361,70 @@ ul {
     margin-bottom: 0;
 }
 
+/* 公告正文：可展开 / 收起 */
+.announcement-body.collapsible {
+    position: relative;
+    max-height: 7.2em;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.announcement-body.collapsible::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3.5em;
+    background: linear-gradient(180deg, transparent, var(--color-background-secondary) 85%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.announcement-body.collapsible.expanded {
+    max-height: 2400px;
+}
+
+.announcement-body.collapsible.expanded::after {
+    opacity: 0;
+}
+
+.announcement-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.announcement-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-text);
+    transform: translateY(-1px);
+}
+
+.announcement-toggle .toggle-icon {
+    display: inline-block;
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: transform 0.35s ease;
+}
+
+.announcement-toggle.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
 /* 公告投票按钮（点赞 / 踩） */
 .announcement-actions {
     display: flex;
