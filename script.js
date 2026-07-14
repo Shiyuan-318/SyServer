@@ -905,14 +905,19 @@ document.querySelectorAll('.wiki-header').forEach(header => {
                     l.classList.toggle('active', l.dataset.section === id);
                 });
                 // 让活跃项保持在目录可视区域内
-                const activeLink = toc.querySelector('.toc-link.active');
-                if (activeLink) {
-                    const linkRect = activeLink.getBoundingClientRect();
-                    const sidebarRect = sidebar.getBoundingClientRect();
-                    if (linkRect.bottom > sidebarRect.bottom - 8) {
-                        activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-                    } else if (linkRect.top < sidebarRect.top + 8) {
-                        activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                // 仅在桌面端执行：移动端侧边栏折叠为抽屉式（overflow: hidden，不可自身滚动），
+                // 此时调用 scrollIntoView 会误触发整个页面向上滚动，导致滑动异常
+                const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+                if (isDesktop) {
+                    const activeLink = toc.querySelector('.toc-link.active');
+                    if (activeLink) {
+                        const linkRect = activeLink.getBoundingClientRect();
+                        const sidebarRect = sidebar.getBoundingClientRect();
+                        if (linkRect.bottom > sidebarRect.bottom - 8) {
+                            activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        } else if (linkRect.top < sidebarRect.top + 8) {
+                            activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
                     }
                 }
             }
