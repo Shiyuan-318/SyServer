@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>完整版Wiki - SyServer</title>
-    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="stylesheet" href="styles.css?v=20260714">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -368,15 +368,34 @@
                     <!-- 领地保护 -->
                     <article class="wiki-section" id="section-claim">
                         <h2 class="wiki-section-title">领地保护</h2>
-                        <p class="wiki-section-desc">使用 Residence 插件保护你的建筑和箱子不被他人破坏或盗取。</p>
+                        <p class="wiki-section-desc">使用 Dominion 插件保护你的建筑和箱子不被他人破坏或盗取。</p>
                         <div class="wiki-card">
                             <h3>创建领地</h3>
-                            <p>使用木锄头圈地：</p>
+                            <p>Dominion 支持手动创建与自动创建两种方式：</p>
+                            <h4>手动创建</h4>
                             <ol class="wiki-list ordered">
-                                <li>手持木锄头，右键点击第一个角点</li>
-                                <li>走到对角线位置，再次右键点击</li>
-                                <li>输入 <code>/res create &lt;名称&gt;</code> 创建领地</li>
+                                <li>手持圈地工具（默认为箭矢），左键点选领地长方体区域的第一个点</li>
+                                <li>走到对角线位置，右键点选第二个点</li>
+                                <li>输入 <code>/dominion create &lt;领地名称&gt;</code> 创建领地（名称不可与其他领地重复）</li>
                             </ol>
+                            <h4>自动创建</h4>
+                            <p>无需选点，会以你为中心自动创建一块领地：</p>
+                            <ol class="wiki-list ordered">
+                                <li>输入 <code>/dominion</code> 打开主菜单，点击「创建领地」</li>
+                                <li>在聊天栏输入领地名称，回车发送即可</li>
+                            </ol>
+                            <p>或直接使用指令 <code>/dominion auto_create &lt;领地名称&gt;</code> 自动创建。</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>管理领地</h3>
+                            <p>输入 <code>/dominion</code> 打开主菜单，点击「领地列表」（或使用 <code>/dominion list</code>）即可查看你能管理的所有领地。在列表中可进入领地管理页面、传送到领地或删除领地。</p>
+                            <ul class="wiki-list">
+                                <li><strong>访客权限：</strong>在领地管理页面点击「访客权限」，可配置非成员玩家在此领地的行为（绿色 ✔ 表示启用，红色 ✘ 表示禁用）。</li>
+                                <li><strong>添加成员：</strong>在成员列表点击「添加成员」，输入准确的玩家 ID 即可将其添加为成员（不支持模糊搜索）。</li>
+                                <li><strong>成员权限：</strong>在成员列表点击对应成员前的「权限设置」，可单独配置该成员在领地内的权限。</li>
+                                <li><strong>调整尺寸：</strong>在领地管理页面点击领地概览，选择方向（东/西/南/北/上/下）的「扩张」或「收缩」，输入格数即可调整领地大小。</li>
+                                <li><strong>删除领地：</strong>为防止误操作，需输入指令 <code>/dominion delete &lt;名称&gt; force</code> 才能删除，删除后会同时删除其所有子领地，且不可恢复。</li>
+                            </ul>
                         </div>
                         <div class="wiki-card">
                             <h3>常用领地指令</h3>
@@ -390,36 +409,49 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>/res create &lt;名称&gt;</code></td>
-                                            <td>创建领地</td>
+                                            <td><code>/dominion</code></td>
+                                            <td>打开主菜单</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res remove &lt;名称&gt;</code></td>
-                                            <td>删除领地</td>
+                                            <td><code>/dominion create &lt;名称&gt;</code></td>
+                                            <td>手动创建领地（需先选点）</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res set</code></td>
-                                            <td>打开领地权限设置 GUI</td>
+                                            <td><code>/dominion auto_create &lt;名称&gt;</code></td>
+                                            <td>以玩家为中心自动创建领地</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res pset &lt;领地&gt; &lt;玩家&gt; &lt;权限&gt; &lt;值&gt;</code></td>
-                                            <td>设置指定玩家在领地的权限</td>
+                                            <td><code>/dominion list</code></td>
+                                            <td>查看领地列表</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res tp &lt;名称&gt;</code></td>
-                                            <td>传送到自己的领地</td>
+                                            <td><code>/dominion tp &lt;名称&gt;</code></td>
+                                            <td>传送到指定领地</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res list</code></td>
-                                            <td>查看自己所有领地</td>
+                                            <td><code>/dominion delete &lt;名称&gt; force</code></td>
+                                            <td>删除领地（同时删除子领地，不可恢复）</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/res info &lt;名称&gt;</code></td>
-                                            <td>查看领地详细信息</td>
+                                            <td><code>/dominion rename &lt;名称&gt; &lt;新名称&gt;</code></td>
+                                            <td>重命名领地</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/dominion give &lt;名称&gt; &lt;玩家&gt;</code></td>
+                                            <td>将领地转让给其他玩家</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/dominion member_add &lt;名称&gt; &lt;玩家&gt;</code></td>
+                                            <td>向领地添加成员</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>/dominion set_tp &lt;名称&gt;</code></td>
+                                            <td>设置领地传送点</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <p style="margin-top: 0.75em; font-size: 0.85em; opacity: 0.7;">完整指令详见 <a href="https://dominion.lunadeer.cn/notes/doc/player/commands/" target="_blank" rel="noopener noreferrer" class="wiki-link">Dominion 官方文档</a>。</p>
                         </div>
                     </article>
 
@@ -451,7 +483,7 @@
                             <ol class="wiki-list ordered">
                                 <li>进服后先熟悉服务器各项功能</li>
                                 <li>找一块空地建立自己的小基地</li>
-                                <li>先用木锄头圈好领地，防止他人破坏</li>
+                                <li>先圈好领地，防止他人破坏</li>
                                 <li>通过挖矿和打怪积累初始资金</li>
                                 <li>逐步扩展基地，提升装备和附魔等级</li>
                             </ol>
@@ -620,7 +652,7 @@
                                 <span>怎么保护自己的建筑不被破坏？</span>
                             </div>
                             <div class="faq-a">
-                                <p>使用木锄头圈出领地范围，再用 <code>/res create &lt;名称&gt;</code> 创建领地。详细操作见上方「领地保护」章节。</p>
+                                <p>手持圈地工具（默认箭矢），左键点选第一个角点、右键点选第二个角点，再用 <code>/dominion create &lt;名称&gt;</code> 创建领地；也可用 <code>/dominion auto_create &lt;名称&gt;</code> 自动创建。详细操作见上方「领地保护」章节。</p>
                             </div>
                         </div>
 
