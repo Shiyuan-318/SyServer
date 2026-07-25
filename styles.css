@@ -66,6 +66,12 @@ a {
     color: inherit;
 }
 
+/* Apple 风格文本选中色 */
+::selection {
+    background: rgba(10, 132, 255, 0.4);
+    color: #ffffff;
+}
+
 ul {
     list-style: none;
 }
@@ -80,7 +86,7 @@ ul {
     max-width: 100%;
     z-index: 1000;
     border-radius: 0;
-    background: rgba(20, 20, 22, 0.82);
+    background: rgba(20, 20, 22, 0.58);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid transparent;
@@ -103,7 +109,7 @@ ul {
     width: 960px;
     max-width: calc(100% - 32px);
     border-radius: 100px;
-    background: rgba(28, 28, 30, 0.6);
+    background: rgba(28, 28, 30, 0.42);
     border-color: rgba(255, 255, 255, 0.08);
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.5),
@@ -276,7 +282,7 @@ ul {
         max-width: 100%;
         top: 0;
         border-radius: 0;
-        background: rgba(20, 20, 22, 0.82);
+        background: rgba(20, 20, 22, 0.58);
         backdrop-filter: blur(24px) saturate(180%);
         -webkit-backdrop-filter: blur(24px) saturate(180%);
         border: 1px solid transparent;
@@ -296,7 +302,7 @@ ul {
         max-width: none;
         top: 12px;
         border-radius: 100px;
-        background: rgba(28, 28, 30, 0.55);
+        background: rgba(28, 28, 30, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow:
             0 8px 32px rgba(0, 0, 0, 0.5),
@@ -431,9 +437,20 @@ ul {
     object-fit: cover;
     border-radius: 28px;
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.6),
-        0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+        0 40px 100px rgba(0, 0, 0, 0.65),
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-showcase-img:hover {
+    transform: scale(1.012);
+    box-shadow:
+        0 48px 120px rgba(0, 0, 0, 0.7),
+        0 16px 40px rgba(0, 0, 0, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* Bottom strip: brand on the left, "Learn more" button on the right */
@@ -695,6 +712,11 @@ ul {
     background: linear-gradient(135deg, #409cff 0%, #0077ed 100%);
     box-shadow: 0 8px 24px rgba(10, 132, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 8px rgba(10, 132, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .btn-secondary {
@@ -961,13 +983,16 @@ ul {
 .version-badge {
     position: relative;
     padding: 0.75rem 1.5rem;
-    background: var(--color-background-secondary);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-text);
     overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .version-badge.recommended {
@@ -1295,120 +1320,211 @@ ul {
     transform: translateY(-1px);
 }
 
-/* Community Section */
+/* Community Section — HarmonyOS Design 万能卡片 */
 .community {
     padding: var(--spacing-xxl) var(--spacing-lg);
     background: var(--color-background);
-    color: white;
-    text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
-.community-glow {
+/* 蓝紫光晕氛围背景 */
+.community-halo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(0, 113, 227, 0.12) 0%, rgba(123, 97, 255, 0.06) 40%, transparent 70%);
-    z-index: 1;
+    border-radius: 50%;
+    filter: blur(100px);
     pointer-events: none;
-    animation: glowPulse 6s ease-in-out infinite;
+    z-index: 1;
 }
 
-@keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+.community-halo-1 {
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(10, 89, 247, 0.22) 0%, transparent 70%);
+    top: -15%;
+    left: 10%;
+    animation: haloDrift 10s ease-in-out infinite;
 }
 
-.community-content {
-    max-width: 560px;
-    margin: 0 auto;
+.community-halo-2 {
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(123, 97, 255, 0.16) 0%, transparent 70%);
+    bottom: -22%;
+    right: 8%;
+    animation: haloDrift 10s ease-in-out -5s infinite;
+}
+
+@keyframes haloDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(24px, -16px) scale(1.06); }
+}
+
+/* 万能卡片主体 */
+.community-card {
     position: relative;
     z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    padding: 56px 48px 48px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* 卡片顶部渐变高光 */
+.community-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(10, 89, 247, 0.8), rgba(123, 97, 255, 0.6), transparent);
+}
+
+.community-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* 鸿蒙应用图标风格徽章 */
+.community-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0A59F7 0%, #7B61FF 100%);
+    color: #ffffff;
+    box-shadow:
+        0 6px 16px rgba(10, 89, 247, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.community-icon svg {
+    width: 22px;
+    height: 22px;
 }
 
 .community-eyebrow {
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.4em;
-    color: rgba(96, 165, 250, 0.8);
-    margin-bottom: var(--spacing-md);
+    letter-spacing: 0.32em;
+    color: #4C8DFF;
     text-transform: uppercase;
 }
 
-.community .section-title {
-    margin-bottom: var(--spacing-md);
+.community-title {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin-bottom: 14px;
 }
 
 .community-description {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     color: rgba(255, 255, 255, 0.55);
-    margin-bottom: var(--spacing-xl);
     line-height: 1.7;
+    margin-bottom: 32px;
 }
 
+/* QQ 磁贴 —— 控制中心磁贴风格，整块可点击复制 */
 .community-qq {
-    margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    backdrop-filter: blur(24px) saturate(160%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-xs);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s ease, box-shadow 0.5s ease;
-}
-
-.community-qq::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.6), rgba(123, 97, 255, 0.4), transparent);
+    gap: 6px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .community-qq:hover {
-    transform: translateY(-3px);
-    border-color: rgba(96, 165, 250, 0.2);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: rgba(10, 89, 247, 0.12);
+    border-color: rgba(10, 89, 247, 0.35);
+    transform: translateY(-2px);
+}
+
+.community-qq:active {
+    transform: scale(0.98);
 }
 
 .qq-label {
     font-size: 0.6875rem;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
     font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
 }
 
 .qq-number {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: 0.04em;
     line-height: 1.1;
-    background: linear-gradient(135deg, #ffffff 0%, #93c5fd 40%, #60a5fa 70%, #7b61ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    transition: filter 0.4s ease;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
 }
 
-.community-qq:hover .qq-number {
-    filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4));
-}
-
+/* 鸿蒙胶囊按钮 */
 .community-cta {
-    box-shadow: 0 8px 28px rgba(0, 113, 227, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 56px;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0A59F7;
+    border-radius: 999px;
+    box-shadow:
+        0 8px 24px rgba(10, 89, 247, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.community-cta:hover {
+    background: #3D7FF9;
+    box-shadow:
+        0 12px 32px rgba(10, 89, 247, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.community-cta:active {
+    transform: scale(0.97);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .community-card {
+        padding: 40px 24px 32px;
+        border-radius: 24px;
+    }
+
+    .community-cta {
+        width: 100%;
+        padding: 14px 24px;
+    }
 }
 
 /* Wiki Section */
