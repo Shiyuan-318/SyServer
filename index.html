@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SyServer - Minecraft 服务器</title>
-    <link rel="stylesheet" href="styles.css?v=20260707">
+    <link rel="stylesheet" href="styles.css?v=20260725">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -178,19 +178,30 @@
 
     <!-- Community Section -->
     <section id="community" class="community" data-animate>
-        <div class="community-glow"></div>
-        <div class="community-content">
-            <div class="community-eyebrow">JOIN US</div>
-            <h2 class="section-title">加入社区</h2>
+        <div class="community-halo community-halo-1"></div>
+        <div class="community-halo community-halo-2"></div>
+        <div class="community-card">
+            <div class="community-card-header">
+                <div class="community-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                        <circle cx="10" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <span class="community-eyebrow">JOIN US</span>
+            </div>
+            <h2 class="community-title">加入社区</h2>
             <p class="community-description">
-                加入我们的QQ群，获取服务器IP<br>
-                与众多玩家一起游戏、交流
+                加入 QQ 群，获取服务器 IP<br>
+                与 900+ 玩家一起游戏、交流
             </p>
-            <div class="community-qq">
-                <span class="qq-label">QQ群号</span>
+            <div class="community-qq" role="button" tabindex="0" aria-label="点击复制QQ群号">
+                <span class="qq-label">QQ群号 · 点击复制</span>
                 <span class="qq-number">250904271</span>
             </div>
-            <a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank" class="btn btn-primary btn-large community-cta">立即加入</a>
+            <a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank" class="community-cta">立即加入</a>
         </div>
     </section>
 

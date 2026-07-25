@@ -477,10 +477,16 @@ function copyQQNumber() {
     });
 }
 
-const qqNumber = document.querySelector('.qq-number');
-if (qqNumber) {
-    qqNumber.style.cursor = 'pointer';
-    qqNumber.addEventListener('click', copyQQNumber);
+const qqTile = document.querySelector('.community-qq') || document.querySelector('.qq-number');
+if (qqTile) {
+    qqTile.style.cursor = 'pointer';
+    qqTile.addEventListener('click', copyQQNumber);
+    qqTile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            copyQQNumber();
+        }
+    });
 }
 
 // Add tooltip animations
