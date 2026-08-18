@@ -1320,6 +1320,59 @@ ul {
     transform: translateY(-1px);
 }
 
+/* 模组生存服：整行横排宽卡片（图片在左，信息在右） */
+.server-card-wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+}
+
+.server-card-wide .server-image {
+    height: 100%;
+    min-height: 300px;
+}
+
+.server-card-wide .server-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2.5rem;
+}
+
+/* 卡片图片角落徽章 */
+.server-card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 5;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    border-radius: 100px;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 900px) {
+    .server-card-wide {
+        grid-template-columns: 1fr;
+    }
+
+    .server-card-wide .server-image {
+        height: 220px;
+        min-height: 220px;
+    }
+
+    .server-card-wide .server-info {
+        padding: 1.75rem;
+    }
+}
+
 /* Community Section — HarmonyOS Design 万能卡片 */
 .community {
     padding: var(--spacing-xxl) var(--spacing-lg);

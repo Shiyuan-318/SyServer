@@ -220,6 +220,7 @@ function initCounterAnimation() {
 // 根据当前页面自动选择对应的服务器地址：
 //   - 主页 / survival.html → 生存服 sy1.top
 //   - bedwars.html → 起床战争服 mc1-v4.msst2031.cn
+//   - modded.html → 模组生存服 mc9.rhymc.com:50002
 function initOnlinePlayers() {
     const span = document.getElementById('onlineCount');
     const dot = document.getElementById('uptimeDot');
@@ -228,13 +229,15 @@ function initOnlinePlayers() {
 
     // 根据页面路径选服务器地址
     const page = window.location.pathname.split('/').pop();
-    // 主页同时查生存服和起床服，显示总在线人数；其他页面只查对应服
+    // 主页同时查生存服、起床服和模组生存服，显示总在线人数；其他页面只查对应服
     const isHome = page === '' || page === 'index.html';
     let serverHosts;
     if (isHome) {
-        serverHosts = ['sy1.top', 'mc1-v4.msst2031.cn'];
+        serverHosts = ['sy1.top', 'mc1-v4.msst2031.cn', 'mc9.rhymc.com:50002'];
     } else if (page === 'bedwars.html') {
         serverHosts = ['mc1-v4.msst2031.cn'];
+    } else if (page === 'modded.html') {
+        serverHosts = ['mc9.rhymc.com:50002'];
     } else {
         serverHosts = ['sy1.top'];
     }
@@ -488,6 +491,47 @@ if (qqTile) {
         }
     });
 }
+
+// 通用点击复制：带 data-copy 属性的元素（如模组生存服地址）点击后复制其值
+document.querySelectorAll('[data-copy]').forEach(el => {
+    el.addEventListener('click', () => {
+        const text = el.dataset.copy;
+        const showTip = (msg) => {
+            const tooltip = document.createElement('div');
+            tooltip.textContent = msg;
+            tooltip.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 14px;
+                z-index: 10000;
+                animation: fadeInUp 0.3s ease;
+            `;
+            document.body.appendChild(tooltip);
+            setTimeout(() => {
+                tooltip.style.animation = 'fadeOutDown 0.3s ease';
+                setTimeout(() => tooltip.remove(), 300);
+            }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => showTip('已复制到剪贴板')).catch(() => showTip('复制失败，请手动复制'));
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showTip('已复制到剪贴板'); } catch (e) { showTip('复制失败，请手动复制'); }
+            document.body.removeChild(ta);
+        }
+    });
+});
 
 // Add tooltip animations
 const tooltipStyle = document.createElement('style');

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="14ef5819-dba3-44c9-9edd-3bd5f68d60b5"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模组生存服 - SyServer</title>
+    <link rel="stylesheet" href="styles.css?v=20260725">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== 模组生存服页面专属样式 ===== */
+
+        /* 状态卡里的跨列信息项 */
+        .server-status-info.span-2 {
+            grid-column: 1 / -1;
+        }
+
+        /* 服务器地址一键复制按钮 */
+        .modded-ip-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            background: rgba(10, 132, 255, 0.12);
+            border: 1px solid rgba(10, 132, 255, 0.3);
+            border-radius: 10px;
+            padding: 0.5rem 0.875rem;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .modded-ip-copy:hover {
+            background: rgba(10, 132, 255, 0.2);
+            border-color: rgba(10, 132, 255, 0.45);
+            transform: translateY(-1px);
+        }
+        .modded-ip-copy:active {
+            transform: translateY(0);
+        }
+        .modded-ip-copy .copy-hint {
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0.75;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* 服务器介绍卡片 */
+        .modded-intro-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(94, 92, 230, 0.18);
+            color: #8b8aff;
+            border: 1px solid rgba(94, 92, 230, 0.35);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+
+        /* 加入步骤 */
+        .modded-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .modded-step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.5rem 1.75rem;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+        .modded-step:hover {
+            transform: translateY(-4px);
+            border-color: rgba(10, 132, 255, 0.4);
+            background: rgba(10, 132, 255, 0.06);
+        }
+        .modded-step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+            color: #fff;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
+        }
+        .modded-step-title {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        .modded-step-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+        .modded-step-desc code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.84rem;
+            color: var(--color-primary);
+            background: rgba(10, 132, 255, 0.12);
+            padding: 0.125rem 0.4rem;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .modded-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .modded-step {
+                padding: 1.25rem 1.25rem 1.5rem;
+            }
+
+            .modded-ip-copy {
+                font-size: 0.9rem;
+                max-width: 100%;
+            }
+
+            .modded-ip-copy span:first-child {
+                overflow-wrap: anywhere;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="logo.png" alt="SyServer Logo" class="nav-logo-img"><span>SyServer</span></a>
+            <div class="nav-page-title" id="navPageTitle">模组生存服</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="event.html">活动</a></li>
+                <li><a href="announcement.html">公告</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+                <li><a href="download.html">下载</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="wiki-hero">
+        <div class="wiki-hero-content">
+            <h1 class="wiki-hero-title">模组生存服</h1>
+            <p class="wiki-hero-subtitle">原 Vanilla Land · 模组化生存新体验</p>
+        </div>
+    </section>
+
+    <!-- 正文 -->
+    <section class="announcement-section">
+        <div class="announcement-container">
+            <!-- 服务器状态卡片：实时显示在线人数 -->
+            <div class="server-status-card">
+                <div class="server-status-header">
+                    <h2 class="server-status-title">服务器状态</h2>
+                    <div class="uptime-indicator" id="uptimeIndicator">
+                        <div class="uptime-dot" id="uptimeDot"></div>
+                        <span id="onlineCount">查询中…</span>
+                    </div>
+                </div>
+                <div class="server-status-body">
+                    <div class="server-status-info span-2">
+                        <span class="server-status-label">服务器地址 · 点击复制</span>
+                        <button type="button" class="modded-ip-copy" data-copy="mc9.rhymc.com:50002" title="点击复制服务器地址">
+                            <span>mc9.rhymc.com:50002</span>
+                            <span class="copy-hint">复制</span>
+                        </button>
+                    </div>
+                    <div class="server-status-info">
+                        <span class="server-status-label">游戏版本</span>
+                        <span class="server-status-value">Java 1.21.1</span>
+                    </div>
+                    <div class="server-status-info">
+                        <span class="server-status-label">服务器类型</span>
+                        <span class="server-status-value">模组生存</span>
+                    </div>
+                    <div class="server-status-info span-2">
+                        <span class="server-status-label">服务器名称</span>
+                        <span class="server-status-value">SyServer模组生存服（原Vanilla Land）</span>
+                    </div>
+                </div>
+                <p class="server-status-tip">进入服务器需安装 Java 1.21.1 模组客户端 · <a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank" class="server-status-link">点击加群</a> 获取模组端 · 在线人数每分钟自动刷新</p>
+            </div>
+
+            <!-- 服务器介绍 -->
+            <div class="announcement-item">
+                <div class="announcement-header">
+                    <span class="modded-intro-tag">原 Vanilla Land</span>
+                    <h2 class="announcement-title">关于模组生存服</h2>
+                </div>
+                <div class="announcement-body">
+                    <p>模组生存服由原 Vanilla Land 服务器升级而来，现以 SyServer 模组生存服的身份重新出发。服务器基于 <strong>Java 1.21.1</strong> 运行，在经典生存玩法的基础上加入丰富的模组内容，带来全新的探索、建造与冒险体验。</p>
+                    <p>进入本服需要使用与服务器版本匹配的模组客户端，模组端的获取方式与最新动态请加入 QQ 群了解，我们期待与你一起开启模组生存之旅。</p>
+                </div>
+            </div>
+
+            <!-- 加入步骤 -->
+            <div class="modded-steps">
+                <div class="modded-step">
+                    <span class="modded-step-num">1</span>
+                    <h3 class="modded-step-title">准备客户端</h3>
+                    <p class="modded-step-desc">安装 <code>Java 1.21.1</code> 版本的模组客户端，模组端可在 QQ 群获取。</p>
+                </div>
+                <div class="modded-step">
+                    <span class="modded-step-num">2</span>
+                    <h3 class="modded-step-title">添加服务器</h3>
+                    <p class="modded-step-desc">在多人游戏中添加服务器，地址填入 <code>mc9.rhymc.com:50002</code>。</p>
+                </div>
+                <div class="modded-step">
+                    <span class="modded-step-num">3</span>
+                    <h3 class="modded-step-title">开始游戏</h3>
+                    <p class="modded-step-desc">进入服务器，与好友一起开启属于你的模组生存冒险。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">SyServer</span>
+                <p class="footer-tagline">Minecraft 服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>服务器</h4>
+                    <ul>
+                        <li><a href="index.html#servers">生存服</a></li>
+                        <li><a href="index.html#servers">起床战争服</a></li>
+                        <li><a href="index.html#servers">模组生存服</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="https://qm.qq.com/q/HqCRvM3AM8" target="_blank">QQ群</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持版本</h4>
+                    <ul>
+                        <li>1.8 - 26.1.1</li>
+                        <li>推荐 1.21.11</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>友情链接</h4>
+                    <ul>
+                        <li><a href="https://pn.sy1.top" target="_blank">SyPlugins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024-2026 SyServer. 保留所有权利。</p>
+            <p>Minecraft 是 Mojang Studios 的商标。SyServer 与 Mojang Studios 无关。</p>
+            <p><a href="agreement.html" class="footer-link">用户协议</a> <span style="opacity:0.4;margin:0 6px;">|</span> <a href="sitemap.html" class="footer-link">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
