@@ -216,8 +216,11 @@ function initCounterAnimation() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-// 查询 Minecraft 服务器在线人数（通过国内 MCStatus API 自动解析 SRV 记录）
-// 根据当前页面自动选择对应的服务器地址：
+// 查询 Minecraft 服务器在线人数
+// 根据服务器选择查询接口：
+//   - 生存服 sy1.top → 国内 MCStatus API（自动解析 SRV 记录）
+//   - 起床战争服 / 模组生存服 → mcstatus.io（对带端口地址更稳定）
+// 页面与服务器对应关系：
 //   - 主页 / survival.html → 生存服 sy1.top
 //   - bedwars.html → 起床战争服 mc1-v4.msst2031.cn
 //   - modded.html → 模组生存服 mc9.rhymc.com:50002
@@ -226,6 +229,9 @@ function initOnlinePlayers() {
     const dot = document.getElementById('uptimeDot');
     const indicator = document.getElementById('uptimeIndicator');
     if (!span) return;
+
+    // 走 mcstatus.io 的服务器（其余走国内 MCStatus API）
+    const MCSTATUS_IO_HOSTS = ['mc1-v4.msst2031.cn', 'mc9.rhymc.com:50002'];
 
     // 根据页面路径选服务器地址
     const page = window.location.pathname.split('/').pop();
@@ -264,8 +270,11 @@ function initOnlinePlayers() {
 
     // 查询单个服务器，返回在线人数（离线返回 0）
     const queryOne = async (host) => {
+        const url = MCSTATUS_IO_HOSTS.indexOf(host) !== -1
+            ? `https://api.mcstatus.io/v2/status/java/${host}`
+            : `https://yun.tbedu.top:16666/3/${host}`;
         try {
-            const res = await fetch(`https://yun.tbedu.top:16666/3/${host}`);
+            const res = await fetch(url);
             if (!res.ok) return 0;
             const data = await res.json();
             if (data.online && data.players) return data.players.online;
@@ -284,7 +293,7 @@ function initOnlinePlayers() {
     };
 
     fetchOnline();
-    // 每 60 秒刷新一次（API 自身有约 5 分钟缓存，不会触发频率限制）
+    // 每 60 秒刷新一次（API 自带缓存：mcstatus.io 约 30 秒、国内 API 约 5 分钟，不会触发频率限制）
     timer = setInterval(fetchOnline, 60000);
 
     // 页面隐藏时暂停刷新，可见时立即刷新一次
