@@ -620,6 +620,76 @@
                 font-size: 0.875rem;
             }
         }
+
+        /* ===== 按服务器分组（三个服务器分区） ===== */
+        .admin-server-group {
+            margin-bottom: 2.5rem;
+            padding: 2.25rem 1.5rem 2.5rem;
+            background: rgba(40, 40, 42, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        .admin-server-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .admin-server-head {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.875rem;
+            margin-bottom: 2rem;
+        }
+        .admin-server-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+            color: #fff;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
+        }
+        .admin-server-name {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .admin-server-sub {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            margin-top: 2px;
+        }
+
+        .admin-server-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .admin-server-grid .owner-card {
+            border-width: 1.5px;
+            box-shadow:
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(234, 179, 8, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .admin-server-group {
+                padding: 1.5rem 1.25rem 1.75rem;
+                margin-bottom: 1.5rem;
+                border-radius: 22px;
+            }
+            .admin-server-head {
+                margin-bottom: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -655,11 +725,31 @@
             <p class="admin-intro">SyServer 的日常运营由一支小而精的团队共同维护。下方为团队组织架构，管理员负责日常管理与玩家服务，服主统筹服务器整体方向。</p>
 
             <div class="org-chart">
-                <!-- 管理员层 -->
-                <div class="org-tier org-admin-tier">
-                    <div class="org-tier-label org-label-admin">管理员</div>
-                    <div class="org-admin-row">
-                        <!-- Sat. -->
+                <!-- ============ 生存服 ============ -->
+                <div class="admin-server-group">
+                    <div class="admin-server-head">
+                        <span class="admin-server-num">1</span>
+                        <div>
+                            <div class="admin-server-name">生存服</div>
+                            <div class="admin-server-sub">服主 · 管理员</div>
+                        </div>
+                    </div>
+                    <div class="admin-server-grid">
+                        <!-- 服主 Shiyuan -->
+                        <div class="org-card org-card-owner owner-card">
+                            <div class="org-avatar">
+                                <img src="Shiyuan.jpg" alt="Shiyuan" loading="lazy">
+                            </div>
+                            <div class="org-name">Shiyuan</div>
+                            <span class="org-role org-role-owner">服主</span>
+                            <ul class="org-desc">
+                                <li>SyServer 生存服服主</li>
+                            </ul>
+                            <button class="org-like" data-key="syserver_admin_shiyuan_like">
+                                <span class="like-icon">👍</span><span class="like-count">0</span>
+                            </button>
+                        </div>
+                        <!-- 管理员 Sat.（头像为 Sat.jpg） -->
                         <div class="org-card clickable" data-member="sat">
                             <div class="org-avatar">
                                 <img src="Sat.jpg" alt="Sat." loading="lazy">
@@ -674,7 +764,7 @@
                                 <span class="like-icon">👍</span><span class="like-count">0</span>
                             </button>
                         </div>
-                        <!-- StarSky_Furina（头像为 Ziye.jpg） -->
+                        <!-- 管理员 StarSky_Furina（头像为 Ziye.jpg） -->
                         <div class="org-card">
                             <div class="org-avatar">
                                 <img src="Ziye.jpg" alt="StarSky_Furina" loading="lazy">
@@ -688,14 +778,26 @@
                                 <span class="like-icon">👍</span><span class="like-count">0</span>
                             </button>
                         </div>
-                        <!-- 爱学习MC的人（无头像，用渐变圆圈） -->
-                        <div class="org-card">
+                    </div>
+                </div>
+
+                <!-- ============ 起床战争服 ============ -->
+                <div class="admin-server-group">
+                    <div class="admin-server-head">
+                        <span class="admin-server-num">2</span>
+                        <div>
+                            <div class="admin-server-name">起床战争服</div>
+                            <div class="admin-server-sub">服主</div>
+                        </div>
+                    </div>
+                    <div class="admin-server-grid">
+                        <!-- 服主 爱学习MC的人（渐变首字头像） -->
+                        <div class="org-card org-card-owner owner-card">
                             <div class="org-avatar" style="--g: linear-gradient(135deg, #f97316 0%, #ef4444 100%);">爱</div>
                             <div class="org-name">爱学习MC的人</div>
-                            <span class="org-role org-role-admin">管理员</span>
+                            <span class="org-role org-role-owner">服主</span>
                             <ul class="org-desc">
-                                <li>SyServer 起床服（原 BedWars）服主</li>
-                                <li>SyServer 生存服管理员</li>
+                                <li>SyServer 起床战争服服主</li>
                             </ul>
                             <button class="org-like" data-key="syserver_admin_aixuexi_like">
                                 <span class="like-icon">👍</span><span class="like-count">0</span>
@@ -704,29 +806,25 @@
                     </div>
                 </div>
 
-                <!-- 连线 -->
-                <div class="org-connector" aria-hidden="true">
-                    <div class="org-stems">
-                        <span></span><span></span><span></span>
+                <!-- ============ 模组生存服 ============ -->
+                <div class="admin-server-group">
+                    <div class="admin-server-head">
+                        <span class="admin-server-num">3</span>
+                        <div>
+                            <div class="admin-server-name">模组生存服</div>
+                            <div class="admin-server-sub">服主</div>
+                        </div>
                     </div>
-                    <div class="org-hbar"></div>
-                    <div class="org-stem-down"></div>
-                </div>
-
-                <!-- 服主层 -->
-                <div class="org-tier org-owner-tier">
-                    <div class="org-tier-label org-label-owner">服主</div>
-                    <div class="org-owner-row">
-                        <div class="org-card org-card-owner">
-                            <div class="org-avatar">
-                                <img src="Shiyuan.jpg" alt="Shiyuan" loading="lazy">
-                            </div>
-                            <div class="org-name">Shiyuan</div>
+                    <div class="admin-server-grid">
+                        <!-- 服主 Meteor Sky（头像设计与"爱学习MC的人"一致：渐变首字） -->
+                        <div class="org-card org-card-owner owner-card">
+                            <div class="org-avatar" style="--g: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">M</div>
+                            <div class="org-name">Meteor Sky</div>
                             <span class="org-role org-role-owner">服主</span>
                             <ul class="org-desc">
-                                <li>SyServer 服主</li>
+                                <li>SyServer 模组生存服服主</li>
                             </ul>
-                            <button class="org-like" data-key="syserver_admin_shiyuan_like">
+                            <button class="org-like" data-key="syserver_admin_meteor_like">
                                 <span class="like-icon">👍</span><span class="like-count">0</span>
                             </button>
                         </div>
