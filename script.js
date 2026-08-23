@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initNavigation();
+    initLiquidGlass();
     initScrollAnimations();
     initSmoothScroll();
     initParallaxEffect();
@@ -113,6 +114,381 @@ function initNavigation() {
                 navToggle.setAttribute('aria-expanded', 'false');
             }
         });
+    }
+}
+
+/* ==========================================================================
+   液态玻璃（Liquid Glass）
+   --------------------------------------------------------------------------
+   复刻 Kyant0/AndroidLiquidGlass（Apache-2.0）的两个着色器：
+
+   1) RoundedRectRefraction —— 边缘折射。原实现是 AGSL：
+        sd   = sdRoundedRect(p, halfSize, radius)
+        若 -sd >= refractionHeight 则不位移（中间区域保持原样）
+        d    = circleMap(1 - (-sd)/refractionHeight) * refractionAmount
+        grad = normalize(gradSdRoundedRect(p, halfSize, gradRadius))
+        采样点 = coord + d * grad
+      Web 上没有 RuntimeShader，所以把 d*grad 逐像素烘成一张 RG 位移贴图
+      （R=X 位移，G=Y 位移，128 表示不位移），交给 SVG feDisplacementMap，
+      再把该滤镜挂到 backdrop-filter 上。只有把 SVG 滤镜暴露给
+      backdrop-filter 的内核才生效，因此运行时探测，失败就退化为纯模糊。
+
+   2) DefaultHighlightShaderString —— 方向性高光。亮度不是一圈等亮度描边，
+      而是逐像素按法线与光向的夹角算：
+        d         = dot(normalize(grad), vec2(cos(angle), sin(angle)))
+        intensity = pow(abs(d), falloff)
+      所以左上/右下最亮、右上/左下自然消失，是"玻璃被斜上方光源照到"的观感。
+
+   导航栏会随滚动在「全宽贴顶直角条」和「居中悬浮圆角胶囊」之间形变，
+   两张贴图都依赖元素的实际宽高与圆角，所以形变期间用 rAF 跟踪重烘；
+   尺寸做量化 + 缓存，避免每帧都真的重新计算。
+   ========================================================================== */
+function initLiquidGlass() {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    var SVG_NS = 'http://www.w3.org/2000/svg';
+
+    /* ---- 可调参数 ---- */
+    var P = {
+        // 导航栏
+        blur: 10,             // 模糊半径 px
+        sat: 165,             // 饱和度 %
+        refractHeight: 29,    // 折射带宽度 px（原库 refractionHeight）
+        refractAmount: 76,    // 折射位移强度 px（原库 refractionAmount）
+        hlWidth: 1,           // 高光描边宽度 px（原库 Highlight.width）
+        hlAngle: 45,          // 光向角度 deg
+        hlFalloff: 1,         // 衰减指数
+        // 移动端下拉菜单
+        menuBlur: 24,
+        menuSat: 175,
+        menuRefractHeight: 18,
+        menuRefractAmount: 44,
+        menuHlWidth: 1
+    };
+
+    /* ---- 是否能把 SVG 滤镜用在 backdrop-filter 上 ---- */
+    var svgBackdropOk = (function () {
+        if (!(window.CSS && CSS.supports)) return false;
+        if (!CSS.supports('backdrop-filter', 'blur(1px)') &&
+            !CSS.supports('-webkit-backdrop-filter', 'blur(1px)')) return false;
+        return CSS.supports('backdrop-filter', 'url(#a)');
+    })();
+
+    /* ================= 圆角矩形 SDF 及其梯度，与 AGSL 版一一对应 ============ */
+    function sdRoundedRect(x, y, hw, hh, r) {
+        var cx = Math.abs(x) - (hw - r);
+        var cy = Math.abs(y) - (hh - r);
+        var mx = Math.max(cx, 0), my = Math.max(cy, 0);
+        return Math.sqrt(mx * mx + my * my) - r + Math.min(Math.max(cx, cy), 0);
+    }
+
+    function gradSdRoundedRect(x, y, hw, hh, r) {
+        var cx = Math.abs(x) - (hw - r);
+        var cy = Math.abs(y) - (hh - r);
+        var sx = x < 0 ? -1 : 1, sy = y < 0 ? -1 : 1;
+        if (cx >= 0 || cy >= 0) {
+            var mx = Math.max(cx, 0), my = Math.max(cy, 0);
+            var L = Math.sqrt(mx * mx + my * my) || 1;
+            return [sx * mx / L, sy * my / L];
+        }
+        var gx = cy <= cx ? 1 : 0;   // step(cy, cx)
+        return [sx * gx, sy * (1 - gx)];
+    }
+
+    function circleMap(x) {
+        return 1 - Math.sqrt(Math.max(0, 1 - x * x));
+    }
+
+    /* 贴图缓存：形变过程中同一组量化尺寸只烘一次 */
+    var cache = {};
+    var cacheKeys = [];
+    function cached(key, make) {
+        if (cache[key]) return cache[key];
+        var url = make();
+        cache[key] = url;
+        cacheKeys.push(key);
+        // 形变会产生一批中间尺寸，限制缓存条数避免无限增长
+        while (cacheKeys.length > 60) {
+            delete cache[cacheKeys.shift()];
+        }
+        return url;
+    }
+
+    /* ---------------- 位移贴图：R=X 位移，G=Y 位移，128 = 不位移 ------------- */
+    function buildLensMap(w, h, radius, height, amount) {
+        var cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        var ctx = cv.getContext('2d');
+        var img = ctx.createImageData(w, h), data = img.data;
+        var hw = w / 2, hh = h / 2;
+        var gradRadius = Math.min(radius * 1.5, Math.min(hw, hh));
+
+        for (var py = 0; py < h; py++) {
+            for (var px = 0; px < w; px++) {
+                var x = px + 0.5 - hw, y = py + 0.5 - hh;
+                var dist = -sdRoundedRect(x, y, hw, hh, radius);  // 内侧为正
+                var dx = 0, dy = 0;
+                if (dist < height && dist > 0) {
+                    var d = circleMap(1 - dist / height) * amount;
+                    var g = gradSdRoundedRect(x, y, hw, hh, gradRadius);
+                    var gl = Math.sqrt(g[0] * g[0] + g[1] * g[1]) || 1;
+                    // feDisplacementMap 的 scale 会把 [0,1] 还原成像素，
+                    // 所以这里存的是归一化后的位移量
+                    dx = (g[0] / gl) * d / amount;
+                    dy = (g[1] / gl) * d / amount;
+                }
+                var i = (py * w + px) * 4;
+                data[i]     = Math.max(0, Math.min(255, Math.round(128 + dx * 127)));
+                data[i + 1] = Math.max(0, Math.min(255, Math.round(128 + dy * 127)));
+                data[i + 2] = 128;
+                data[i + 3] = 255;
+            }
+        }
+        ctx.putImageData(img, 0, 0);
+        return cv.toDataURL();
+    }
+
+    /* ---------------- 方向性高光贴图：纯白 + 逐像素 alpha ------------------- */
+    function buildHighlightMap(w, h, radius, ring, angleDeg, falloff) {
+        var cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        var ctx = cv.getContext('2d');
+        var img = ctx.createImageData(w, h), data = img.data;
+        var hw = w / 2, hh = h / 2;
+        var gradRadius = Math.min(radius * 1.5, Math.min(hw, hh));
+        var blur = ring / 2;                       // 原库 blurRadius = width / 2
+        var rad = angleDeg * Math.PI / 180;
+        var nx = Math.cos(rad), ny = Math.sin(rad);
+
+        for (var py = 0; py < h; py++) {
+            for (var px = 0; px < w; px++) {
+                var x = px + 0.5 - hw, y = py + 0.5 - hh;
+                var dist = -sdRoundedRect(x, y, hw, hh, radius);
+                var alpha = 0;
+                if (dist > -blur) {
+                    var t = (ring + blur - dist) / (2 * blur);
+                    alpha = t < 0 ? 0 : (t > 1 ? 1 : t);
+                    if (dist < blur) {
+                        alpha *= Math.max(0, (dist + blur) / (2 * blur));
+                    }
+                    var g = gradSdRoundedRect(x, y, hw, hh, gradRadius);
+                    var gl = Math.sqrt(g[0] * g[0] + g[1] * g[1]) || 1;
+                    var d = (g[0] / gl) * nx + (g[1] / gl) * ny;
+                    alpha *= Math.pow(Math.abs(d), falloff);
+                }
+                var i = (py * w + px) * 4;
+                // 纯白 + alpha 调制。canvas ImageData 是非预乘的，
+                // 若把 RGB 也乘 alpha，低 alpha 处会变成半透明深灰而压暗边缘。
+                data[i] = 255; data[i + 1] = 255; data[i + 2] = 255;
+                data[i + 3] = Math.max(0, Math.min(255, Math.round(alpha * 255)));
+            }
+        }
+        ctx.putImageData(img, 0, 0);
+        return cv.toDataURL();
+    }
+
+    /* ---------------- SVG feDisplacementMap 滤镜 ---------------- */
+    var svgHost = null;
+    function ensureFilter(id) {
+        if (!svgHost) {
+            svgHost = document.createElementNS(SVG_NS, 'svg');
+            svgHost.setAttribute('aria-hidden', 'true');
+            svgHost.style.cssText =
+                'position:absolute;width:0;height:0;overflow:hidden';
+            document.body.appendChild(svgHost);
+        }
+        var existing = svgHost.querySelector('#' + id);
+        if (existing) {
+            return {
+                feImage: existing.querySelector('feImage'),
+                feDisp: existing.querySelector('feDisplacementMap')
+            };
+        }
+        var filter = document.createElementNS(SVG_NS, 'filter');
+        filter.setAttribute('id', id);
+        filter.setAttribute('color-interpolation-filters', 'sRGB');
+        filter.setAttribute('x', '0');
+        filter.setAttribute('y', '0');
+        filter.setAttribute('width', '100%');
+        filter.setAttribute('height', '100%');
+        filter.setAttribute('primitiveUnits', 'userSpaceOnUse');
+
+        var feImage = document.createElementNS(SVG_NS, 'feImage');
+        feImage.setAttribute('result', 'dmap');
+        feImage.setAttribute('preserveAspectRatio', 'none');
+        feImage.setAttribute('x', '0');
+        feImage.setAttribute('y', '0');
+
+        var feDisp = document.createElementNS(SVG_NS, 'feDisplacementMap');
+        feDisp.setAttribute('in', 'SourceGraphic');
+        feDisp.setAttribute('in2', 'dmap');
+        feDisp.setAttribute('xChannelSelector', 'R');
+        feDisp.setAttribute('yChannelSelector', 'G');
+
+        filter.appendChild(feImage);
+        filter.appendChild(feDisp);
+        svgHost.appendChild(filter);
+        return { feImage: feImage, feDisp: feDisp };
+    }
+
+    function setLensImage(parts, url, w, h, amount) {
+        parts.feImage.setAttribute('href', url);
+        parts.feImage.setAttributeNS(
+            'http://www.w3.org/1999/xlink', 'xlink:href', url);
+        parts.feImage.setAttribute('width', w);
+        parts.feImage.setAttribute('height', h);
+        parts.feDisp.setAttribute('scale', amount);
+    }
+
+    /* ====================== 导航栏玻璃 ====================== */
+    var glass = nav.querySelector('.nav-glass');
+    if (!glass) {
+        glass = document.createElement('div');
+        glass.className = 'nav-glass';
+        glass.setAttribute('aria-hidden', 'true');
+        glass.appendChild(document.createElement('i'));       // 模糊 + 折射
+        var hl = document.createElement('span');
+        hl.className = 'lg-highlight';                        // 方向性高光
+        glass.appendChild(hl);
+        // 插到最前面，位于 .nav-container（z-index:2）之下
+        nav.insertBefore(glass, nav.firstChild);
+    }
+    var glassBlur = glass.querySelector('i');
+    var glassHl = glass.querySelector('.lg-highlight');
+    var navFilter = svgBackdropOk ? ensureFilter('syLiquidGlassNav') : null;
+
+    var navKey = '';
+    function applyNav() {
+        var rect = glass.getBoundingClientRect();
+        var w = Math.round(rect.width), h = Math.round(rect.height);
+        if (w < 8 || h < 8) return;
+
+        // 形变过程中尺寸连续变化，量化后配合缓存，避免每帧真的重烘
+        var qw = Math.max(8, Math.round(w / 4) * 4);
+        var qh = Math.max(8, Math.round(h / 2) * 2);
+        var rawR = parseFloat(getComputedStyle(glass).borderTopLeftRadius) || 0;
+        // 100px 的胶囊圆角在 48px 高的条上实际只能到 24px
+        var r = Math.min(rawR, Math.min(qw, qh) / 2);
+        var qr = Math.round(r / 2) * 2;
+
+        var key = qw + 'x' + qh + 'r' + qr;
+        if (key === navKey) return;
+        navKey = key;
+
+        glassHl.style.backgroundImage = 'url(' + cached(
+            'hl|' + key,
+            function () {
+                return buildHighlightMap(
+                    qw, qh, qr, P.hlWidth, P.hlAngle, P.hlFalloff);
+            }
+        ) + ')';
+
+        if (navFilter) {
+            // 折射带不超过圆角半径，否则角上会出现不连续
+            var height = Math.min(P.refractHeight, Math.max(1, qr || P.refractHeight));
+            var amount = P.refractAmount;
+            var url = cached('lens|' + key + '|' + height + '|' + amount, function () {
+                return buildLensMap(qw, qh, qr, height, amount);
+            });
+            setLensImage(navFilter, url, qw, qh, amount);
+            // 顺序遵循原库：color filter -> blur -> lens
+            var bf = 'saturate(' + P.sat + '%) blur(' + P.blur +
+                     'px) url(#syLiquidGlassNav)';
+            glassBlur.style.backdropFilter = bf;
+            glassBlur.style.webkitBackdropFilter = bf;
+        }
+    }
+
+    /* ============ 移动端下拉菜单玻璃（用 CSS 变量喂给伪元素） ============ */
+    var navLinks = document.querySelector('.nav-links');
+    var menuFilter = null;
+    var menuKey = '';
+
+    function applyMenu() {
+        if (!navLinks) return;
+        // 只有移动端展开态才需要；桌面端 .nav-links 是横排文字，没有面板
+        if (window.innerWidth > 768 || !nav.classList.contains('menu-open')) {
+            return;
+        }
+        var rect = navLinks.getBoundingClientRect();
+        var w = Math.round(rect.width), h = Math.round(rect.height);
+        if (w < 8 || h < 8) return;
+
+        var qw = Math.max(8, Math.round(w / 4) * 4);
+        var qh = Math.max(8, Math.round(h / 4) * 4);
+        var rawR = parseFloat(getComputedStyle(navLinks).borderTopLeftRadius) || 18;
+        var qr = Math.round(Math.min(rawR, Math.min(qw, qh) / 2) / 2) * 2;
+
+        var key = qw + 'x' + qh + 'r' + qr;
+        if (key === menuKey) return;
+        menuKey = key;
+
+        navLinks.style.setProperty('--lg-menu-hl', 'url(' + cached(
+            'mhl|' + key,
+            function () {
+                return buildHighlightMap(
+                    qw, qh, qr, P.menuHlWidth, P.hlAngle, P.hlFalloff);
+            }
+        ) + ')');
+
+        var bf = 'saturate(' + P.menuSat + '%) blur(' + P.menuBlur + 'px)';
+        if (svgBackdropOk) {
+            if (!menuFilter) menuFilter = ensureFilter('syLiquidGlassMenu');
+            var height = Math.min(P.menuRefractHeight, Math.max(1, qr));
+            var amount = P.menuRefractAmount;
+            var url = cached('mlens|' + key + '|' + height + '|' + amount, function () {
+                return buildLensMap(qw, qh, qr, height, amount);
+            });
+            setLensImage(menuFilter, url, qw, qh, amount);
+            bf += ' url(#syLiquidGlassMenu)';
+        }
+        navLinks.style.setProperty('--lg-menu-bf', bf);
+    }
+
+    /* ---------------- 变化跟踪 ----------------
+       导航栏的伸缩是 0.45s 的 CSS 过渡，菜单展开是 0.5s 的 scale 动画。
+       过渡期间用 rAF 连续跟踪；applyNav/applyMenu 内部有量化 key 短路，
+       尺寸没跨过量化台阶时几乎零开销。 */
+    var trackUntil = 0;
+    var rafId = 0;
+
+    function tick() {
+        applyNav();
+        applyMenu();
+        if (performance.now() < trackUntil) {
+            rafId = requestAnimationFrame(tick);
+        } else {
+            rafId = 0;
+        }
+    }
+
+    function track(ms) {
+        trackUntil = Math.max(trackUntil, performance.now() + ms);
+        if (!rafId) rafId = requestAnimationFrame(tick);
+    }
+
+    // 首帧先画一次
+    applyNav();
+    applyMenu();
+
+    // .nav 的 class 变化（scrolled / menu-open / nav-hidden）都可能引起形变
+    if (window.MutationObserver) {
+        new MutationObserver(function () {
+            menuKey = '';        // 菜单每次展开尺寸可能不同，强制重算
+            track(700);
+        }).observe(nav, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    window.addEventListener('resize', function () {
+        navKey = '';
+        menuKey = '';
+        track(400);
+    }, { passive: true });
+
+    // 兜底：某些内容异步加载会改变导航栏高度
+    if (window.ResizeObserver) {
+        new ResizeObserver(function () { track(200); }).observe(nav);
     }
 }
 

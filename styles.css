@@ -86,9 +86,10 @@ ul {
     max-width: 100%;
     z-index: 1000;
     border-radius: 0;
-    background: rgba(20, 20, 22, 0.58);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(20, 20, 22, 0.42);
+    /* 模糊/折射/高光都不在 .nav 自己身上，而由 script.js 注入的
+       .nav-glass 三层来画。这样 .nav 不带 backdrop-filter，就不会成为
+       backdrop root，移动端下拉菜单才能自己模糊到真实页面内容。 */
     border: 1px solid transparent;
     border-bottom-color: rgba(56, 56, 58, 0.45);
     box-shadow: none;
@@ -103,17 +104,75 @@ ul {
     will-change: width, top;
 }
 
+/* ==========================================================================
+   液态玻璃（复刻 Kyant0/AndroidLiquidGlass，Apache-2.0）
+   --------------------------------------------------------------------------
+   .nav-glass 由 script.js 注入到 .nav 里，含两层：
+     i              —— 均匀毛玻璃 + 边缘折射。backdrop-filter 的顺序沿用
+                        原库的 color filter -> blur -> lens，其中 lens 是
+                        RoundedRectRefraction 的位移贴图接到 SVG
+                        feDisplacementMap 上。
+     .lg-highlight  —— 方向性高光，对应原库 DefaultHighlightShaderString，
+                        亮度按法线与 45 度光向的夹角逐像素算。
+   两张贴图都由 JS 按元素实际尺寸烘出来，导航栏伸缩时会跟着重烘，
+   所以圆角从 0 变成 100px 的过程中玻璃边缘是连续跟随的。
+   ========================================================================== */
+.nav-glass {
+    position: absolute;
+    inset: 0;
+    /* 跟随 .nav 的 border-radius，包含 0.45s 伸缩过渡里的中间值 */
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nav-glass i {
+    position: absolute;
+    inset: 0;
+    display: block;
+    /* 无 SVG 滤镜支持时的兜底，JS 探测通过后会覆盖为带 url(#...) 的版本 */
+    backdrop-filter: blur(var(--lg-blur, 10px)) saturate(var(--lg-sat, 165%));
+    -webkit-backdrop-filter: blur(var(--lg-blur, 10px)) saturate(var(--lg-sat, 165%));
+}
+
+.nav-glass .lg-highlight {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /* 贴顶的全宽直角状态不需要方向性高光，那里靠 border-bottom 分隔；
+       滚动成胶囊后再淡入，避免直角上出现突兀的亮角。 */
+    opacity: 0;
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav.scrolled .nav-glass .lg-highlight {
+    opacity: var(--lg-hl-opacity, 0.55);
+}
+
+/* 不支持 backdrop-filter 的浏览器：加深底色保证文字可读 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nav {
+        background: rgba(20, 20, 22, 0.92);
+    }
+    .nav.scrolled {
+        background: rgba(28, 28, 30, 0.92);
+    }
+}
+
 /* Scrolled state: morph into the floating centered rounded pill */
 .nav.scrolled {
     top: 16px;
     width: 960px;
     max-width: calc(100% - 32px);
     border-radius: 100px;
-    background: rgba(28, 28, 30, 0.42);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    background: rgba(28, 28, 30, 0.3);
+    border-color: rgba(255, 255, 255, 0.06);
+    /* 只留外投影。原来的 inset 0 1px 0 是一条等亮度白边，会和
+       .lg-highlight 的方向性高光打架，去掉。 */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .nav.nav-hidden {
@@ -282,9 +341,8 @@ ul {
         max-width: 100%;
         top: 0;
         border-radius: 0;
-        background: rgba(20, 20, 22, 0.58);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        background: rgba(20, 20, 22, 0.42);
+        /* 同桌面端：模糊交给 .nav-glass，.nav 自己不带 backdrop-filter */
         border: 1px solid transparent;
         border-bottom-color: rgba(56, 56, 58, 0.45);
         box-shadow: none;
@@ -302,27 +360,20 @@ ul {
         max-width: none;
         top: 12px;
         border-radius: 100px;
-        background: rgba(28, 28, 30, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        background: rgba(28, 28, 30, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        /* 去掉 inset 白边，改由 .lg-highlight 画方向性高光 */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
 
     .nav.nav-hidden {
         transform: translateY(-100%);
     }
 
-    /* 菜单打开时：临时去掉导航栏的 backdrop-filter。
-       backdrop-filter 会让祖先元素形成隔离层，导致子元素（下拉菜单）
-       的 backdrop-filter 只能模糊祖先的背景、透不出真实页面内容。
-       菜单打开时去掉导航栏的 backdrop-filter，下拉菜单的毛玻璃就能
-       透过导航栏的半透明背景，模糊到真实页面内容。
-       菜单关闭后导航栏自动恢复 backdrop-filter。 */
-    .nav.menu-open {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
+    /* .nav 本身已经不带 backdrop-filter 了（模糊在 .nav-glass 子层上），
+       所以不再需要"菜单打开时临时摘掉祖先 backdrop-filter"的旧 hack：
+       .nav 不是 backdrop root，下拉菜单可以直接模糊到真实页面内容。
+       这里把 .nav-glass 的模糊层在菜单展开时留着即可，两者不重叠。 */
 
     /* 隐藏横向链接，显示汉堡按钮。
        下拉菜单留在导航栏内，用 absolute 定位贴在导航栏下方。 */
@@ -334,15 +385,13 @@ ul {
         flex-direction: column;
         gap: 0;
         padding: 8px;
-        /* 毛玻璃效果：降低背景不透明度让底层内容透过被模糊，更明显 */
-        background: rgba(28, 28, 30, 0.5);
-        backdrop-filter: blur(40px) saturate(180%);
-        -webkit-backdrop-filter: blur(40px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        /* 液态玻璃：底色只做很淡的压暗，模糊/折射交给 ::before，
+           方向性高光交给 ::after，和导航栏用同一套着色器逻辑。 */
+        background: rgba(28, 28, 30, 0.32);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
-        box-shadow:
-            0 16px 48px rgba(0, 0, 0, 0.55),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        /* 去掉 inset 均匀白边，避免和 ::after 的方向性高光叠成两条边 */
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
         /* 收起：完全隐藏，不占位 */
         display: none;
         opacity: 0;
@@ -353,6 +402,34 @@ ul {
                     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         margin-left: 0;
         z-index: 10;
+    }
+
+    /* 下拉菜单的液态玻璃两层。用伪元素而不是插 DOM，避免往 <ul> 里塞
+       非 <li> 子节点，也不会被 .nav-links li 的错位淡入动画影响。
+       z-index:-1 让它们落在菜单自己的背景之上、链接文字之下。 */
+    .nav-links::before,
+    .nav-links::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* 模糊 + 边缘折射。JS 探测到 SVG 滤镜可用后会把 --lg-menu-bf 换成
+       带 url(#syLiquidGlassMenu) 的版本。 */
+    .nav-links::before {
+        backdrop-filter: var(--lg-menu-bf, blur(24px) saturate(175%));
+        -webkit-backdrop-filter: var(--lg-menu-bf, blur(24px) saturate(175%));
+    }
+
+    /* 方向性高光贴图，由 JS 按菜单实际尺寸烘出来 */
+    .nav-links::after {
+        background-image: var(--lg-menu-hl, none);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        opacity: var(--lg-menu-hl-opacity, 0.5);
     }
 
     .nav-toggle {

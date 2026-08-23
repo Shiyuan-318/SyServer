@@ -1,0 +1,3 @@
+# Trae AI 的本地产物，不应进入版本库
+.trae/
+.trae-html-share-packages/
